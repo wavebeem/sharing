@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Expenses</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <style id="name_css"></style>
+    </head>
+    <body>
+        <h1>Expenses</h1>
+        <div class="floaty_container">
+            <table id="summary">
+                <thead>
+                    <tr>
+                        <th>Debtor</th>
+                        <th>Debtee</th>
+                        <th class="right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: summary">
+                    <tr>
+                        <td><div class="color_left" data-bind="text: debtor, css: 'color_' + debtor.toLowerCase()"></div></td>
+                        <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee.toLowerCase()"></div></td>
+                        <td class="money" data-bind="text: '$' + amount.toFixed(2)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="expense_group" data-bind="foreach: { data: expenses, as: 'expense' }">
+            <div class="expense_item">
+                <div>
+                    <span class="money">$<span data-bind="text: formattedPrice"></span></span>
+                    <span class="trivial_word">on</span>
+                    <span data-bind="text: formattedDate"></span>
+                    <span class="trivial_word">by</span>
+                    <input class="stealth_edit paid_by" data-bind="value: paidBy">
+                    <span class="share_value">
+                        <span class="money" data-bind="text: '$' + formattedShare()"></span>
+                        <span class="trivial_word">each</span>
+                    </span>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
+                    <input class="description stealth_edit" data-bind="value: description">
+                    <div class="shares_paid" data-bind="foreach: people"><!--
+                        --><button
+                            class="share_paid border"
+                            type="button"
+                            data-bind="
+                                click: expense.toggleSharePaidBy.bind(expense),
+                                css: 'color_' + $data.toLowerCase()"></button><!--
+                    --></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

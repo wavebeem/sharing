@@ -1,0 +1,184 @@
+$sans_serif: "Lucida Grande", "Segoe UI", sans-serif;
+$light_gray: #eeeeee;
+$lighter_gray: #f4f4f4;
+$light_text: #aaaaaa;
+
+@mixin standard_font {
+    font-family: $sans_serif;
+    font-size: 16px;
+}
+
+@mixin embossed_text {
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
+}
+
+h1 {
+    color: $light_text;
+    @include embossed_text;
+}
+
+html {
+    @include standard_font;
+
+    background: $light_gray;
+    color: #333;
+
+    padding: 10px;
+    margin:   0px;
+}
+
+body {
+    margin: 0px auto;
+    max-width: 500px;
+    text-align: left;
+}
+
+table#summary {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    th, td {
+        border-bottom: 1px solid $light_gray;
+    }
+
+    th {
+        font-weight: bold;
+
+        padding: 4px 14px;
+        padding-bottom: 7px;
+    }
+
+    td {
+        padding:         0px;
+        padding-left:    1px;
+        padding-right:  14px;
+    }
+
+    td div {
+        padding-top:    3px;
+        padding-bottom: 3px;
+    }
+
+    tbody tr:nth-child(odd) {
+        background: $lighter_gray;
+    }
+}
+
+@mixin floaty_container {
+    display: block;
+    background: #fff;
+
+    margin: 10px;
+
+    border-radius: 2px;
+
+    box-shadow:
+        0px  1px 2px rgba(0, 0, 0, 0.25),
+        0px  1px 0px rgba(0, 0, 0, 0.10),
+        0px -1px 0px rgba(0, 0, 0, 0.02);
+}
+
+.description {
+    width: 20em;
+}
+
+.floaty_container {
+    @include floaty_container;
+    padding: 4px 0px;
+    padding-bottom: 6px;
+}
+
+.expense_item {
+    @include floaty_container;
+    padding: 10px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.paid_by {
+    width: 7em;
+}
+
+.money {
+    font-weight: bold;
+    text-align: right;
+}
+
+.right {
+    text-align: right;
+}
+
+.share_value {
+    float: right;
+}
+
+.color_left {
+    padding-left: 1em;
+}
+
+.trivial_word {
+    color: $light_text;
+}
+
+.stealth_edit {
+    @include standard_font;
+
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 3px 0px;
+    font-family: $sans_serif;
+    background: transparent;
+
+    &:focus {
+        outline: none;
+        border-color: #ccc;
+    }
+}
+
+.shares_paid {
+    display: inline-block;
+    float: right;
+    background: $lighter_gray;
+
+    border-radius: 1px;
+
+    line-height: 0px;
+
+    padding:    1px;
+    margin:     0px;
+
+    padding-right: 0px;
+
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.share_paid {
+    border: none;
+    border-bottom: 6px solid transparent;
+
+    background: transparent;
+
+    width:  30px;
+    height: 30px;
+
+    padding:    0px;
+    margin:     0px;
+
+    margin-right: 1px;
+
+    font-weight: bold;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.10);
+        cursor: pointer;
+    }
+}
+
+h1 {
+    text-align: center;
+    margin: 0px;
+    font-size: 160%;
+}
