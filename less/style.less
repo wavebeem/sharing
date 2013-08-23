@@ -1,27 +1,48 @@
-$sans_serif: "Lucida Grande", "Segoe UI", sans-serif;
-$light_gray: #eeeeee;
-$lighter_gray: #f4f4f4;
-$light_text: #aaaaaa;
+@sans_serif: "Lucida Grande", "Segoe UI", sans-serif;
 
-@mixin standard_font {
-    font-family: $sans_serif;
+@light_gray:    #eeeeee;
+@lighter_gray:  #f4f4f4;
+@light_text:    #aaaaaa;
+
+@fg: #333333;
+
+.main_margin {
+    margin: 10px;
+}
+
+.floaty_container {
+    display: block;
+    background: #fff;
+
+    .main_margin;
+
+    border-radius: 2px;
+
+    box-shadow:
+        0px  1px 2px rgba(0, 0, 0, 0.25),
+        0px  1px 0px rgba(0, 0, 0, 0.10),
+        0px -1px 0px rgba(0, 0, 0, 0.02);
+}
+
+.standard_font {
+    font-family: @sans_serif;
     font-size: 16px;
 }
 
-@mixin embossed_text {
+.embossed_text {
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
 }
 
 h1 {
-    color: $light_text;
-    @include embossed_text;
+    color: @light_text;
+    .embossed_text;
 }
 
 html {
-    @include standard_font;
+    .standard_font;
 
-    background: $light_gray;
-    color: #333;
+    background: @light_gray;
+    color: @fg;
 
     padding: 10px;
     margin:   0px;
@@ -39,7 +60,7 @@ table#summary {
     border-collapse: collapse;
 
     th, td {
-        border-bottom: 1px solid $light_gray;
+        border-bottom: 1px solid @light_gray;
     }
 
     th {
@@ -61,22 +82,8 @@ table#summary {
     }
 
     tbody tr:nth-child(odd) {
-        background: $lighter_gray;
+        background: @lighter_gray;
     }
-}
-
-@mixin floaty_container {
-    display: block;
-    background: #fff;
-
-    margin: 10px;
-
-    border-radius: 2px;
-
-    box-shadow:
-        0px  1px 2px rgba(0, 0, 0, 0.25),
-        0px  1px 0px rgba(0, 0, 0, 0.10),
-        0px -1px 0px rgba(0, 0, 0, 0.02);
 }
 
 .description {
@@ -84,13 +91,13 @@ table#summary {
 }
 
 .floaty_container {
-    @include floaty_container;
+    .floaty_container;
     padding: 4px 0px;
     padding-bottom: 6px;
 }
 
 .expense_item {
-    @include floaty_container;
+    .floaty_container;
     padding: 10px;
 }
 
@@ -120,16 +127,16 @@ table#summary {
 }
 
 .trivial_word {
-    color: $light_text;
+    color: @light_text;
 }
 
 .stealth_edit {
-    @include standard_font;
+    .standard_font;
 
     border: none;
     border-bottom: 1px solid transparent;
     padding: 3px 0px;
-    font-family: $sans_serif;
+    font-family: @sans_serif;
     background: transparent;
 
     &:focus {
@@ -141,7 +148,7 @@ table#summary {
 .shares_paid {
     display: inline-block;
     float: right;
-    background: $lighter_gray;
+    background: @lighter_gray;
 
     border-radius: 1px;
 
@@ -174,6 +181,19 @@ table#summary {
     &:hover {
         background: rgba(0, 0, 0, 0.10);
         cursor: pointer;
+    }
+
+    &.true:hover {
+        border-color: rgba(0, 0, 0, 0.25);
+    }
+}
+
+.new_expense {
+    .main_margin;
+
+    select,
+    input {
+        padding: 3px;
     }
 }
 
