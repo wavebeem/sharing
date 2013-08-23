@@ -6,6 +6,11 @@
 
 @fg: #333333;
 
+@button_bg:         #f8f8f8;
+@button_primary_bg: #d8d8d8;
+
+@tango_light_blue: #729fcf;
+
 .main_margin {
     margin: 10px;
 }
@@ -188,12 +193,84 @@ table#summary {
     }
 }
 
-.new_expense {
+.focus_outline {
+    outline: none;
+
+    box-shadow: 0px 0px 0px 3px fadeout(@tango_light_blue, 50%);
+
+    border-color: fadeout(black, 50%);
+}
+
+#expense_form {
     .main_margin;
+
+    label {
+        color: @lighter_gray;
+    }
 
     select,
     input {
-        padding: 3px;
+        padding: 6px;
+
+        border: 1px solid rgba(0, 0, 0, 0.20);
+        border-bottom-color: rgba(0, 0, 0, 0.40);
+
+        &:focus {
+            .focus_outline;
+        }
+    }
+}
+
+.button_group {
+    text-align: center;
+
+    margin-top: 1em;
+
+    button {
+        min-width: 6em;
+        padding: 0.30em 0.90em;
+
+        background: @button_bg;
+
+        border: none;
+
+        box-shadow:
+            0px  0px 1px rgba(0, 0, 0, 0.50),
+            0px  1px 1px rgba(0, 0, 0, 0.50);
+
+        border: 1px solid transparent;
+
+        border-radius: 2px;
+
+        font-weight: bold;
+
+        &.primary {
+            background: @button_primary_bg;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:focus {
+            .focus_outline;
+        }
+    }
+}
+
+.form_toggle {
+    display: block;
+    background: transparent;
+    border: none;
+
+    text-align: center;
+
+    width: 100%;
+
+    color: @light_text;
+
+    &:hover {
+        cursor: pointer;
     }
 }
 

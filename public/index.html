@@ -19,18 +19,6 @@
     </head>
     <body>
         <h1>Expenses</h1>
-        <form
-        action=""
-        class="new_expense"
-        data-bind="with: tempExpenseForm, submit: saveTempExpense">
-            <select data-bind="options: $root.people"></select>
-            <select data-bind="options: months"></select>
-            <select data-bind="options: days"></select>
-            <select data-bind="options: years"></select>
-            <input type="number" min="1" max="9999" step="1" placeholder="price" data-bind="value: price">
-            <input id="new_expense_description" type="text" placeholder="description" data-bind="value: description">
-            <button type="submit">Create</button>
-        </form>
         <div class="floaty_container">
             <table id="summary">
                 <thead>
@@ -49,6 +37,40 @@
                 </tbody>
             </table>
         </div>
+        <div class="floaty_container">
+            <button
+            type="button"
+            class="form_toggle"
+            data-bind="
+            visible: tempExpenseForm().notVisibile,
+            click: tempExpenseForm().show">
+                add expense&hellip;
+            </button>
+            <form
+            action=""
+            id="expense_form"
+            data-bind="
+            with: tempExpenseForm,
+            submit: saveTempExpense,
+            visible: tempExpenseForm().visible">
+                <div>
+                    <select data-bind="options: $root.people"></select>
+                    <span class="trivial_word">on</span>
+                    <select data-bind="options: months, value: selectedMonth"></select>
+                    <select data-bind="options: days,   value: selectedDay"></select>
+                    <select data-bind="options: years,  value: selectedYear"></select>
+                </div>
+                <div>
+                    <input type="number" min="1" max="9999" step="1" placeholder="price" data-bind="value: price">
+                    <span class="trivial_word">for</span>
+                    <input id="new_expense_description" type="text" placeholder="description" data-bind="value: description">
+                </div>
+                <div class="button_group">
+                    <button type="submit" class="primary">Add</button>
+                    <button type="button" data-bind="click: hide">Cancel</button>
+                </div>
+            </form>
+        </div>
         <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
             <div class="expense_item">
                 <div>
@@ -65,7 +87,7 @@
                 </div>
                 <div>
                     <input class="description stealth_edit" data-bind="value: description">
-                    <div class="shares_paid" data-bind="foreach: people"><!--
+                    <div class="shares_paid" data-bind="foreach: $root.people"><!--
                         --><button
                             class="share_paid border"
                             type="button"

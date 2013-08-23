@@ -142,12 +142,64 @@ table#summary tbody tr:nth-child(odd) {
 .share_paid.true:hover {
   border-color: rgba(0, 0, 0, 0.25);
 }
-.new_expense {
+.focus_outline {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+#expense_form {
   margin: 10px;
 }
-.new_expense select,
-.new_expense input {
-  padding: 3px;
+#expense_form label {
+  color: #f4f4f4;
+}
+#expense_form select,
+#expense_form input {
+  padding: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom-color: rgba(0, 0, 0, 0.4);
+}
+#expense_form select:focus,
+#expense_form input:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+.button_group {
+  text-align: center;
+  margin-top: 1em;
+}
+.button_group button {
+  min-width: 6em;
+  padding: 0.30em 0.90em;
+  background: #f8f8f8;
+  border: none;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5), 0px 1px 1px rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-weight: bold;
+}
+.button_group button.primary {
+  background: #d8d8d8;
+}
+.button_group button:hover {
+  cursor: pointer;
+}
+.button_group button:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
+  border-color: rgba(0, 0, 0, 0.5);
+}
+.form_toggle {
+  display: block;
+  background: transparent;
+  border: none;
+  text-align: center;
+  width: 100%;
+  color: #aaaaaa;
+}
+.form_toggle:hover {
+  cursor: pointer;
 }
 h1 {
   text-align: center;

@@ -1,3 +1,5 @@
+'use strict';
+
 function Expense(opts) {
     opts = opts || {};
 
@@ -22,7 +24,7 @@ function Expense(opts) {
     }, this);
 
     this.share = ko.computed(function() {
-        return this.price() / this.people().length;
+        return this.price() / $root.people().length;
     }, this);
 
     this.formattedShare = ko.computed(function() {

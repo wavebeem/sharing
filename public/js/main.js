@@ -1,7 +1,10 @@
-document.addEventListener('DOMContentLoaded', function(event) {
-    var $root = new Root();
+'use strict';
 
-    $root.expenseGroup().people(['Brian', 'Ash', 'Trevor']);
+var GLOBAL = this;
+document.addEventListener('DOMContentLoaded', function(event) {
+    new Root();
+
+    $root.people(['Brian', 'Ash', 'Trevor']);
     $root.expenseGroup().addExpense(new Expense({ price:   5, paidBy: 'Brian'  , date: new Date('8/21/2013'), description: 'Candy' }));
     $root.expenseGroup().addExpense(new Expense({ price: 145, paidBy: 'Brian'  , date: new Date('8/21/2013'), description: 'Groceries' }));
     $root.expenseGroup().addExpense(new Expense({ price: 789, paidBy: 'Ash'    , date: new Date('8/11/2013'), description: 'Rent' }));
@@ -9,6 +12,4 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
     ko.applyBindings($root);
     $root.makeCss();
-
-    window.$root = $root;
 }, false);

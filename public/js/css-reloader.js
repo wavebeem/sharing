@@ -1,6 +1,6 @@
-(function(window, document, undefined) {
-    'use strict';
+'use strict';
 
+(function(window, document, undefined) {
     var reloadCss = _(function() {
         var links = document.querySelectorAll('link[rel="stylesheet"]');
         _(links).each(function(elm) {
