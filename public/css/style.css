@@ -32,29 +32,29 @@ body {
   max-width: 500px;
   text-align: left;
 }
-table#summary {
+table.summary {
   width: 100%;
   border-collapse: collapse;
 }
-table#summary th,
-table#summary td {
+table.summary th,
+table.summary td {
   border-bottom: 1px solid #eeeeee;
 }
-table#summary th {
+table.summary th {
   font-weight: bold;
   padding: 4px 14px;
   padding-bottom: 7px;
 }
-table#summary td {
+table.summary td {
   padding: 0px;
   padding-left: 1px;
   padding-right: 14px;
 }
-table#summary td div {
+table.summary td div {
   padding-top: 3px;
   padding-bottom: 3px;
 }
-table#summary tbody tr:nth-child(odd) {
+table.summary tbody tr:nth-child(odd) {
   background: #f4f4f4;
 }
 .description {

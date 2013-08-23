@@ -19,8 +19,8 @@
     </head>
     <body>
         <h1>Expenses</h1>
-        <div class="floaty_container">
-            <table id="summary">
+        <div class="floaty_container" data-bind="foreach: expenseGroup().summary()">
+            <table class="summary">
                 <thead>
                     <tr>
                         <th>Debtor</th>
@@ -28,7 +28,7 @@
                         <th class="right">Amount</th>
                     </tr>
                 </thead>
-                <tbody data-bind="foreach: expenseGroup().summary()">
+                <tbody data-bind="foreach: $data">
                     <tr>
                         <td><div class="color_left" data-bind="text: debtor, css: 'color_' + debtor.toLowerCase()"></div></td>
                         <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee.toLowerCase()"></div></td>

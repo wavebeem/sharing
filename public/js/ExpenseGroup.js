@@ -55,6 +55,15 @@ function ExpenseGroup() {
 
                 return 0;
             });
+
+            console.log(results);
+
+            var grouped = _.values(_.groupBy(results, 'debtor'));
+
+            results.splice(0);
+            results.push.apply(results, grouped);
+
+            console.log(results);
         }.bind(this));
     }, this);
 }
