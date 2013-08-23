@@ -14,9 +14,10 @@ function Root() {
             var className = 'color_' + safeName;
 
             return [
-                '.' + className + '.true       { background: '            + backgroundFor(name) + ' }',
-                '.' + className + '.color_left { border-left: 6px solid ' + backgroundFor(name) + ' }',
-                '.' + className + '.border     { border-color: '          + backgroundFor(name) + ' }',
+                '.' + className + '.true         { background: '              + backgroundFor(name) + ' }',
+                '.' + className + '.color_left   { border-left:   6px solid ' + backgroundFor(name) + ' }',
+                '.' + className + '.color_fg     { color: '                   + backgroundFor(name) + ' }',
+                '.' + className + '.border       { border-color: '            + backgroundFor(name) + ' }',
             ].join('\n');
         }, this).join('\n');
     };

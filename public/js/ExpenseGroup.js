@@ -11,59 +11,67 @@ function ExpenseGroup() {
         expenses.push(expense);
     };
 
-    this.summary = ko.computed(function() {
-        var moneyOwed = {};
+    var moneyOwed = ko.computed(function() {
+        var map = {};
+
         _($root.people()).each(function(person) {
-            moneyOwed[person] = {};
+            map[person] = {};
             _($root.people()).each(function(other) {
                 if (person === other) return;
 
-                moneyOwed[person][other] = 0;
+                map[person][other] = 0;
+            });
+        });
+
+        _(this.expenses()).each(function(expense) {
+            var paidBy = expense.paidBy();
+            _($root.people()).each(function(person) {
+                if (person === paidBy) return;
+
+                map[paidBy][person] += expense.share();
+            });
+        });
+
+        return map;
+    }, this);
+
+    var listOfTotalMoneyOwed = ko.computed(function() {
+        var results = [];
+
+        _(moneyOwed()).each(function(others, personA) {
+            _(others).each(function(money, personB) {
+                if (money > 0) {
+                    results.push({
+                        debtee: personA,
+                        debtor: personB,
+                        amount: money,
+                    });
+                }
             }, this);
         }, this);
-        return _([]).tap(function(results) {
-            _(this.expenses()).each(function(expense) {
-                var paidBy = expense.paidBy();
-                _($root.people()).each(function(person) {
-                    if (person === paidBy) return;
 
-                    moneyOwed[paidBy][person] += expense.share();
-                });
-            });
-
-            _(moneyOwed).each(function(others, personA) {
-                _(others).each(function(money, personB) {
-                    if (money > 0) {
-                        results.push({
-                            debtee: personA,
-                            debtor: personB,
-                            amount: money,
-                        });
-                    }
-                }, this);
-            }, this);
-
-            results.sort(function(a, b) {
-                if (a.debtor < b.debtor) return -1;
-                if (a.debtor > b.debtor) return +1;
-
-                if (a.debtee < b.debtee) return -1;
-                if (a.debtee > b.debtee) return +1;
-
-                if (a.amount < b.amount) return -1;
-                if (a.amount > b.amount) return +1;
-
-                return 0;
-            });
-
-            console.log(results);
-
-            var grouped = _.values(_.groupBy(results, 'debtor'));
-
-            results.splice(0);
-            results.push.apply(results, grouped);
-
-            console.log(results);
-        }.bind(this));
+        return results;
     }, this);
+
+    var sortDebts = function(a, b) {
+        if (a.debtor < b.debtor) return -1;
+        if (a.debtor > b.debtor) return +1;
+
+        if (a.debtee < b.debtee) return -1;
+        if (a.debtee > b.debtee) return +1;
+
+        if (a.amount < b.amount) return -1;
+        if (a.amount > b.amount) return +1;
+
+        return 0;
+    };
+
+    this.summary = ko.computed(function() {
+        return _(listOfTotalMoneyOwed())
+            .chain()
+            .sortBy(sortDebts)
+            .groupBy('debtor')
+            .values()
+            .value();
+    });
 }

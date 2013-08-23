@@ -29,12 +29,16 @@ html {
 }
 body {
   margin: 0px auto;
-  max-width: 500px;
+  max-width: 400px;
   text-align: left;
 }
 table.summary {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 10px;
+}
+table.summary:first-child {
+  margin-top: 0px;
 }
 table.summary th,
 table.summary td {
@@ -44,21 +48,28 @@ table.summary th {
   font-weight: bold;
   padding: 4px 14px;
   padding-bottom: 7px;
+  text-align: center;
 }
 table.summary td {
   padding: 0px;
   padding-left: 1px;
-  padding-right: 14px;
+  padding-right: 10px;
 }
 table.summary td div {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+table.summary td.money {
+  width: 4em;
+}
+table.summary tbody tr:first-child td {
+  padding-top: 1px;
+}
 table.summary tbody tr:nth-child(odd) {
   background: #f4f4f4;
 }
 .description {
-  width: 20em;
+  width: 15em;
 }
 .floaty_container {
   display: block;
@@ -153,11 +164,15 @@ table.summary tbody tr:nth-child(odd) {
 #expense_form label {
   color: #f4f4f4;
 }
+#expense_form > div {
+  margin-bottom: 9px;
+}
 #expense_form select,
 #expense_form input {
   padding: 6px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.4);
+  background: white;
 }
 #expense_form select:focus,
 #expense_form input:focus {
@@ -167,20 +182,20 @@ table.summary tbody tr:nth-child(odd) {
 }
 .button_group {
   text-align: center;
-  margin-top: 1em;
 }
 .button_group button {
   min-width: 6em;
-  padding: 0.30em 0.90em;
+  padding: 0.40em 0.90em;
+  padding-bottom: 0.50em;
   background: #f8f8f8;
-  border: none;
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5), 0px 1px 1px rgba(0, 0, 0, 0.5);
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-color: rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   font-weight: bold;
 }
 .button_group button.primary {
   background: #d8d8d8;
+  border-bottom-color: rgba(0, 0, 0, 0.3);
 }
 .button_group button:hover {
   cursor: pointer;

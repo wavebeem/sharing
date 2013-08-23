@@ -19,24 +19,27 @@
     </head>
     <body>
         <h1>Expenses</h1>
-        <div class="floaty_container" data-bind="foreach: expenseGroup().summary()">
-            <table class="summary">
-                <thead>
-                    <tr>
-                        <th>Debtor</th>
-                        <th>Debtee</th>
-                        <th class="right">Amount</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: $data">
-                    <tr>
-                        <td><div class="color_left" data-bind="text: debtor, css: 'color_' + debtor.toLowerCase()"></div></td>
-                        <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee.toLowerCase()"></div></td>
-                        <td class="money" data-bind="text: amount.toFixed(0)"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!-- ko foreach: expenseGroup().summary() -->
+            <div class="floaty_container">
+                <table class="summary">
+                    <thead>
+                        <tr>
+                            <th
+                            colspan="2"
+                            data-bind="
+                            text: $data[0].debtor + ' owes',
+                            css: 'color_' + $data[0].debtor.toLowerCase()"></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: $data">
+                        <tr>
+                            <td class="money" data-bind="text: amount.toFixed(0)"></td>
+                            <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee.toLowerCase()"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <!-- /ko -->
         <div class="floaty_container">
             <button
             type="button"
