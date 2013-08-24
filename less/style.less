@@ -16,6 +16,8 @@
 }
 
 .floaty_container {
+    text-align: center;
+
     display: block;
     background: #fff;
 
@@ -27,6 +29,9 @@
         0px  1px 2px rgba(0, 0, 0, 0.25),
         0px  1px 0px rgba(0, 0, 0, 0.10),
         0px -1px 0px rgba(0, 0, 0, 0.02);
+
+    padding: 4px 0px;
+    padding-bottom: 6px;
 }
 
 .standard_font {
@@ -38,9 +43,16 @@
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
 }
 
-h1 {
+h1,
+h2 {
     color: @light_text;
     .embossed_text;
+
+    text-align: center;
+}
+
+h2 {
+    font-size: 100%;
 }
 
 html {
@@ -70,7 +82,8 @@ table.summary {
         margin-top: 0px;
     }
 
-    th, td {
+    th,
+    tr:not(:last-child) td {
         border-bottom: 1px solid @light_gray;
     }
 
@@ -87,6 +100,8 @@ table.summary {
         padding:         0px;
         padding-left:    1px;
         padding-right:  10px;
+
+        text-align: left;
     }
 
     td div {
@@ -96,29 +111,24 @@ table.summary {
 
     td.money {
         width: 4em;
+
+        text-align: right;
     }
 
     tbody tr:first-child td {
         padding-top: 1px;
     }
-
-    tbody tr:nth-child(odd) {
-        background: @lighter_gray;
-    }
 }
 
 .description {
-    width: 15em;
-}
-
-.floaty_container {
-    .floaty_container;
-    padding: 4px 0px;
-    padding-bottom: 6px;
+    width: 100%;
 }
 
 .expense_item {
     .floaty_container;
+
+    text-align: left;
+
     padding: 10px;
 }
 
@@ -207,6 +217,10 @@ table.summary {
     &.true:hover {
         border-color: rgba(0, 0, 0, 0.25);
     }
+
+    &:focus {
+        .focus_outline;
+    }
 }
 
 .focus_outline {
@@ -237,6 +251,8 @@ table.summary {
 
         background: white;
 
+        border-radius: 0px;
+
         &:focus {
             .focus_outline;
         }
@@ -265,25 +281,24 @@ table.summary {
             background: @button_primary_bg;
             border-bottom-color: rgba(0, 0, 0, 0.30);
         }
+    }
+}
 
-        &:hover {
-            cursor: pointer;
-        }
+button {
+    &:hover {
+        cursor: pointer;
+    }
 
-        &:focus {
-            .focus_outline;
-        }
+    &:focus {
+        .focus_outline;
     }
 }
 
 .form_toggle {
-    display: block;
     background: transparent;
     border: none;
 
     text-align: center;
-
-    width: 100%;
 
     color: @light_text;
 

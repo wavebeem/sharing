@@ -20,7 +20,14 @@ function Expense(opts) {
         var mon = d.getMonth() + 1;
         var yr  = d.getFullYear();
 
-        return [mon, day, yr].join('/');
+        var pieces = [day, mon];
+
+        // Only show year if different than current
+        if (yr !== new Date().getFullYear()) {
+            pieces.push(yr);
+        }
+
+        return pieces.join('/');
     }, this);
 
     this.share = ko.computed(function() {
@@ -34,13 +41,6 @@ function Expense(opts) {
     this.formattedPrice = ko.computed(function() {
         return this.price().toFixed(0);
     }, this);
-
-    this.toggleSharePaidBy = function(name, event) {
-        var el = event.target;
-        el.classList.toggle('true');
-        this.sharePaidBy()[name] = true;
-        this.sharePaidBy.notifySubscribers();
-    };
 }
 
 Expense.id = 0;

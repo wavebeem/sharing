@@ -10,8 +10,7 @@ function Root() {
 
     this.makeCss = function() {
         $('#name_css').innerHTML = people().map(function(name) {
-            var safeName = name.toLowerCase().replace(/[^a-z_]/, '_');
-            var className = 'color_' + safeName;
+            var className = 'color_' + name
 
             return [
                 '.' + className + '.true         { background: '              + backgroundFor(name) + ' }',

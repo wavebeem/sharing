@@ -20,21 +20,17 @@
     <body>
         <h1>Expenses</h1>
         <!-- ko foreach: expenseGroup().summary() -->
+            <h2
+            colspan="2"
+            data-bind="
+            text: $data[0].debtor + ' owes',
+            css: 'color_' + $data[0].debtor"></h2>
             <div class="floaty_container">
                 <table class="summary">
-                    <thead>
-                        <tr>
-                            <th
-                            colspan="2"
-                            data-bind="
-                            text: $data[0].debtor + ' owes',
-                            css: 'color_' + $data[0].debtor.toLowerCase()"></th>
-                        </tr>
-                    </thead>
                     <tbody data-bind="foreach: $data">
                         <tr>
                             <td class="money" data-bind="text: amount.toFixed(0)"></td>
-                            <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee.toLowerCase()"></div></td>
+                            <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
                         </tr>
                     </tbody>
                 </table>
@@ -81,7 +77,7 @@
                     <span class="trivial_word">on</span>
                     <span data-bind="text: formattedDate"></span>
                     <span class="trivial_word">by</span>
-                    <input class="stealth_edit paid_by" data-bind="value: paidBy">
+                    <input class="stealth_edit paid_by" data-bind="value: paidBy, enable: false">
                     <span class="share_value">
                         <span class="money" data-bind="text: formattedShare"></span>
                         <span class="trivial_word">each</span>
@@ -89,16 +85,7 @@
                     <div class="clearfix"></div>
                 </div>
                 <div>
-                    <input class="description stealth_edit" data-bind="value: description">
-                    <div class="shares_paid" data-bind="foreach: $root.people"><!--
-                        --><button
-                            class="share_paid border"
-                            type="button"
-                            data-bind="
-                                click: expense.toggleSharePaidBy.bind(expense),
-                                css: 'color_' + $data.toLowerCase()"></button><!--
-                    --></div>
-                    <div class="clearfix"></div>
+                    <input class="description stealth_edit" data-bind="value: description, enable: false">
                 </div>
             </div>
         </div>

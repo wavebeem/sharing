@@ -16,6 +16,13 @@ function createObservables(thisp, opts, defaults) {
     });
 }
 
+function daysInMonth(month, year) {
+    // The 0th day of a month is actually the last day of the previous month.
+    // This works because we assume month is passed in 1-based here, whereas
+    // Date uses 0-based months.
+    return new Date(year, month, 0).getDate();
+}
+
 var colors = [
     "#75507b", // plum
     "#cc0000", // scarlet red

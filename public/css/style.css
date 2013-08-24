@@ -2,11 +2,14 @@
   margin: 10px;
 }
 .floaty_container {
+  text-align: center;
   display: block;
   background: #fff;
   margin: 10px;
   border-radius: 2px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px -1px 0px rgba(0, 0, 0, 0.02);
+  padding: 4px 0px;
+  padding-bottom: 6px;
 }
 .standard_font {
   font-family: "Lucida Grande", "Segoe UI", sans-serif;
@@ -15,9 +18,14 @@
 .embossed_text {
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
 }
-h1 {
+h1,
+h2 {
   color: #aaaaaa;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
+  text-align: center;
+}
+h2 {
+  font-size: 100%;
 }
 html {
   font-family: "Lucida Grande", "Segoe UI", sans-serif;
@@ -41,7 +49,7 @@ table.summary:first-child {
   margin-top: 0px;
 }
 table.summary th,
-table.summary td {
+table.summary tr:not(:last-child) td {
   border-bottom: 1px solid #eeeeee;
 }
 table.summary th {
@@ -54,6 +62,7 @@ table.summary td {
   padding: 0px;
   padding-left: 1px;
   padding-right: 10px;
+  text-align: left;
 }
 table.summary td div {
   padding-top: 3px;
@@ -61,26 +70,16 @@ table.summary td div {
 }
 table.summary td.money {
   width: 4em;
+  text-align: right;
 }
 table.summary tbody tr:first-child td {
   padding-top: 1px;
 }
-table.summary tbody tr:nth-child(odd) {
-  background: #f4f4f4;
-}
 .description {
-  width: 15em;
-}
-.floaty_container {
-  display: block;
-  background: #fff;
-  margin: 10px;
-  border-radius: 2px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px -1px 0px rgba(0, 0, 0, 0.02);
-  padding: 4px 0px;
-  padding-bottom: 6px;
+  width: 100%;
 }
 .expense_item {
+  text-align: center;
   display: block;
   background: #fff;
   margin: 10px;
@@ -88,6 +87,7 @@ table.summary tbody tr:nth-child(odd) {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px -1px 0px rgba(0, 0, 0, 0.02);
   padding: 4px 0px;
   padding-bottom: 6px;
+  text-align: left;
   padding: 10px;
 }
 .clearfix {
@@ -153,6 +153,11 @@ table.summary tbody tr:nth-child(odd) {
 .share_paid.true:hover {
   border-color: rgba(0, 0, 0, 0.25);
 }
+.share_paid:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
+  border-color: rgba(0, 0, 0, 0.5);
+}
 .focus_outline {
   outline: none;
   box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
@@ -173,6 +178,7 @@ table.summary tbody tr:nth-child(odd) {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.4);
   background: white;
+  border-radius: 0px;
 }
 #expense_form select:focus,
 #expense_form input:focus {
@@ -197,20 +203,18 @@ table.summary tbody tr:nth-child(odd) {
   background: #d8d8d8;
   border-bottom-color: rgba(0, 0, 0, 0.3);
 }
-.button_group button:hover {
+button:hover {
   cursor: pointer;
 }
-.button_group button:focus {
+button:focus {
   outline: none;
   box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
   border-color: rgba(0, 0, 0, 0.5);
 }
 .form_toggle {
-  display: block;
   background: transparent;
   border: none;
   text-align: center;
-  width: 100%;
   color: #aaaaaa;
 }
 .form_toggle:hover {
