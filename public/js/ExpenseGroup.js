@@ -11,6 +11,12 @@ function ExpenseGroup() {
 
     self.addExpense = function(expense) {
         expenses.push(expense);
+        expenses.sort(function(a, b) {
+            if (a.date() < b.date()) return -1;
+            if (a.date() > b.date()) return +1;
+
+            return 0;
+        });
     };
 
     var moneyOwed = ko.computed(function() {

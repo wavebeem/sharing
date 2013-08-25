@@ -4,7 +4,6 @@
 #debts {
   float: right;
   width: 40%;
-  border-left: 1px dashed rgba(0, 0, 0, 0.1);
 }
 #expenses {
   float: right;

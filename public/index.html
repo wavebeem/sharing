@@ -19,24 +19,22 @@
     </head>
     <body>
         <h1>Expense Tracker</h1>
-        <div id="debts" class="column">
-            <!-- ko foreach: expenseGroup().summary() -->
-                <h2
-                colspan="2"
-                data-bind="
-                text: $data[0].debtor + ' owes',
-                css: 'color_' + $data[0].debtor"></h2>
-                <div class="floaty_container">
-                    <table class="summary">
-                        <tbody data-bind="foreach: $data">
-                            <tr>
-                                <td class="money" data-bind="text: amount.toFixed(0)"></td>
-                                <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            <!-- /ko -->
+        <div id="debts" class="column" data-bind="foreach: expenseGroup().summary()">
+            <h2
+            colspan="2"
+            data-bind="
+            text: $data[0].debtor + ' owes',
+            css: 'color_' + $data[0].debtor"></h2>
+            <div class="floaty_container">
+                <table class="summary">
+                    <tbody data-bind="foreach: $data">
+                        <tr>
+                            <td class="money" data-bind="text: amount.toFixed(0)"></td>
+                            <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div id="expenses" class="column">
             <h2>Expenses</h2>
