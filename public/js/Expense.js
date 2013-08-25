@@ -21,7 +21,7 @@ function Expense(opts) {
         var mon = d.getMonth() + 1;
         var yr  = d.getFullYear();
 
-        var pieces = [day, mon];
+        var pieces = [mon, day];
 
         // Only show year if different than current
         if (yr !== new Date().getFullYear()) {
