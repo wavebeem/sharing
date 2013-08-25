@@ -1,11 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+#debts {
+  float: right;
+  width: 40%;
+  border-left: 1px dashed rgba(0, 0, 0, 0.1);
+}
+#expenses {
+  float: right;
+  width: 60%;
+}
+.column {
+  margin-top: 30px;
+}
 .main_margin {
-  margin: 10px;
+  margin: 10px 20px;
 }
 .floaty_container {
   text-align: center;
   display: block;
   background: #fff;
-  margin: 10px;
+  margin: 10px 20px;
   border-radius: 2px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px -1px 0px rgba(0, 0, 0, 0.02);
   padding: 4px 0px;
@@ -26,6 +41,8 @@ h2 {
 }
 h2 {
   font-size: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 html {
   font-family: "Lucida Grande", "Segoe UI", sans-serif;
@@ -37,8 +54,8 @@ html {
 }
 body {
   margin: 0px auto;
-  max-width: 400px;
   text-align: left;
+  max-width: 800px;
 }
 table.summary {
   width: 100%;
@@ -82,7 +99,7 @@ table.summary tbody tr:first-child td {
   text-align: center;
   display: block;
   background: #fff;
-  margin: 10px;
+  margin: 10px 20px;
   border-radius: 2px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25), 0px 1px 0px rgba(0, 0, 0, 0.1), 0px -1px 0px rgba(0, 0, 0, 0.02);
   padding: 4px 0px;
@@ -164,7 +181,7 @@ table.summary tbody tr:first-child td {
   border-color: rgba(0, 0, 0, 0.5);
 }
 #expense_form {
-  margin: 10px;
+  margin: 10px 20px;
 }
 #expense_form label {
   color: #f4f4f4;

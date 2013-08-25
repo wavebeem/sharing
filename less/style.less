@@ -11,8 +11,33 @@
 
 @tango_light_blue: #729fcf;
 
+* {
+    box-sizing: border-box;
+}
+
+#debts {
+    // max-width: 400px;
+    float: right;
+
+    width: 40%;
+
+    border-left: 1px dashed rgba(0, 0, 0, 0.10);
+}
+
+#expenses {
+    float: right;
+
+    width: 60%;
+
+    // border-right: 1px dashed rgba(0, 0, 0, 0.10);
+}
+
+.column {
+    margin-top: 30px;
+}
+
 .main_margin {
-    margin: 10px;
+    margin: 10px 20px;
 }
 
 .floaty_container {
@@ -53,6 +78,9 @@ h2 {
 
 h2 {
     font-size: 100%;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 html {
@@ -67,8 +95,9 @@ html {
 
 body {
     margin: 0px auto;
-    max-width: 400px;
     text-align: left;
+
+    max-width: 800px;
 }
 
 table.summary {

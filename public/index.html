@@ -18,76 +18,82 @@
         <style id="name_css"></style>
     </head>
     <body>
-        <h1>Expenses</h1>
-        <!-- ko foreach: expenseGroup().summary() -->
-            <h2
-            colspan="2"
-            data-bind="
-            text: $data[0].debtor + ' owes',
-            css: 'color_' + $data[0].debtor"></h2>
+        <h1>Expense Tracker</h1>
+        <div id="debts" class="column">
+            <!-- ko foreach: expenseGroup().summary() -->
+                <h2
+                colspan="2"
+                data-bind="
+                text: $data[0].debtor + ' owes',
+                css: 'color_' + $data[0].debtor"></h2>
+                <div class="floaty_container">
+                    <table class="summary">
+                        <tbody data-bind="foreach: $data">
+                            <tr>
+                                <td class="money" data-bind="text: amount.toFixed(0)"></td>
+                                <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <!-- /ko -->
+        </div>
+        <div id="expenses" class="column">
+            <h2>Expenses</h2>
             <div class="floaty_container">
-                <table class="summary">
-                    <tbody data-bind="foreach: $data">
-                        <tr>
-                            <td class="money" data-bind="text: amount.toFixed(0)"></td>
-                            <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <button
+                type="button"
+                class="form_toggle"
+                data-bind="
+                visible: tempExpenseForm().notVisibile,
+                click: tempExpenseForm().show">
+                    add expense&hellip;
+                </button>
+                <form
+                action=""
+                id="expense_form"
+                data-bind="
+                with: tempExpenseForm,
+                submit: saveTempExpense,
+                visible: tempExpenseForm().visible">
+                    <div>
+                        <select data-bind="options: $root.people"></select>
+                        <span class="trivial_word">on</span>
+                        <select data-bind="options: months, value: selectedMonth"></select>
+                        <select data-bind="options: days,   value: selectedDay"></select>
+                        <select data-bind="options: years,  value: selectedYear"></select>
+                    </div>
+                    <div>
+                        <input type="number" min="1" max="9999" step="1" placeholder="price" data-bind="value: price">
+                        <span class="trivial_word">for</span>
+                        <input id="new_expense_description" type="text" placeholder="description" data-bind="value: description">
+                    </div>
+                    <div class="button_group">
+                        <button type="submit" class="primary"><span class="icon icon-plus"></span>Add</button>
+                        <button type="button" data-bind="click: hide"><span class="icon icon-close"></span>Cancel</button>
+                    </div>
+                </form>
             </div>
-        <!-- /ko -->
-        <div class="floaty_container">
-            <button
-            type="button"
-            class="form_toggle"
-            data-bind="
-            visible: tempExpenseForm().notVisibile,
-            click: tempExpenseForm().show">
-                add expense&hellip;
-            </button>
-            <form
-            action=""
-            id="expense_form"
-            data-bind="
-            with: tempExpenseForm,
-            submit: saveTempExpense,
-            visible: tempExpenseForm().visible">
-                <div>
-                    <select data-bind="options: $root.people"></select>
-                    <span class="trivial_word">on</span>
-                    <select data-bind="options: months, value: selectedMonth"></select>
-                    <select data-bind="options: days,   value: selectedDay"></select>
-                    <select data-bind="options: years,  value: selectedYear"></select>
-                </div>
-                <div>
-                    <input type="number" min="1" max="9999" step="1" placeholder="price" data-bind="value: price">
-                    <span class="trivial_word">for</span>
-                    <input id="new_expense_description" type="text" placeholder="description" data-bind="value: description">
-                </div>
-                <div class="button_group">
-                    <button type="submit" class="primary">Add</button>
-                    <button type="button" data-bind="click: hide">Cancel</button>
-                </div>
-            </form>
-        </div>
-        <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
-            <div class="expense_item">
-                <div>
-                    <span class="money"><span data-bind="text: formattedPrice"></span></span>
-                    <span class="trivial_word">on</span>
-                    <span data-bind="text: formattedDate"></span>
-                    <span class="trivial_word">by</span>
-                    <input class="stealth_edit paid_by" data-bind="value: paidBy, enable: false">
-                    <span class="share_value">
-                        <span class="money" data-bind="text: formattedShare"></span>
-                        <span class="trivial_word">each</span>
-                    </span>
-                    <div class="clearfix"></div>
-                </div>
-                <div>
-                    <input class="description stealth_edit" data-bind="value: description, enable: false">
+            <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
+                <div class="expense_item">
+                    <div>
+                        <span class="money"><span data-bind="text: formattedPrice"></span></span>
+                        <span class="trivial_word">on</span>
+                        <span data-bind="text: formattedDate"></span>
+                        <span class="trivial_word">by</span>
+                        <input class="stealth_edit paid_by" data-bind="value: paidBy, enable: false">
+                        <span class="share_value">
+                            <span class="money" data-bind="text: formattedShare"></span>
+                            <span class="trivial_word">each</span>
+                        </span>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div>
+                        <input class="description stealth_edit" data-bind="value: description, enable: false">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </body>
 </html>
