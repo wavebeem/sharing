@@ -1,50 +1,52 @@
 'use strict';
 
 function ExpenseForm() {
-    this.selectedMonth = ko.observable(null);
-    this.selectedDay   = ko.observable(null);
-    this.selectedYear  = ko.observable(null);
+    var self = this;
 
-    this.selectToday = function() {
+    self.selectedMonth = ko.observable(null);
+    self.selectedDay   = ko.observable(null);
+    self.selectedYear  = ko.observable(null);
+
+    self.selectToday = function() {
         var today = new Date();
 
-        this.selectedMonth(today.getMonth() + 1);
-        this.selectedDay(today.getDate());
-        this.selectedYear(today.getFullYear());
-    }.bind(this);
+        self.selectedMonth(today.getMonth() + 1);
+        self.selectedDay(today.getDate());
+        self.selectedYear(today.getFullYear());
+    };
 
-    this.selectToday();
+    self.selectToday();
 
-    this.months = ko.observable(_.range(1, 13));
+    self.months = ko.observable(_.range(1, 13));
 
-    this.years = ko.computed(function() {
+    self.years = ko.computed(function() {
         var year = new Date().getFullYear();
 
         return _.range(year - 1, year + 2);
-    }, this);
+    });
 
-    this.days = ko.computed(function() {
-        var month   = this.selectedMonth();
-        var year    = this.selectedYear();
+    self.days = ko.computed(function() {
+        var month   = self.selectedMonth();
+        var year    = self.selectedYear();
         var numDays = daysInMonth(month, year);
 
         return _.range(1, numDays + 1);
-    }, this);
+    });
 
-    this.visible = ko.observable(true);
+    self.visible = ko.observable(true);
 
-    this.price = ko.observable('');
+    self.price = ko.observable('');
 
-    this.description = ko.observable('');
+    self.description = ko.observable('');
 
-    this.notVisibile = ko.computed(function() {
-        return ! this.visible();
-    }, this);
+    self.notVisibile = ko.computed(function() {
+        return ! self.visible();
+    });
 
-    this.show = function() {
-        this.selectToday();
-        this.visible(true);
-    }.bind(this);
+    self.show = function() {
+        self.selectToday();
+        self.visible(true);
+    };
 
-    this.hide = this.visible.bind(this, false);
+    self.hide = self.visible.bind(null, false);
 }

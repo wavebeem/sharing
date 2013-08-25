@@ -33,3 +33,16 @@ var colors = [
     "#c17d11", // chocolate
     "#babdb6", // aluminium
 ];
+
+_.mixin({
+    megaChain: function(x, fs) {
+        _.each(fs, function(f) {
+            var name = f[0];
+            var args = f[1] || [];
+
+            x = _[name].apply(null, [x].concat(args));
+        });
+
+        return x;
+    }
+});

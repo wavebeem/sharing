@@ -1,14 +1,18 @@
+'use strict';
+
 function Root() {
+    var self = this;
+
     if (GLOBAL.$root) return GLOBAL.$root;
 
-    GLOBAL.$root = this;
+    GLOBAL.$root = self;
 
     var backgroundFor = function(name) {
         var i = people().indexOf(name);
         return colors[mod(i, colors.length)];
-    }.bind(this);
+    };
 
-    this.makeCss = function() {
+    self.makeCss = function() {
         $('#name_css').innerHTML = people().map(function(name) {
             var className = 'color_' + name
 
@@ -18,21 +22,21 @@ function Root() {
                 '.' + className + '.color_fg     { color: '                   + backgroundFor(name) + ' }',
                 '.' + className + '.border       { border-color: '            + backgroundFor(name) + ' }',
             ].join('\n');
-        }, this).join('\n');
+        }).join('\n');
     };
 
-    this.tempExpenseForm = ko.observable(new ExpenseForm());
+    self.tempExpenseForm = ko.observable(new ExpenseForm());
 
-    this.saveTempExpense = function() {
+    self.saveTempExpense = function() {
         console.log('Attempting to save expense form');
     };
 
     var people = ko.observableArray([]);
-    this.people = ko.computed({
+    self.people = ko.computed({
         read: function() { return people() },
         write: function(people_) { people(people_.slice(0).sort()) },
     });
-    this.people.subscribe(this.makeCss, this);
+    self.people.subscribe(self.makeCss);
 
-    this.expenseGroup = ko.observable(new ExpenseGroup());
+    self.expenseGroup = ko.observable(new ExpenseGroup());
 }

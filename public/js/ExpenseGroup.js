@@ -1,13 +1,15 @@
 'use strict';
 
 function ExpenseGroup() {
+    var self = this;
+
     var expenses = ko.observableArray([]);
 
-    this.expenses = ko.computed(function() {
+    self.expenses = ko.computed(function() {
         return expenses.slice(0).reverse();
     });
 
-    this.addExpense = function(expense) {
+    self.addExpense = function(expense) {
         expenses.push(expense);
     };
 
@@ -23,7 +25,7 @@ function ExpenseGroup() {
             });
         });
 
-        _(this.expenses()).each(function(expense) {
+        _(self.expenses()).each(function(expense) {
             var paidBy = expense.paidBy();
             _($root.people()).each(function(person) {
                 if (person === paidBy) return;
@@ -33,7 +35,7 @@ function ExpenseGroup() {
         });
 
         return map;
-    }, this);
+    });
 
     var listOfTotalMoneyOwed = ko.computed(function() {
         var results = [];
@@ -47,11 +49,11 @@ function ExpenseGroup() {
                         amount: money,
                     });
                 }
-            }, this);
-        }, this);
+            }, self);
+        }, self);
 
         return results;
-    }, this);
+    });
 
     var sortDebts = function(a, b) {
         if (a.debtor < b.debtor) return -1;
@@ -66,12 +68,11 @@ function ExpenseGroup() {
         return 0;
     };
 
-    this.summary = ko.computed(function() {
-        return _(listOfTotalMoneyOwed())
-            .chain()
-            .sortBy(sortDebts)
-            .groupBy('debtor')
-            .values()
-            .value();
+    self.summary = ko.computed(function() {
+        return _.megaChain(listOfTotalMoneyOwed(), [
+            ['sortBy', [sortDebts]],
+            ['groupBy', ['debtor']],
+            ['values']
+        ]);
     });
 }

@@ -1,9 +1,10 @@
 'use strict';
 
 function Expense(opts) {
+    var self = this;
     opts = opts || {};
 
-    createObservables(this, opts, {
+    createObservables(self, opts, {
         price: 0,
         paidBy: '',
         description: '',
@@ -12,10 +13,10 @@ function Expense(opts) {
         sharePaidBy: {},
     });
 
-    this.expenseId = Expense.id++;
+    self.expenseId = Expense.id++;
 
-    this.formattedDate = ko.computed(function() {
-        var d = this.date();
+    self.formattedDate = ko.computed(function() {
+        var d = self.date();
         var day = d.getDate();
         var mon = d.getMonth() + 1;
         var yr  = d.getFullYear();
@@ -28,19 +29,19 @@ function Expense(opts) {
         }
 
         return pieces.join('/');
-    }, this);
+    });
 
-    this.share = ko.computed(function() {
-        return this.price() / $root.people().length;
-    }, this);
+    self.share = ko.computed(function() {
+        return self.price() / $root.people().length;
+    });
 
-    this.formattedShare = ko.computed(function() {
-        return this.share().toFixed(0);
-    }, this);
+    self.formattedShare = ko.computed(function() {
+        return self.share().toFixed(0);
+    });
 
-    this.formattedPrice = ko.computed(function() {
-        return this.price().toFixed(0);
-    }, this);
+    self.formattedPrice = ko.computed(function() {
+        return self.price().toFixed(0);
+    });
 }
 
 Expense.id = 0;
