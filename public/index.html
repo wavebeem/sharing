@@ -83,19 +83,19 @@
                         <span class="trivial_word">on</span>
                         <span data-bind="text: formattedDate"></span>
                         <span class="trivial_word">by</span>
-                        <input class="stealth_edit paid_by" data-bind="value: paidBy, enable: false">
-                        <span class="share_value">
+                        <span data-bind="text: paidBy"></span>
+                        <span class="trivial_word">for</span>
+                        <span data-bind="text: paidFor"></span>
+                    </div>
+                    <div>
+                        <span class="description" data-bind="text: description"></span
+                        ><span class="share_value">
                             <span class="money" data-bind="text: formattedShare"></span>
                             <span class="trivial_word">each</span>
                         </span>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div>
-                        <input class="description stealth_edit" data-bind="value: description, enable: false">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
     </body>
 </html>

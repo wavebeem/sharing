@@ -95,9 +95,6 @@ table.summary td.money {
 table.summary tbody tr:first-child td {
   padding-top: 1px;
 }
-.description {
-  width: 100%;
-}
 .expense_item {
   text-align: center;
   display: block;
@@ -115,11 +112,18 @@ table.summary tbody tr:first-child td {
   border: 1px dashed rgba(0, 0, 0, 0.1);
   box-shadow: none;
 }
+.expense_item > div > * {
+  display: inline-block;
+}
+.expense_item .description {
+  width: 75%;
+}
+.expense_item .share_value {
+  width: 25%;
+  text-align: right;
+}
 .clearfix {
   clear: both;
-}
-.paid_by {
-  width: 7em;
 }
 .money {
   font-weight: bold;
@@ -127,9 +131,6 @@ table.summary tbody tr:first-child td {
 }
 .right {
   text-align: right;
-}
-.share_value {
-  float: right;
 }
 .color_left {
   padding-left: 1em;

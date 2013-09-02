@@ -161,24 +161,29 @@ table.summary {
     }
 }
 
-.description {
-    width: 100%;
-}
-
 .expense_item {
     .floaty_container;
 
     text-align: left;
 
     padding: 10px;
+
+    & > div > * {
+        display: inline-block;
+    }
+
+    .description {
+        width: 75%;
+    }
+
+    .share_value {
+        width: 25%;
+        text-align: right;
+    }
 }
 
 .clearfix {
     clear: both;
-}
-
-.paid_by {
-    width: 7em;
 }
 
 .money {
@@ -191,7 +196,6 @@ table.summary {
 }
 
 .share_value {
-    float: right;
 }
 
 .color_left {

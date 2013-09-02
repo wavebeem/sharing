@@ -9,7 +9,7 @@ function Expense(opts) {
         paidBy: '',
         description: '',
         date: new Date(),
-        people: [],
+        paidFor: 'everyone',
         sharePaidBy: {},
     });
 
