@@ -7,7 +7,7 @@
 @fg: #333333;
 
 @button_bg:         #f8f8f8;
-@button_primary_bg: #d8d8d8;
+@button_primary_bg: lighten(@tango_light_blue, 20%);
 
 @tango_light_blue: #729fcf;
 
@@ -33,11 +33,14 @@
 }
 
 .column {
-    margin-top: 30px;
 }
 
 .main_margin {
     margin: 10px 20px;
+}
+
+.main_padding {
+    padding: 10px 20px;
 }
 
 .floaty_container {
@@ -57,6 +60,16 @@
 
     padding: 4px 0px;
     padding-bottom: 6px;
+
+    &.transient {
+        background: rgba(0, 0, 0, 0.02);
+
+        // border-radius: 0px;
+
+        border: 1px dashed rgba(0, 0, 0, 0.10);
+
+        box-shadow: none;
+    }
 }
 
 .standard_font {
@@ -68,15 +81,14 @@
     text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
 }
 
-h1,
-h2 {
+h1 {
     color: @light_text;
     .embossed_text;
 
     text-align: center;
 }
 
-h2 {
+h1 {
     font-size: 100%;
 
     margin-top: 0px;
@@ -261,7 +273,9 @@ table.summary {
 }
 
 #expense_form {
-    .main_margin;
+    .main_padding;
+
+    text-align: left;
 
     label {
         color: @lighter_gray;
@@ -275,8 +289,8 @@ table.summary {
     input {
         padding: 6px;
 
-        border: 1px solid rgba(0, 0, 0, 0.20);
-        border-bottom-color: rgba(0, 0, 0, 0.40);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom-color: rgba(0, 0, 0, 0.30);
 
         background: white;
 
@@ -284,6 +298,10 @@ table.summary {
 
         &:focus {
             .focus_outline;
+        }
+
+        &.long {
+            width: 100%;
         }
     }
 }
@@ -299,16 +317,33 @@ table.summary {
 
         background: @button_bg;
 
-        border: 1px solid rgba(0, 0, 0, 0.10);
-        border-bottom-color: rgba(0, 0, 0, 0.20);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-bottom-color: rgba(0, 0, 0, 0.25);
 
         border-radius: 2px;
 
         font-weight: bold;
 
+        &:hover:not(:focus) {
+            background: lighten(@button_bg, 10%);
+            border-color: rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.08);
+
+            color: black;
+        }
+
         &.primary {
             background: @button_primary_bg;
+            border-color: rgba(0, 0, 0, 0.10);
             border-bottom-color: rgba(0, 0, 0, 0.30);
+
+            &:focus {
+                border-color: rgba(0, 0, 0, 0.30);
+            }
+
+            &:hover {
+                background: lighten(@button_primary_bg, 2%);
+            }
         }
     }
 }
@@ -334,10 +369,14 @@ button {
     &:hover {
         cursor: pointer;
     }
-}
 
-h1 {
-    text-align: center;
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+
+    padding: 8px 4px;
+
+    width: 100%;
     margin: 0px;
-    font-size: 160%;
 }

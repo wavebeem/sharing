@@ -33,6 +33,8 @@ function ExpenseForm() {
         return _.range(1, numDays + 1);
     });
 
+    self.spendTarget = ko.observable('');
+
     self.visible = ko.observable(true);
 
     self.price = ko.observable('');

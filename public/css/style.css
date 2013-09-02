@@ -9,11 +9,11 @@
   float: right;
   width: 60%;
 }
-.column {
-  margin-top: 30px;
-}
 .main_margin {
   margin: 10px 20px;
+}
+.main_padding {
+  padding: 10px 20px;
 }
 .floaty_container {
   text-align: center;
@@ -25,6 +25,11 @@
   padding: 4px 0px;
   padding-bottom: 6px;
 }
+.floaty_container.transient {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+}
 .standard_font {
   font-family: "Lucida Grande", "Segoe UI", sans-serif;
   font-size: 16px;
@@ -32,13 +37,12 @@
 .embossed_text {
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
 }
-h1,
-h2 {
+h1 {
   color: #aaaaaa;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
   text-align: center;
 }
-h2 {
+h1 {
   font-size: 100%;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -105,6 +109,11 @@ table.summary tbody tr:first-child td {
   padding-bottom: 6px;
   text-align: left;
   padding: 10px;
+}
+.expense_item.transient {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 .clearfix {
   clear: both;
@@ -180,7 +189,8 @@ table.summary tbody tr:first-child td {
   border-color: rgba(0, 0, 0, 0.5);
 }
 #expense_form {
-  margin: 10px 20px;
+  padding: 10px 20px;
+  text-align: left;
 }
 #expense_form label {
   color: #f4f4f4;
@@ -191,8 +201,8 @@ table.summary tbody tr:first-child td {
 #expense_form select,
 #expense_form input {
   padding: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(0, 0, 0, 0.3);
   background: white;
   border-radius: 0px;
 }
@@ -202,6 +212,10 @@ table.summary tbody tr:first-child td {
   box-shadow: 0px 0px 0px 3px rgba(114, 159, 207, 0.5);
   border-color: rgba(0, 0, 0, 0.5);
 }
+#expense_form select.long,
+#expense_form input.long {
+  width: 100%;
+}
 .button_group {
   text-align: center;
 }
@@ -210,14 +224,27 @@ table.summary tbody tr:first-child td {
   padding: 0.40em 0.90em;
   padding-bottom: 0.50em;
   background: #f8f8f8;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-bottom-color: rgba(0, 0, 0, 0.25);
   border-radius: 2px;
   font-weight: bold;
 }
+.button_group button:hover:not(:focus) {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.08);
+  color: black;
+}
 .button_group button.primary {
-  background: #d8d8d8;
+  background: #bed3e9;
+  border-color: rgba(0, 0, 0, 0.1);
   border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+.button_group button.primary:focus {
+  border-color: rgba(0, 0, 0, 0.3);
+}
+.button_group button.primary:hover {
+  background: #c6d8eb;
 }
 button:hover {
   cursor: pointer;
@@ -232,12 +259,14 @@ button:focus {
   border: none;
   text-align: center;
   color: #aaaaaa;
+  padding: 8px 4px;
+  width: 100%;
+  margin: 0px;
 }
 .form_toggle:hover {
   cursor: pointer;
 }
-h1 {
-  text-align: center;
-  margin: 0px;
-  font-size: 160%;
+.form_toggle:hover,
+.form_toggle:focus {
+  text-decoration: underline;
 }

@@ -18,13 +18,12 @@
         <style id="name_css"></style>
     </head>
     <body>
-        <h1>Expense Tracker</h1>
         <div id="debts" class="column" data-bind="foreach: expenseGroup().summary()">
-            <h2
+            <h1
             colspan="2"
             data-bind="
             text: $data[0].debtor + ' owes',
-            css: 'color_' + $data[0].debtor"></h2>
+            css: 'color_' + $data[0].debtor"></h1>
             <div class="floaty_container">
                 <table class="summary">
                     <tbody data-bind="foreach: $data">
@@ -37,41 +36,46 @@
             </div>
         </div>
         <div id="expenses" class="column">
-            <h2>Expenses</h2>
-            <div class="floaty_container">
+            <h1>Expenses</h1>
+            <div class="main_margin">
                 <button
                 type="button"
-                class="form_toggle"
+                class="form_toggle floaty_container transient"
                 data-bind="
                 visible: tempExpenseForm().notVisibile,
                 click: tempExpenseForm().show">
                     add expense&hellip;
                 </button>
-                <form
-                action=""
-                id="expense_form"
-                data-bind="
-                with: tempExpenseForm,
-                submit: saveTempExpense,
-                visible: tempExpenseForm().visible">
-                    <div>
-                        <select data-bind="options: $root.people"></select>
-                        <span class="trivial_word">on</span>
-                        <select data-bind="options: months, value: selectedMonth"></select>
-                        <select data-bind="options: days,   value: selectedDay"></select>
-                        <select data-bind="options: years,  value: selectedYear"></select>
-                    </div>
-                    <div>
-                        <input type="number" min="1" max="9999" step="1" placeholder="price" data-bind="value: price">
-                        <span class="trivial_word">for</span>
-                        <input id="new_expense_description" type="text" placeholder="description" data-bind="value: description">
-                    </div>
-                    <div class="button_group">
-                        <button type="submit" class="primary"><span class="icon icon-plus"></span>Add</button>
-                        <button type="button" data-bind="click: hide"><span class="icon icon-close"></span>Cancel</button>
-                    </div>
-                </form>
             </div>
+            <form
+            action=""
+            id="expense_form"
+            class="floaty_container transient"
+            data-bind="
+            with: tempExpenseForm,
+            submit: saveTempExpense,
+            visible: tempExpenseForm().visible">
+                <div>
+                    <span data-bind="text: $root.currentUser"></span>
+                    <span class="trivial_word">spent</span>
+                    <input type="number" min="1" max="9999" step="1" placeholder="$" data-bind="value: price">
+                    <span class="trivial_word">for</span>
+                    <select data-bind="options: $root.everyoneAndPeople, value: spendTarget"></select>
+                </div>
+                <div>
+                    <span class="trivial_word">on</span>
+                    <select data-bind="options: months, value: selectedMonth"></select>
+                    <select data-bind="options: days,   value: selectedDay"></select>
+                    <select data-bind="options: years,  value: selectedYear"></select>
+                </div>
+                <div>
+                    <input id="new_expense_description" class="long" type="text" placeholder="groceries, bills, etc." data-bind="value: description">
+                </div>
+                <div class="button_group">
+                    <button type="submit" class="primary"><span class="icon icon-plus"></span>Add</button>
+                    <button type="button" data-bind="click: hide"><span class="icon icon-close"></span>Cancel</button>
+                </div>
+            </form>
             <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
                 <div class="expense_item">
                     <div>

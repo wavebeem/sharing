@@ -7,6 +7,8 @@ function Root() {
 
     GLOBAL.$root = self;
 
+    self.currentUser = ko.observable('Brian');
+
     var backgroundFor = function(name) {
         var i = people().indexOf(name);
         return colors[mod(i, colors.length)];
@@ -37,6 +39,9 @@ function Root() {
         write: function(people_) { people(people_.slice(0).sort()) },
     });
     self.people.subscribe(self.makeCss);
+    self.everyoneAndPeople = ko.computed(function() {
+        return ['everyone'].concat(self.people());
+    });
 
     self.expenseGroup = ko.observable(new ExpenseGroup());
 }
