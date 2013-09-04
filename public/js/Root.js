@@ -40,8 +40,46 @@ function Root() {
     });
     self.people.subscribe(self.makeCss);
     self.everyoneAndPeople = ko.computed(function() {
-        return ['everyone'].concat(self.people());
+        var everyoneButMe = _(self.people()).filter(function(name) {
+            return name !== self.currentUser();
+        });
+
+        return ['everyone'].concat(everyoneButMe);
     });
 
     self.expenseGroup = ko.observable(new ExpenseGroup());
+
+    var codes = {
+        78: 'n',
+        27: 'ESC'
+    };
+
+    var keybinds = {
+        n: function() {
+            $root.tempExpenseForm().show();
+            $("#expense_form #price_field").focus();
+        },
+
+        ESC: function() {
+            $root.tempExpenseForm().hide();
+        },
+    };
+
+    keybinds.n.global = true;
+
+    self.handleKeyboardShortcuts = function(data, event) {
+        var key    = codes[event.which];
+        var bind   = keybinds[key];
+        var global = bind && bind.global
+        var target = event.target;
+        var body   = document.body;
+        var applicable = !global || (global && target === body);
+
+        if (bind && applicable) {
+            bind();
+        }
+        else {
+            return true;
+        }
+    };
 }
