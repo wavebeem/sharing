@@ -23,6 +23,32 @@ function daysInMonth(month, year) {
     return new Date(year, month, 0).getDate();
 }
 
+function formattedCurrency(money) {
+    return ko.computed(function() {
+        var $ = ko.unwrap(money);
+        return '$' + $.toFixed(2);
+    });
+}
+
+function formattedDate(date) {
+    return ko.computed(function() {
+        var d = ko.unwrap(date);
+
+        var day = d.getDate();
+        var mon = d.getMonth() + 1;
+        var yr  = d.getFullYear();
+
+        var pieces = [mon, day];
+
+        // Only show year if different than current
+        if (yr !== new Date().getFullYear()) {
+            pieces.push(yr);
+        }
+
+        return pieces.join('/');
+    });
+}
+
 var colors = [
     "#75507b", // plum
     "#cc0000", // scarlet red

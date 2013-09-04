@@ -28,7 +28,7 @@
                 <table class="summary">
                     <tbody data-bind="foreach: $data">
                         <tr>
-                            <td class="money" data-bind="text: amount.toFixed(0)"></td>
+                            <td class="money" data-bind="text: formattedCurrency(amount)"></td>
                             <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
                         </tr>
                     </tbody>
@@ -50,7 +50,7 @@
             <form
             action=""
             id="expense_form"
-            class="floaty_container transient"
+            class="floaty_container"
             data-bind="
             with: tempExpenseForm,
             submit: saveTempExpense,
@@ -79,18 +79,20 @@
             <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
                 <div class="expense_item">
                     <div>
-                        <span class="money"><span data-bind="text: formattedPrice"></span></span>
+                        <span class="money"><span data-bind="text: formattedCurrency(price)"></span></span>
                         <span class="trivial_word">on</span>
-                        <span data-bind="text: formattedDate"></span>
+                        <span data-bind="text: formattedDate(date)"></span>
                         <span class="trivial_word">by</span>
                         <span data-bind="text: paidBy"></span>
-                        <span class="trivial_word">for</span>
-                        <span data-bind="text: paidFor"></span>
+                        <span data-bind="visible: paidFor() !== 'everyone'">
+                            <span class="trivial_word">for</span>
+                            <span data-bind="text: paidFor"></span>
+                        </span>
                     </div>
                     <div>
                         <span class="description" data-bind="text: description"></span
                         ><span class="share_value">
-                            <span class="money" data-bind="text: formattedShare"></span>
+                            <span class="money" data-bind="text: formattedCurrency(share)"></span>
                             <span class="trivial_word">each</span>
                         </span>
                     </div>

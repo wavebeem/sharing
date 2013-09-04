@@ -89,7 +89,7 @@ table.summary td div {
   padding-bottom: 3px;
 }
 table.summary td.money {
-  width: 4em;
+  width: 7em;
   text-align: right;
 }
 table.summary tbody tr:first-child td {
@@ -231,10 +231,8 @@ table.summary tbody tr:first-child td {
   font-weight: bold;
 }
 .button_group button:hover:not(:focus) {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.25);
-  box-shadow: inset 0px -3px 0px 0px rgba(0, 0, 0, 0.08);
-  color: black;
+  background: #fbfbfb;
+  border-color: rgba(0, 0, 0, 0.3);
 }
 .button_group button.primary {
   background: #bed3e9;
