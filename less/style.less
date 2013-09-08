@@ -11,6 +11,18 @@
 
 @tango_light_blue: #729fcf;
 
+@button_border:         fadeout(black, 90%);
+@button_hover_border:   fadeout(black, 80%);
+@button_focus_border:   fadeout(black, 70%);
+
+@button_hover_bg: darken(@tango_light_blue, 0%);
+
+@button_bg: darken(@tango_light_blue, 10%);
+@button_fg: #fafafa;
+
+@close_bg:          #aaaaaa;
+@close_focus_bg:    #cccccc;
+
 * {
     .border_box;
 }
@@ -33,6 +45,47 @@
 .firefox_hide_select_arrows {
     text-indent: 0.01px;
     text-overflow: '';
+}
+
+.round(@r: 2px) {
+    -webkit-border-radius: @r;
+    -moz-border-radius: @r;
+    -ms-border-radius: @r;
+    -o-border-radius: @r;
+    border-radius: @r;
+}
+
+.circle {
+    .round(100%);
+}
+
+#new_expense_hide {
+    .circle;
+
+    position: absolute;
+
+    top:   10px;
+    right: 8px;
+
+    border: none;
+
+    line-height: 0px;
+
+    padding: 4px;
+    margin:  0px;
+
+    background: @close_bg;
+
+    img {
+        width:  10px;
+        height: 10px;
+    }
+
+    &:focus,
+    &:hover {
+        background: @close_focus_bg;
+        outline: none;
+    }
 }
 
 #debts {
@@ -69,6 +122,8 @@
     display: block;
     background: #fff;
 
+    position: relative;
+
     .main_margin;
 
     border-radius: 2px;
@@ -97,13 +152,8 @@
     font-size: 16px;
 }
 
-.embossed_text {
-    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.75);
-}
-
 h1 {
     color: @light_text;
-    .embossed_text;
 
     text-align: center;
 }
@@ -111,8 +161,8 @@ h1 {
 h1 {
     font-size: 100%;
 
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-top: 1em;
+    margin-bottom: -0.30em;
 }
 
 html {
@@ -313,8 +363,6 @@ table.summary {
     input {
         .appearance_none;
 
-        padding: 6px;
-
         border: none;
         box-shadow: 0px 2px 0px fadeout(black, 80%);
 
@@ -326,17 +374,52 @@ table.summary {
             .focus_outline;
         }
 
-        &.long {
-            width: 100%;
+        &:hover:not(:focus) {
+            box-shadow: 0px 0px 0px 2px fadeout(black, 80%);
+        }
+
+        &:hover,
+        &:focus {
+            background: @lighter_gray;
+            box-shadow: 0px 0px 0px 2px fadeout(black, 60%);
+            // .round;
+        }
+    }
+
+    select,
+    input,
+    button {
+        padding: 6px;
+        font-size: 100%;
+        vertical-align: baseline;
+    }
+
+    button:not(.close) {
+        background: @button_bg;
+        color:      @button_fg;
+
+        border: 2px solid @button_border;
+
+        text-transform: lowercase;
+
+        .round;
+
+        vertical-align: bottom;
+
+        &:hover,
+        &:focus {
+            outline: none;
+            background: @button_hover_bg;
         }
 
         &:hover {
-            box-shadow: 0px 2px 0px fadeout(black, 60%);
+            border-color: @button_hover_border;
         }
 
-        font-size: 100%;
-
-        vertical-align: baseline;
+        &:active,
+        &:focus {
+            border-color: @button_focus_border;
+        }
     }
 
     // Hack to hide arrows in Firefox
@@ -353,51 +436,16 @@ table.summary {
     }
 }
 
-.button_group {
-    text-align: center;
+#add_button                 { width: 20%; }
+#new_expense_description    { width: 75%; }
 
-    padding-top: 8px;
-    margin-bottom: -8px;
-
-    button {
-        min-width: 8em;
-        padding: 0.40em 1.90em;
-
-        padding-bottom: 0.50em;
-
-        background: @button_bg;
-
-        text-transform: uppercase;
-
-        font-size: 60%;
-
-        // border: none;
-        border: none;
-        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
-
-        box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.40);
-
-        border-radius: 2px;
-
-        font-weight: bold;
-
-        &:hover:not(:focus) {
-            border-color: rgba(0, 0, 0, 0.15);
-        }
-
-        &.primary {
-            background: @button_primary_bg;
-        }
-    }
+#add_button {
+    float: right;
 }
 
 button {
     &:hover {
         cursor: pointer;
-    }
-
-    &:focus {
-        .focus_outline;
     }
 }
 
@@ -416,6 +464,7 @@ button {
     &:hover,
     &:focus {
         text-decoration: underline;
+        outline: none;
     }
 
     padding: 8px 4px;

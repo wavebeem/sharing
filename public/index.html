@@ -56,6 +56,9 @@
             with: tempExpenseForm,
             submit: saveTempExpense,
             visible: tempExpenseForm().visible">
+                <button type="button" class="close" id="new_expense_hide" data-bind="click: hide">
+                    <img src="img/close.png">
+                </button>
                 <div>
                     <span data-bind="text: $root.currentUser"></span>
                     <span class="trivial_word">spent</span>
@@ -79,10 +82,7 @@
                     type="text"
                     placeholder="groceries, bills, etc."
                     data-bind="value: description">
-                </div>
-                <div class="button_group">
-                    <button type="submit" class="primary"><span class="icon icon-plus"></span>Add</button>
-                    <button type="button" id="new_expense_hide" data-bind="click: hide"><span class="icon icon-close"></span>Cancel</button>
+                    <button id="add_button" type="submit">Add</button>
                 </div>
             </form>
             <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">

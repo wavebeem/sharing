@@ -6,7 +6,7 @@ var less    = require('less-middleware');
 var app = express();
 
 var env  = process.env.ENV || 'dev';
-var port = env === 'dev' ? 3000 : 4000;
+var port = env === 'dev' ? 8000 : 8001;
 
 app.set('port', port);
 app.set('env',  env);
