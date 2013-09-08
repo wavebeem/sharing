@@ -48,40 +48,4 @@ function Root() {
     });
 
     self.expenseGroup = ko.observable(new ExpenseGroup());
-
-    var codes = {
-        78: 'n',
-        27: 'ESC'
-    };
-
-    var keybinds = {
-        n: function() {
-            $root.tempExpenseForm(new ExpenseForm());
-            $root.tempExpenseForm().show();
-            $("#expense_form #price_field").focus();
-        },
-
-        ESC: function() {
-            $root.tempExpenseForm().hide();
-            $root.tempExpenseForm(null);
-        },
-    };
-
-    keybinds.n.global = true;
-
-    self.handleKeyboardShortcuts = function(data, event) {
-        var key    = codes[event.which];
-        var bind   = keybinds[key];
-        var global = bind && bind.global
-        var target = event.target;
-        var body   = document.body;
-        var applicable = !global || (global && target === body);
-
-        if (bind && applicable) {
-            bind();
-        }
-        else {
-            return true;
-        }
-    };
 }
