@@ -27,6 +27,12 @@
     .border_box;
 }
 
+// Fix for fat buttons in Firefox
+button::-moz-focus-inner {
+    margin: -1px;
+    padding: 0;
+}
+
 .border_box {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
