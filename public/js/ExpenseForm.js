@@ -37,7 +37,7 @@ function ExpenseForm() {
 
     self.visible = ko.observable(true);
 
-    self.price = ko.observable('').extend({ number: true });
+    self.price = ko.observable('').extend({ money: true });
 
     self.description = ko.observable('');
 

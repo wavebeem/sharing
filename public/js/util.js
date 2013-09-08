@@ -72,3 +72,28 @@ _.mixin({
         return x;
     }
 });
+
+ko.extenders.money = function(target, opts) {
+    var result = ko.computed({
+        read: target,
+        write: function(val) {
+            val = val.replace(/^[^0-9.]+/g, '');
+            var cur = target();
+            var out = '$' + parseFloat(val).toFixed(2);
+
+            if (isNaN(parseFloat(val))) {
+                target('');
+            }
+            else if (out !== cur) {
+                target(out);
+            }
+            else if (val !== cur) {
+                target.notifySubscribers(out);
+            }
+        }
+    });
+
+    result(target());
+
+    return result;
+};

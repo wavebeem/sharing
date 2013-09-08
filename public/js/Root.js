@@ -56,12 +56,14 @@ function Root() {
 
     var keybinds = {
         n: function() {
+            $root.tempExpenseForm(new ExpenseForm());
             $root.tempExpenseForm().show();
             $("#expense_form #price_field").focus();
         },
 
         ESC: function() {
             $root.tempExpenseForm().hide();
+            $root.tempExpenseForm(null);
         },
     };
 
