@@ -23,14 +23,17 @@
 @close_bg:          #aaaaaa;
 @close_focus_bg:    #cccccc;
 
+@border_size: 1px;
+
 * {
     .border_box;
 }
 
 // Fix for fat buttons in Firefox
-button::-moz-focus-inner {
+::-moz-focus-inner {
     margin: -1px;
     padding: 0;
+    border: 0;
 }
 
 .border_box {
@@ -123,16 +126,15 @@ button::-moz-focus-inner {
 }
 
 .floaty_container {
+    .main_margin;
+    .round;
+
     text-align: center;
 
     display: block;
     background: #fff;
 
     position: relative;
-
-    .main_margin;
-
-    border-radius: 2px;
 
     // box-shadow:
     //     0px  1px 2px rgba(0, 0, 0, 0.25),
@@ -250,6 +252,10 @@ table.summary {
 
     & > div > * {
         display: inline-block;
+    }
+
+    & > div:not(:first-child) {
+        margin-top: 0.50em;
     }
 
     .description {
@@ -374,7 +380,7 @@ table.summary {
         .appearance_none;
 
         border: none;
-        box-shadow: 0px 2px 0px fadeout(black, 80%);
+        box-shadow: 0px @border_size 0px fadeout(black, 80%);
 
         background: transparent;
 
@@ -385,13 +391,13 @@ table.summary {
         }
 
         &:hover:not(:focus) {
-            box-shadow: 0px 0px 0px 2px fadeout(black, 80%);
+            box-shadow: 0px 0px 0px @border_size fadeout(black, 80%);
         }
 
         &:hover,
         &:focus {
             background: @lighter_gray;
-            box-shadow: 0px 0px 0px 2px fadeout(black, 60%);
+            box-shadow: 0px 0px 0px @border_size fadeout(black, 60%);
             // .round;
         }
     }
@@ -408,7 +414,7 @@ table.summary {
         background: @button_bg;
         color:      @button_fg;
 
-        border: 2px solid @button_border;
+        border: @border_size solid @button_border;
 
         text-transform: lowercase;
 
