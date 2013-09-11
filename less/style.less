@@ -21,8 +21,8 @@
 @button_bg: darken(@tango_light_blue, 10%);
 @button_fg: #fafafa;
 
-@header_bg: lighten(@tango_light_blue, 30%);
-@header_fg: lighten(black, 40%);
+@header_bg: @bg + #080808;
+@header_fg: @header_bg - #888;
 
 @close_bg:          #aaaaaa;
 @close_focus_bg:    #cccccc;
@@ -40,7 +40,7 @@
     border: 0;
 }
 
-.border_box {
+.border_box() {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -48,7 +48,7 @@
     box-sizing: border-box;
 }
 
-.appearance_none {
+.appearance_none() {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -95,9 +95,8 @@
 
     // box-shadow: inset 0px -1px 1px 0px fadeout(black, 80%);
 
-    border: 1px solid fadeout(black, 85%);
-    border-top-color: transparent;
-    border-bottom-color: fadeout(black, 75%);
+    // box-shadow: inset 0px -3px 0px fadeout(black, 99%);
+    border-bottom: 1px solid fadeout(black, 90%);
 
     background: @header_bg;
     color: @header_fg;
@@ -202,7 +201,10 @@
 
         // border-radius: 0px;
 
-        border: 1px dashed rgba(0, 0, 0, 0.10);
+        // border: 1px dashed rgba(0, 0, 0, 0.10);
+        border: 1px solid    rgba(0, 0, 0, 0.06);
+        border-top-color:    rgba(0, 0, 0, 0.04);
+        border-bottom-color: rgba(0, 0, 0, 0.08);
 
         box-shadow: none;
     }
