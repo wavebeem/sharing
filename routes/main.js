@@ -13,9 +13,11 @@ exports.getPeople = function(req, res) {
 
 exports.addPerson = function(req, res) {
     res.type('json');
-    db.run('insert into people(name) values(:name)', {
-        name: req.body.name
-    }, function(err) {
+    // db.run('insert into people(name) values(:name)', {
+    //     name: req.body.name
+    db.run('insert into people(name) values(?)', [
+        req.body.name
+    ], function(err) {
         res.send({
             stat: err? 'fail' : 'ok'
         });
