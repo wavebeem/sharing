@@ -18,11 +18,10 @@
         <style id="name_css"></style>
     </head>
     <body>
-        <div id="header">
-            <span id="title">Expenses</span>
-            <span id="login">
-                Welcome back, <span data-bind="text: currentUser"></span>
-            </span>
+        <div id="navigation">
+            <div id="title">$sharing</div>
+            <a id="expenses" href="#expenses">Expenses</a>
+            <a id="payments" href="#payments">Payments</a>
         </div>
         <div id="column_container">
             <div id="debts" class="column" data-bind="foreach: expenseGroup().summary()">
