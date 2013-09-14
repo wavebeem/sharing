@@ -28,9 +28,11 @@
 @close_bg:          #aaaaaa;
 @close_focus_bg:    #cccccc;
 
+@tab_stripe_size: 6px;
+
 @border_size: 1px;
 
-@sidebar_size: 200px;
+@sidebar_size: 150px;
 @column_size: 600px;
 
 @tango_purple:  #75507b; // plum
@@ -142,7 +144,6 @@
             background: fadeout(white, 90%);
         }
 
-        &:hover,
         &.selected {
             border-color: @tango_green;
         }
@@ -151,8 +152,10 @@
             outline: none;
         }
 
-        // border-right: 6px solid transparent;
-        border-left: 6px solid transparent;
+        // border-right: @tab_stripe_size solid transparent;
+        border-left: @tab_stripe_size solid transparent;
+
+        // margin-bottom: 1px;
 
         color: @header_fg;
         text-decoration: none;
