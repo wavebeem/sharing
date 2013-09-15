@@ -77,7 +77,7 @@
                         <img src="img/close.svg">
                     </button>
                     <div>
-                        <span data-bind="text: $root.currentUser"></span>
+                        <select data-bind="value: $root.currentUser, options: $root.people"></select>
                         <span class="trivial_word">spent</span>
                         <input id="price_field" class="price" type="text" min="1" max="9999" step="1" placeholder="$" data-bind="value: price">
                         <span class="trivial_word">for</span>
