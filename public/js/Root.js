@@ -49,19 +49,8 @@ function Root() {
 
     self.expenseGroup = ko.observable(new ExpenseGroup());
 
-    self.currentTab = ko.observable('debts');
-    self.currentTab.subscribeChanged(function(vNew, vOld) {
-        var $oldTab = $('#' + vOld + '_tab');
-        var $newTab = $('#' + vNew + '_tab');
-
-        var $old = $('#' + vOld);
-        var $new = $('#' + vNew);
-
-        if ($oldTab) $oldTab.classList.remove('selected');
-        if ($newTab) $newTab.classList.add('selected');
-
-        if ($old) $old.style.display = 'none';
-        if ($new) $new.style.display = '';
+    self.currentTab = ko.observable(localStorage.last_tab || 'expenses');
+    self.currentTab.subscribe(function(val) {
+        localStorage.last_tab = val;
     });
-    self.currentTab('expenses');
 }
