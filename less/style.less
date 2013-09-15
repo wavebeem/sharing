@@ -55,6 +55,12 @@
     border: 0;
 }
 
+.elide {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .border_3d {
     border-color:
         fadeout(black, 96%)
@@ -378,11 +384,12 @@ table.summary {
     }
 
     .description {
-        width: 75%;
+        .elide;
+        width: 65%;
     }
 
     .share_value {
-        width: 25%;
+        width: 35%;
         text-align: right;
     }
 }
@@ -398,9 +405,6 @@ table.summary {
 
 .right {
     text-align: right;
-}
-
-.share_value {
 }
 
 .color_left {
