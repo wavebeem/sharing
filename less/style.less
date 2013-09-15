@@ -118,7 +118,7 @@
 
     padding: 0px;
     padding-top: 0px;
-    padding-bottom: 3px;
+    padding-bottom: 0px;
 
     border-right: 1px solid fadeout(black, 90%);
 
@@ -127,21 +127,15 @@
 
     // margin-bottom: 1em;
 
-    position: fixed;
-    width: @sidebar_size;
-
-    top:    0px;
-    left:   0px;
-    bottom: 0px;
-
-    & > * {
-        display: block;
-        padding: 10px;
-    }
-
+    div,
     a {
-        &:hover {
+        cursor: default;
+
+        display: block;
+
+        &.tab:hover {
             background: fadeout(white, 90%);
+            cursor: pointer;
         }
 
         &.selected {
@@ -152,20 +146,28 @@
             outline: none;
         }
 
+        &.tab {
+            color: @header_fg;
+        }
+
+        padding: 10px;
+
         // border-right: @tab_stripe_size solid transparent;
         border-left: @tab_stripe_size solid transparent;
 
         // margin-bottom: 1px;
 
-        color: @header_fg;
         text-decoration: none;
     }
 }
 
+#nav_toggle,
 #title {
     font-size: 20px;
 
     padding-left: 10px;
+
+    padding-top: 0px;
 
     // border-bottom: 1px solid fadeout(black, 90%);
 
@@ -295,8 +297,6 @@ body {
 #column_container {
     margin: 0px auto;
     text-align: left;
-
-    margin-left: @sidebar_size;
 
     text-align: center;
 }
@@ -590,4 +590,8 @@ button {
 
 @media (max-width: 800px) {
     @import "narrow";
+}
+
+@media (min-width: 801px) {
+    @import "wide";
 }

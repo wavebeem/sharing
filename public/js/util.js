@@ -1,5 +1,7 @@
 'use strict';
 
+function noop() {}
+
 function $(sel) {
     return document.querySelector(sel);
 }
@@ -105,6 +107,10 @@ function PUT(url, data, callback) {
         callback:callback
     });
 }
+
+function toggleObservable(o) {
+    o(!o());
+};
 
 _.mixin({
     megaChain: function(x, fs) {

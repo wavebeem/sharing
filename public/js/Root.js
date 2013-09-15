@@ -53,4 +53,6 @@ function Root() {
     self.currentTab.subscribe(function(val) {
         localStorage.last_tab = val;
     });
+
+    self.menuVisible = ko.observable(true);
 }

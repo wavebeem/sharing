@@ -1,3 +1,6 @@
+@title_text_size: 32px;
+@menu_text_size:  24px;
+
 #column_container {
     max-width: none !important;
 }
@@ -5,4 +8,46 @@
 .column {
     float: none !important;
     width: inherit !important;
+}
+
+#navigation {
+    border-right: none;
+    border-bottom: 1px solid fadeout(black, 60%);
+}
+
+#nav_toggle {
+    font-size: @title_text_size;
+
+    span {
+        display: inline-block;
+        height: 100%;
+    }
+}
+
+#nav_toggle_icon {
+    .appearance_none;
+
+    height: @title_text_size;
+    width:  @title_text_size;
+
+    float: right;
+
+    img {
+        position: relative;
+        top: 2px;
+    }
+}
+
+#navigation {
+    .tab {
+        font-size: @menu_text_size;
+    }
+}
+
+#title {
+    display: none !important;
+}
+
+.menu_collapsed {
+    display: none !important;
 }
