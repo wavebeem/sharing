@@ -3,7 +3,7 @@ create table expenses (
     payer integer,
     amount real,
     date text,
-    spent_for_list text,
+    spent_for_id integer,
     description text
 );
 
