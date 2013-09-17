@@ -34,8 +34,9 @@ app.get('/', function(req, res) {
     res.sendfile('/index.html');
 });
 
-app.get('/api/people', routes.getPeople);
-app.put('/api/people', routes.addPerson);
+app.get('/api/people',   routes.getPeople);
+app.get('/api/expenses', routes.getExpenses);
+app.get('/api/payments', routes.getPayments);
 
 var server = http.createServer(app)
 

@@ -1,25 +1,30 @@
-var sqlite3 = require('sqlite3');
-var db = new sqlite3.Database('db.db');
+// var sqlite3 = require('sqlite3');
+var dblite = require('dblite');
+var db = dblite('db.db');
 
-exports.getPeople = function(req, res) {
-    res.type('json');
-    db.all('select * from people', function(err, people) {
-        res.send({
-            stat: err? 'fail' : 'ok',
-            people: people
+var routeSelectAllFrom = function(table) {
+    return function(req, res) {
+        res.type('json');
+        console.log('table name: ' + table);
+        db.query('select * from ?', [table], function(data) {
+        // db.all('select * from ?', table, function(err, data) {
+            // console.log("SQL: " + this.sql);
+            // if (err) {
+            //     console.log(err);
+            //     err.stat = 'fail',
+            //     err.msg = err.message;
+            //     res.send(err);
+            // }
+            // else {
+                res.send({
+                    stat: 'ok',
+                    data: data
+                });
+            // }
         });
-    });
+    };
 };
 
-exports.addPerson = function(req, res) {
-    res.type('json');
-    // db.run('insert into people(name) values(:name)', {
-    //     name: req.body.name
-    db.run('insert into people(name) values(?)', [
-        req.body.name
-    ], function(err) {
-        res.send({
-            stat: err? 'fail' : 'ok'
-        });
-    });
-};
+exports.getPeople   = routeSelectAllFrom('people');
+exports.getExpenses = routeSelectAllFrom('expenses');
+exports.getPayments = routeSelectAllFrom('payments');
