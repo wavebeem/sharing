@@ -1,5 +1,7 @@
 @title_text_size: 32px;
 @menu_text_size:  24px;
+@header_bg: darken(@bg, 6%);
+@header_fg: #222222;
 
 body {
     min-width: 350px;
@@ -16,11 +18,23 @@ body {
 
 #navigation {
     border-right: none;
-    border-bottom: 1px solid fadeout(black, 60%);
+    // border-bottom: 1px solid fadeout(black, 60%);
+}
+
+#main_menu {
+    border-width: 0px 0px 1px 0px;
+    border-style: solid;
+    border-color: black;
+    display: block;
 }
 
 #nav_toggle {
     font-size: @title_text_size;
+
+    background: @header_bg;
+    color:      @header_fg;
+
+    border-bottom: 1px solid fadeout(black, 90%);
 
     span {
         display: inline-block;
@@ -34,7 +48,7 @@ body {
     height: @title_text_size;
     width:  @title_text_size;
 
-    float: right;
+    // float: right;
 
     img {
         position: relative;

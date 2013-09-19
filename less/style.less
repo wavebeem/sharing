@@ -48,6 +48,10 @@
     .border_box;
 }
 
+i {
+    font-style: normal;
+}
+
 // Fix for fat buttons in Firefox
 ::-moz-focus-inner {
     margin: -1px;
@@ -165,6 +169,10 @@
 
         text-decoration: none;
     }
+
+    #nav_toggle {
+        border-left: none;
+    }
 }
 
 #nav_toggle,
@@ -179,41 +187,20 @@
 
     color: white;
     background: #333;
+
+    i {
+        color: @tango_green;
+    }
+
+    #nav_toggle_icon {
+        color: #888;
+    }
 }
 
 #login {
     font-size: 80%;
     margin-left: 0.50em;
     display: inline-block;
-}
-
-#new_expense_hide {
-    .circle;
-
-    position: absolute;
-
-    top:   10px;
-    right: 8px;
-
-    border: none;
-
-    line-height: 0px;
-
-    padding: 4px;
-    margin:  0px;
-
-    background: @close_bg;
-
-    img {
-        width:  10px;
-        height: 10px;
-    }
-
-    &:focus,
-    &:hover {
-        background: @close_focus_bg;
-        outline: none;
-    }
 }
 
 #debts {
@@ -416,10 +403,10 @@ table.summary {
 }
 
 .stealth_edit {
-    .appearance_none;
+    // .appearance_none;
+    .border_3d;
 
-    border: 1px solid transparent;
-    border-bottom-color: fadeout(black, 80%);
+    border-width: 1px;
 
     background: transparent;
 
@@ -429,15 +416,12 @@ table.summary {
         .focus_outline;
     }
 
-    &:hover:not(:focus) {
-        .border_3d;
-    }
+    background: fadeout(@lighter_gray, 50%);
 
     &:hover,
     &:focus {
-        background: fadeout(@lighter_gray, 50%);
+        background: fadeout(@lighter_gray, 0%);
         .border_3d;
-        // .round;
     }
 }
 
@@ -506,7 +490,11 @@ table.summary {
         margin-bottom: 9px;
     }
 
-    font-size: 120%;
+    & > .button_group {
+        margin-bottom: 0px;
+    }
+
+    font-size: 160%;
 
     select,
     input {
@@ -516,17 +504,21 @@ table.summary {
     select,
     input,
     button {
-        padding: 6px;
+        padding: 3px;
         font-size: 100%;
         vertical-align: baseline;
     }
 
-    button:not(.close) {
-        background: @button_bg;
+    button {
+        // background: @button_bg;
         color:      @button_fg;
+
+        padding: 6px;
 
         border: @border_size solid @button_border;
         .border_3d;
+
+        font-size: 24px;
 
         text-transform: lowercase;
 
@@ -537,7 +529,12 @@ table.summary {
         &:hover,
         &:focus {
             outline: none;
-            background: @button_hover_bg;
+            box-shadow: inset 0px -3px 0px fadeout(black, 70%);
+            // background: @button_hover_bg;
+        }
+
+        i {
+            font-size: 16px;
         }
     }
 
@@ -555,12 +552,23 @@ table.summary {
     }
 }
 
-#add_button                 { width: 20%; }
-#new_expense_description    { width: 75%; }
+.button_group {
+    text-align: center;
 
-#add_button {
-    float: right;
+    margin-top: 9px;
+    margin-bottom: 0px;
+
+    button {
+        display: inline-block;
+        width: 40%;
+        margin: 0px 1px;
+    }
 }
+
+#add_button     { background: @tango_green; }
+#cancel_button  { background: @tango_red; }
+
+#new_expense_description { width: 100%; }
 
 button {
     &:hover {
@@ -599,3 +607,5 @@ button {
 @media (min-width: 801px) {
     @import "wide";
 }
+
+@import "/icon-font/style.css";

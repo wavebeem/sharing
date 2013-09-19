@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>$sharing</title>
+        <title>$ sharing</title>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
         <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>-->
@@ -20,12 +20,13 @@
     </head>
     <body>
         <div id="navigation">
-            <div id="title">$sharing</div>
+            <div id="title"><i>$</i> sharing</div>
             <a id="nav_toggle" href="#" data-bind="event: { click: toggleObservable.bind(null, menuVisible) }">
-                <span id="nav_toggle_icon"><img src="/img/menu.svg"></span>
-                <span>$sharing</span>
+                <!-- <span id="nav_toggle_icon"><img src="/img/menu.svg"></span>-->
+                <i id="nav_toggle_icon" class="icon-menu"></i>
+                <i>$</i> sharing
             </a>
-            <span data-bind="css: { menu_collapsed: menuVisible }">
+            <span id="main_menu" data-bind="css: { menu_collapsed: menuVisible }">
                 <a id="expenses_tab" class="tab" data-bind="css: { selected: currentTab() === 'expenses' }, event: { click: currentTab.bind(null, 'expenses') }" href="#expenses">Expenses</a>
                 <a id="payments_tab" class="tab" data-bind="css: { selected: currentTab() === 'payments' }, event: { click: currentTab.bind(null, 'payments') }" href="#payments">Payments</a>
                 <a id="debts_tab"    class="tab" data-bind="css: { selected: currentTab() === 'debts'    }, event: { click: currentTab.bind(null, 'debts') }"    href="#debts">Debts</a>
@@ -72,8 +73,6 @@
                 with: tempExpenseForm,
                 submit: saveTempExpense,
                 visible: tempExpenseForm().visible">
-                    <button type="button" class="close" id="new_expense_hide" data-bind="click: hide">
-                        <img src="img/close.svg">
                     </button>
                     <div>
                         <select data-bind="value: $root.currentUser, options: $root.people"></select>
@@ -85,9 +84,7 @@
                     <div>
                         <span class="trivial_word">on</span>
                         <select data-bind="options: months, value: selectedMonth"></select>
-                        <span class="trivial_word">/</span>
                         <select data-bind="options: days,   value: selectedDay"></select>
-                        <span class="trivial_word">/</span>
                         <select data-bind="options: years,  value: selectedYear"></select>
                         <span class="trivial_word">to pay for</span>
                     </div>
@@ -98,7 +95,10 @@
                         type="text"
                         placeholder="groceries, bills, etc."
                         data-bind="value: description">
-                        <button id="add_button" type="submit">Add</button>
+                    </div>
+                    <div class="button_group">
+                        <button id="add_button" type="submit"><i class="icon-plus"></i> Add</button>
+                        <button id="cancel_button" data-bind="event: { click: hide }" type="button"><i class="icon-close"></i> Cancel</button>
                     </div>
                 </form>
                 <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
