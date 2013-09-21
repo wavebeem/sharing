@@ -68,30 +68,36 @@
                 <form
                 action=""
                 id="expense_form"
-                class="floaty_container"
+                class="floaty_container transient"
                 data-bind="
                 with: tempExpenseForm,
                 submit: saveTempExpense,
                 visible: tempExpenseForm().visible">
                     </button>
-                    <div>
+                    <div class="field">
+                        <span class="trivial_word">who</span>
                         <select data-bind="value: $root.currentUser, options: $root.people"></select>
-                        <span class="trivial_word">spent</span>
+                    </div>
+                    <div class="field">
+                        <span class="trivial_word">what</span>
                         <input id="price_field" class="price" type="text" min="1" max="9999" step="1" placeholder="$" data-bind="value: price">
-                        <span class="trivial_word">for</span>
+                    </div>
+                    <div class="field">
+                        <span class="trivial_word">whom</span>
                         <select data-bind="options: $root.everyoneAndPeople, value: spendTarget"></select>
                     </div>
-                    <div>
-                        <span class="trivial_word">on</span>
+                    <div class="field">
+                        <span class="trivial_word">when</span>
                         <select data-bind="options: months, value: selectedMonth"></select>
                         <select data-bind="options: days,   value: selectedDay"></select>
                         <select data-bind="options: years,  value: selectedYear"></select>
-                        <span class="trivial_word">to pay for</span>
-                    </div>
-                    <div>
+                    </div class="field">
+                    <div class="field">
+                        <!-- <span class="trivial_word">to pay for</span>-->
+                        <span class="trivial_word">why</span>
                         <input
                         id="new_expense_description"
-                        class="long description"
+                        class="description"
                         type="text"
                         placeholder="groceries, bills, etc."
                         data-bind="value: description">

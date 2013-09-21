@@ -18,13 +18,12 @@ body {
 
 #navigation {
     border-right: none;
-    // border-bottom: 1px solid fadeout(black, 60%);
 }
 
 #main_menu {
-    border-width: 0px 0px 1px 0px;
-    border-style: solid;
-    border-color: black;
+    border: 0px;
+    border-top:    1px solid @header_bg;
+    border-bottom: 1px solid black;
     display: block;
 }
 
@@ -34,7 +33,7 @@ body {
     background: @header_bg;
     color:      @header_fg;
 
-    border-bottom: 1px solid fadeout(black, 90%);
+    border-bottom: 1px solid fade(black, 10%);
 
     span {
         display: inline-block;
@@ -71,5 +70,11 @@ body {
 }
 
 #expense_form {
-    font-size: 100%;
+    // font-size: 100%;
+}
+
+.field {
+    .description {
+        width: 5em;
+    }
 }

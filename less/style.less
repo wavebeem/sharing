@@ -13,9 +13,9 @@
 @tango_light_blue: #729fcf;
 @tango_mid_orange: #f57900;
 
-@button_border:         fadeout(black, 90%);
-@button_hover_border:   fadeout(black, 80%);
-@button_focus_border:   fadeout(black, 70%);
+@button_border:         fade(black, 10%);
+@button_hover_border:   fade(black, 20%);
+@button_focus_border:   fade(black, 30%);
 
 @button_hover_bg: darken(@tango_light_blue, 0%);
 
@@ -65,12 +65,12 @@ i {
     white-space: nowrap;
 }
 
-.border_3d {
+.border_3d(@darkness: 0%) {
     border-color:
-        fadeout(black, 96%)
-        fadeout(black, 90%)
-        fadeout(black, 80%)
-        fadeout(black, 90%);
+        fade(black, ( 4% + @darkness))
+        fade(black, (10% + @darkness))
+        fade(black, (20% + @darkness))
+        fade(black, (10% + @darkness));
 }
 
 .border_box {
@@ -86,11 +86,6 @@ i {
     -moz-appearance: none;
     -ms-appearance: none;
     -o-appearance: none;
-}
-
-.firefox_hide_select_arrows {
-    text-indent: 0.01px;
-    text-overflow: "";
 }
 
 .round(@r: 2px) {
@@ -130,7 +125,7 @@ i {
     padding-top: 0px;
     padding-bottom: 0px;
 
-    border-right: 1px solid fadeout(black, 90%);
+    border-right: 1px solid fade(black, 10%);
 
     background: @header_bg;
     color: @header_fg;
@@ -144,7 +139,7 @@ i {
         display: block;
 
         &.tab:hover {
-            background: fadeout(white, 90%);
+            background: fade(white, 10%);
             cursor: pointer;
         }
 
@@ -182,8 +177,6 @@ i {
     padding-left: 10px;
 
     padding-top: 0px;
-
-    // border-bottom: 1px solid fadeout(black, 90%);
 
     color: white;
     background: #333;
@@ -233,9 +226,9 @@ i {
     //     0px  1px 0px rgba(0, 0, 0, 0.10),
     //     0px -1px 0px rgba(0, 0, 0, 0.02);
 
-    border: 1px solid fadeout(black, 85%);
-    border-top-color: fadeout(black, 88%);
-    border-bottom-color: fadeout(black, 75%);
+    border: 1px solid fade(black, 15%);
+    border-top-color: fade(black, 12%);
+    border-bottom-color: fade(black, 25%);
 
     padding: 4px 0px;
     padding-bottom: 6px;
@@ -262,7 +255,7 @@ i {
 h1 {
     color: @light_text;
 
-    text-align: center;
+    text-align: left;
 }
 
 h1 {
@@ -403,8 +396,7 @@ table.summary {
 }
 
 .stealth_edit {
-    // .appearance_none;
-    .border_3d;
+    .border_3d(10%);
 
     border-width: 1px;
 
@@ -414,15 +406,10 @@ table.summary {
 
     &:focus {
         .focus_outline;
+        .border_3d(20%);
     }
 
-    background: fadeout(@lighter_gray, 50%);
-
-    &:hover,
-    &:focus {
-        background: fadeout(@lighter_gray, 0%);
-        .border_3d;
-    }
+    background: white;
 }
 
 .shares_paid {
@@ -474,7 +461,7 @@ table.summary {
 .focus_outline {
     outline: none;
 
-    border-bottom-color: black;
+    box-shadow: 0px 0px 0px 3px fade(@tango_blue, 20%);
 }
 
 #expense_form {
@@ -504,7 +491,7 @@ table.summary {
     select,
     input,
     button {
-        padding: 3px;
+        padding: 4px;
         font-size: 100%;
         vertical-align: baseline;
     }
@@ -525,11 +512,12 @@ table.summary {
         .round;
 
         vertical-align: bottom;
+        box-shadow: inset 0px -2px 0px fade(black, 10%);
 
         &:hover,
         &:focus {
             outline: none;
-            box-shadow: inset 0px -3px 0px fadeout(black, 70%);
+            box-shadow: inset 0px -4px 0px fade(black, 10%);
             // background: @button_hover_bg;
         }
 
@@ -538,37 +526,55 @@ table.summary {
         }
     }
 
-    // Hack to hide arrows in Firefox
-    select {
-        .firefox_hide_select_arrows;
-
-        &:hover {
-            cursor: pointer;
-        }
+    select:hover {
+        cursor: pointer;
     }
 
     input.price {
         width: 5em;
+    }
+
+    .button_group {
+        border-top: 1px dashed fade(black, 10%);
+
+        margin-left:  -20px;
+        margin-right: -20px;
     }
 }
 
 .button_group {
     text-align: center;
 
+    padding: 9px;
+    padding-bottom: 0px;
     margin-top: 9px;
     margin-bottom: 0px;
 
     button {
         display: inline-block;
-        width: 40%;
+        width: 45%;
         margin: 0px 1px;
+    }
+}
+
+.field {
+    .trivial_word {
+        display: inline-block;
+        min-width: 3em;
+    }
+
+    .description {
+        width: 50%;
     }
 }
 
 #add_button     { background: @tango_green; }
 #cancel_button  { background: @tango_red; }
 
-#new_expense_description { width: 100%; }
+#add_button:hover, #add_button:focus        { background: desaturate(lighten(@tango_green, 10%), 20%); }
+#cancel_button:hover, #cancel_button:focus  { background: desaturate(lighten(@tango_red,   10%), 20%); }
+
+// #new_expense_description { width: 100%; }
 
 button {
     &:hover {
