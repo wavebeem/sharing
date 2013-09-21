@@ -57,18 +57,18 @@
                 <div class="main_margin">
                     <button
                     type="button"
-                    class="form_toggle floaty_container transient"
+                    class="form_toggle"
                     id="new_expense_show"
                     data-bind="
                     visible: tempExpenseForm().notVisibile,
                     click: tempExpenseForm().show">
-                        add expense&hellip;
+                        <i class="icon-plus"></i> add expense&hellip;
                     </button>
                 </div>
                 <form
                 action=""
                 id="expense_form"
-                class="floaty_container transient"
+                class="floaty_container"
                 data-bind="
                 with: tempExpenseForm,
                 submit: saveTempExpense,
@@ -88,9 +88,11 @@
                     </div>
                     <div class="field">
                         <span class="trivial_word">when</span>
-                        <select data-bind="options: months, value: selectedMonth"></select>
-                        <select data-bind="options: days,   value: selectedDay"></select>
-                        <select data-bind="options: years,  value: selectedYear"></select>
+                        <div class="date_group">
+                            <select data-bind="options: months, value: selectedMonth"></select>
+                            <select data-bind="options: days,   value: selectedDay"></select>
+                            <select data-bind="options: years,  value: selectedYear"></select>
+                        </div>
                     </div class="field">
                     <div class="field">
                         <!-- <span class="trivial_word">to pay for</span>-->

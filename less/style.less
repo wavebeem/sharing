@@ -1,4 +1,10 @@
-@sans_serif: "Lucida Grande", "Segoe UI", sans-serif;
+@sans_serif:
+    "Lucida Grande",
+    "Segoe UI",
+    "Calibri",
+    "Tacoma",
+    "Corbel",
+    sans-serif;
 
 @light_gray:    #eeeeee;
 @lighter_gray:  #f4f4f4;
@@ -7,7 +13,6 @@
 @bg: @light_gray;
 @fg: #333333;
 
-@button_bg:         #eee;
 @button_primary_bg: lighten(@tango_light_blue, 20%);
 
 @tango_light_blue: #729fcf;
@@ -17,7 +22,7 @@
 @button_hover_border:   fade(black, 20%);
 @button_focus_border:   fade(black, 30%);
 
-@button_hover_bg: darken(@tango_light_blue, 0%);
+@button_hover_bg: darken(@tango_light_blue, 8%);
 
 @button_bg: darken(@tango_light_blue, 10%);
 @button_fg: #fafafa;
@@ -44,7 +49,9 @@
 @tango_brown:   #c17d11; // chocolate
 @tango_gray:    #babdb6; // aluminium
 
-* {
+*,
+*:before,
+*:after {
     .border_box;
 }
 
@@ -65,11 +72,16 @@ i {
     white-space: nowrap;
 }
 
+.dashed_border(@fade: 10%;) {
+    border: 1px dashed fade(black, @fade);
+}
+
 .border_3d(@darkness: 0%) {
+    border: 1px solid black;
     border-color:
-        fade(black, ( 4% + @darkness))
+        fade(black, ( 6% + @darkness))
         fade(black, (10% + @darkness))
-        fade(black, (20% + @darkness))
+        fade(black, (25% + @darkness))
         fade(black, (10% + @darkness));
 }
 
@@ -170,9 +182,10 @@ i {
     }
 }
 
+
 #nav_toggle,
 #title {
-    font-size: 20px;
+    font-size: 26px;
 
     padding-left: 10px;
 
@@ -196,12 +209,6 @@ i {
     display: inline-block;
 }
 
-#debts {
-}
-
-#expenses {
-}
-
 .main_margin {
     margin: 10px 0px;
 }
@@ -221,27 +228,21 @@ i {
 
     position: relative;
 
-    // box-shadow:
-    //     0px  1px 2px rgba(0, 0, 0, 0.25),
-    //     0px  1px 0px rgba(0, 0, 0, 0.10),
-    //     0px -1px 0px rgba(0, 0, 0, 0.02);
-
-    border: 1px solid fade(black, 15%);
-    border-top-color: fade(black, 12%);
-    border-bottom-color: fade(black, 25%);
+    .border_3d(4%);
 
     padding: 4px 0px;
     padding-bottom: 6px;
 
     &.transient {
-        background: rgba(0, 0, 0, 0.04);
+        .dashed_border;
+        background: transparent;
+        // background: fade(black, 1%);
+        // background: fade(white, 25%);
 
         // border-radius: 0px;
 
-        // border: 1px dashed rgba(0, 0, 0, 0.10);
-        border: 1px solid    rgba(0, 0, 0, 0.06);
-        border-top-color:    rgba(0, 0, 0, 0.04);
-        border-bottom-color: rgba(0, 0, 0, 0.08);
+        // .border_3d(2%);
+        // border: 1px dashed fade(black, 20%);
 
         box-shadow: none;
     }
@@ -249,7 +250,7 @@ i {
 
 .standard_font {
     font-family: @sans_serif;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 h1 {
@@ -481,7 +482,7 @@ table.summary {
         margin-bottom: 0px;
     }
 
-    font-size: 160%;
+    font-size: 120%;
 
     select,
     input {
@@ -497,48 +498,41 @@ table.summary {
     }
 
     button {
-        // background: @button_bg;
-        color:      @button_fg;
-
-        padding: 6px;
-
-        border: @border_size solid @button_border;
-        .border_3d;
-
-        font-size: 24px;
-
-        text-transform: lowercase;
-
-        .round;
-
-        vertical-align: bottom;
-        box-shadow: inset 0px -2px 0px fade(black, 10%);
-
-        &:hover,
-        &:focus {
-            outline: none;
-            box-shadow: inset 0px -4px 0px fade(black, 10%);
-            // background: @button_hover_bg;
-        }
-
-        i {
-            font-size: 16px;
-        }
+        padding-bottom: 8px;
     }
 
     select:hover {
         cursor: pointer;
     }
+}
 
-    input.price {
-        width: 5em;
+button {
+    // background: @button_bg;
+    color:      @button_fg;
+
+    padding: 6px;
+
+    border: @border_size solid @button_border;
+    .border_3d;
+
+    font-size: 24px;
+
+    text-transform: lowercase;
+
+    .round;
+
+    vertical-align: bottom;
+    box-shadow: inset 0px -2px 0px fade(black, 15%);
+
+    &:hover,
+    &:focus {
+        outline: none;
+        box-shadow: inset 0px -3px 0px fade(black, 20%);
+        // background: @button_hover_bg;
     }
 
-    .button_group {
-        border-top: 1px dashed fade(black, 10%);
-
-        margin-left:  -20px;
-        margin-right: -20px;
+    i {
+        font-size: 16px;
     }
 }
 
@@ -558,21 +552,25 @@ table.summary {
 }
 
 .field {
-    .trivial_word {
+    & > * {
+        margin: 0px;
         display: inline-block;
-        min-width: 3em;
     }
 
-    .description {
-        width: 50%;
+    & > :nth-child(1) {
+        width: 20%;
+    }
+
+    & > :nth-child(2) {
+        width: 70%;
     }
 }
 
 #add_button     { background: @tango_green; }
 #cancel_button  { background: @tango_red; }
 
-#add_button:hover, #add_button:focus        { background: desaturate(lighten(@tango_green, 10%), 20%); }
-#cancel_button:hover, #cancel_button:focus  { background: desaturate(lighten(@tango_red,   10%), 20%); }
+#add_button:hover, #add_button:focus        { background: desaturate(lighten(@tango_green, 8%), 20%); }
+#cancel_button:hover, #cancel_button:focus  { background: desaturate(lighten(@tango_red,   8%), 20%); }
 
 // #new_expense_description { width: 100%; }
 
@@ -583,27 +581,37 @@ button {
 }
 
 .form_toggle {
-    background: transparent;
-    border: none;
-
-    text-align: center;
-
     color: @light_text;
 
-    &:hover {
-        cursor: pointer;
+    text-align: center;
+    // text-align: left;
+
+    &,
+    &:hover,
+    &:focus {
+        border: none;
+        outline: none;
+        background: transparent;
+        box-shadow: none;
     }
 
     &:hover,
     &:focus {
-        text-decoration: underline;
-        outline: none;
+        // text-decoration: underline;
+        color: @fg;
     }
 
     padding: 8px 4px;
 
+    font-size: 20px;
+    font-weight: bold;
+
     width: 100%;
     margin: 0px;
+
+    i {
+        font-size: 16px;
+    }
 }
 
 @media (max-width: 800px) {
