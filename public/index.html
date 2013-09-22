@@ -23,8 +23,13 @@
             <div id="title"><i>$</i> sharing</div>
             <a id="nav_toggle" href="#" data-bind="event: { click: toggleObservable.bind(null, menuVisible) }">
                 <!-- <span id="nav_toggle_icon"><img src="/img/menu.svg"></span>-->
-                <i id="nav_toggle_icon" class="icon-menu"></i>
-                <i>$</i> sharing
+                <span id="nav_toggle_text">
+                    <i>$</i> sharing
+                </span>
+                <span id="nav_toggle_icon_parent">
+                    <i id="nav_toggle_icon" class="icon-menu"></i>
+                </span>
+                <span class="clearfix"></span>
             </a>
             <span id="main_menu" data-bind="css: { menu_collapsed: menuVisible }">
                 <a id="expenses_tab" class="tab" data-bind="css: { selected: currentTab() === 'expenses' }, event: { click: currentTab.bind(null, 'expenses') }" href="#expenses">Expenses</a>
