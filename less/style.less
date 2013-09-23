@@ -66,6 +66,12 @@ i {
     border: 0;
 }
 
+.firefox_select_button_hide {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}
+
 .elide {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -236,13 +242,6 @@ i {
     &.transient {
         .dashed_border;
         background: transparent;
-        // background: fade(black, 1%);
-        // background: fade(white, 25%);
-
-        // border-radius: 0px;
-
-        // .border_3d(2%);
-        // border: 1px dashed fade(black, 20%);
 
         box-shadow: none;
     }
@@ -403,12 +402,11 @@ table.summary {
 
 .stealth_edit {
     .border_3d(10%);
+    .round(0);
 
     border-width: 1px;
 
     background: transparent;
-
-    border-radius: 0px;
 
     &:focus {
         .focus_outline;
@@ -418,11 +416,17 @@ table.summary {
     background: white;
 }
 
+.date_group {
+    select {
+        text-align: right;
+    }
+}
+
 .shares_paid {
+    .round(1px);
+
     display: block;
     background: @lighter_gray;
-
-    border-radius: 1px;
 
     line-height: 0px;
 
@@ -492,6 +496,15 @@ table.summary {
     select,
     input {
         .stealth_edit;
+    }
+
+    select {
+        .appearance_none;
+        .border_3d;
+        .round;
+        .firefox_select_button_hide;
+        box-shadow: inset 0px -2px 0px fade(black, 5%);
+        background: lighten(@light_gray, 4%);
     }
 
     select,
