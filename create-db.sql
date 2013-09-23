@@ -1,21 +1,27 @@
-create table expenses (
-    id integer primary key autoincrement,
-    payer integer,
-    amount real,
-    date text,
-    spent_for_id integer,
-    description text
+create database if not exists sharing;
+use sharing;
+
+create table if not exists expenses (
+    id integer unsigned not null auto_increment,
+    payer integer not null,
+    amount double not null,
+    date date not null,
+    spent_for_id integer not null,
+    description text not null,
+    primary key (id)
 );
 
-create table payments (
-    id integer primary key autoincrement,
-    payer integer,
-    payee integer,
-    amount real,
-    date text
+create table if not exists payments (
+    id integer unsigned not null auto_increment,
+    payer integer not null,
+    payee integer not null,
+    amount double not null,
+    date date not null,
+    primary key (id)
 );
 
-create table people (
-    id integer primary key autoincrement,
-    name text
+create table if not exists people (
+    id integer unsigned not null auto_increment,
+    name text not null,
+    primary key (id)
 );

@@ -1,26 +1,24 @@
-// var sqlite3 = require('sqlite3');
-var dblite = require('dblite');
-var db = dblite('db.db');
+var fs = require('fs');
+var mysqlPassword = fs.readFileSync('mysql.passwd', 'utf-8').trim();
+
+var mysql = require('mysql');
+var db = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : mysqlPassword,
+});
+
+db.query('use sharing');
 
 var routeSelectAllFrom = function(table) {
     return function(req, res) {
         res.type('json');
-        console.log('table name: ' + table);
-        db.query('select * from ?', [table], function(data) {
-        // db.all('select * from ?', table, function(err, data) {
-            // console.log("SQL: " + this.sql);
-            // if (err) {
-            //     console.log(err);
-            //     err.stat = 'fail',
-            //     err.msg = err.message;
-            //     res.send(err);
-            // }
-            // else {
-                res.send({
-                    stat: 'ok',
-                    data: data
-                });
-            // }
+        var safeTableName = mysql.escapeId(table);
+        db.query('select * from ' + safeTableName, function(err, rows) {
+            res.send({
+                err: err,
+                data: rows,
+            });
         });
     };
 };
