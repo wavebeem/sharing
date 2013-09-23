@@ -26,3 +26,21 @@ var routeSelectAllFrom = function(table) {
 exports.getPeople   = routeSelectAllFrom('people');
 exports.getExpenses = routeSelectAllFrom('expenses');
 exports.getPayments = routeSelectAllFrom('payments');
+
+exports.addExpense = function(req, res) {
+    res.type('json');
+    var data = req.body;
+    console.log(data);
+    db.query('insert into expenses set ?', {
+        payer        : data.payer,
+        amount       : data.amount,
+        date         : data.date,
+        spent_for_id : data.date,
+        description  : data.date,
+    }, function(err, rows) {
+        res.send({
+            err: err,
+            data: rows,
+        });
+    });
+};

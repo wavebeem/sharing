@@ -38,6 +38,8 @@ app.get('/api/people',   routes.getPeople);
 app.get('/api/expenses', routes.getExpenses);
 app.get('/api/payments', routes.getPayments);
 
+app.put('/api/expenses', routes.addExpense);
+
 var server = http.createServer(app)
 
 server.listen(port, function() {
