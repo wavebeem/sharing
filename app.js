@@ -38,7 +38,9 @@ app.get('/api/people',   routes.getPeople);
 app.get('/api/expenses', routes.getExpenses);
 app.get('/api/payments', routes.getPayments);
 
-app.put('/api/expenses', routes.addExpense);
+app.get('/api/total_paid_by/:payer', routes.totalPaidBy);
+
+app.post('/api/expenses', routes.addExpense);
 
 var server = http.createServer(app)
 

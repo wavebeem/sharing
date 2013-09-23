@@ -6,6 +6,8 @@ var db = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : mysqlPassword,
+    // database : 'sharing',
+    timezone : 'Z',
 });
 
 db.query('use sharing');
@@ -15,6 +17,7 @@ var routeSelectAllFrom = function(table) {
         res.type('json');
         var safeTableName = mysql.escapeId(table);
         db.query('select * from ' + safeTableName, function(err, rows) {
+            console.log(rows);
             res.send({
                 err: err,
                 data: rows,
@@ -31,16 +34,31 @@ exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
     console.log(data);
+    // db.query('delete from expenses');
     db.query('insert into expenses set ?', {
-        payer        : data.payer,
-        amount       : data.amount,
-        date         : data.date,
-        spent_for_id : data.date,
-        description  : data.date,
+        payer       : data.payer,
+        amount      : data.amount,
+        date        : data.date,
+        spent_for   : data.spent_for,
+        description : data.description,
     }, function(err, rows) {
+        console.error(this.sql);
         res.send({
             err: err,
             data: rows,
+        });
+    });
+};
+
+exports.totalPaidBy = function(req, res) {
+    res.type('json');
+    var data = req.params;
+    db.query('select sum(amount) as total from expenses where ?', {
+        payer: data.payer
+    }, function(err, rows) {
+        res.send({
+            err: err,
+            data: rows[0].total,
         });
     });
 };

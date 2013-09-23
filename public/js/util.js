@@ -63,11 +63,14 @@ var colors = [
 ];
 
 function ajax(opts) {
+    var DONE = 4;
     var req = new XMLHttpRequest();
     req.open(opts.verb, opts.url);
     req.onreadystatechange = function() {
-        if (req.readyState === ajax.DONE && req.status === 200) {
-            opts.callback.call(req, req.response);
+        if (req.readyState === DONE && req.status === 200) {
+            if (opts.callback) {
+                opts.callback.call(req, req.response);
+            }
         }
     };
 

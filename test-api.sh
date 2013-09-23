@@ -1,38 +1,40 @@
 #!/bin/bash
-HOST="http://localhost:8000"
+HOST="http://localhost:8000/api"
 
-json-put() {
+json-post() {
     local url=$1
 
     curl \
-        -X PUT \
+        -X POST \
         -H "Content-Type: application/json" \
         -d "$(cat)" \
         "${HOST}/${url}"
 
-    echo
     echo
 }
 
 json-get() {
     local url=$1
 
-    curl -X GET "${HOST}/${url}"
-    echo
+    curl \
+        -X GET \
+        "${HOST}/${url}"
     echo
 }
 
 main() {
-    json-put "api/expenses" <<JSON
-{
-    "payer": 2,
-    "amount": 23.45,
-    "date": "2013-09-22",
-    "spent_for_id": 1,
-    "description": "Bagels"
-}
-JSON
+#     json-post "expenses" <<JSON
+# {
+#     "payer": 2,
+#     "amount": 23.45,
+#     "date": "2013-09-22",
+#     "spent_for": 1,
+#     "description": "Bagels"
+# }
+# JSON
 
-
-    json-get "api/expenses"
+    json-get "expenses"
+    json-get "total_paid_by/2"
 }
+
+main
