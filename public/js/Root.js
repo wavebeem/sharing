@@ -64,7 +64,9 @@ function Root() {
     });
 
     self.newExpenseForm = function() {
-        self.tempExpenseForm(new ExpenseForm());
+        var form = new ExpenseForm();
+        self.tempExpenseForm(form);
+        form.visible(true);
     };
 
     self.menuVisible = ko.observable(true);
