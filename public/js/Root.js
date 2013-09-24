@@ -1,13 +1,17 @@
 'use strict';
 
 function Root() {
-    var self = this;
-
     if (GLOBAL.$root) return GLOBAL.$root;
+
+    var self = this;
+    var LS = localStorage;
 
     GLOBAL.$root = self;
 
-    self.currentUser = ko.observable(3);
+    self.currentUser = ko.observable(+LS.user_id || 2);
+    self.currentUser.subscribe(function(val) {
+        LS.user_id = val;
+    });
 
     self.tempExpenseForm = ko.observable(new ExpenseForm());
 
@@ -29,10 +33,14 @@ function Root() {
 
     self.expenses = ko.observableArray();
 
-    self.currentTab = ko.observable(localStorage.last_tab || 'expenses');
+    self.currentTab = ko.observable(LS.last_tab || 'expenses');
     self.currentTab.subscribe(function(val) {
-        localStorage.last_tab = val;
+        LS.last_tab = val;
     });
+
+    self.newExpenseForm = function() {
+        self.tempExpenseForm(new ExpenseForm());
+    };
 
     self.menuVisible = ko.observable(true);
 }
