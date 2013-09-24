@@ -2,10 +2,6 @@
 
 function noop() {}
 
-function $(sel) {
-    return document.querySelector(sel);
-}
-
 function mod(a, b) {
     return ((a % b) + b) % b;
 }
@@ -62,71 +58,9 @@ var colors = [
     "#babdb6", // aluminium
 ];
 
-function ajax(opts) {
-    var DONE = 4;
-    var req = new XMLHttpRequest();
-    req.open(opts.verb, opts.url);
-    req.onreadystatechange = function() {
-        if (req.readyState === DONE && req.status === 200) {
-            if (opts.callback) {
-                opts.callback.call(req, req.response);
-            }
-        }
-    };
-
-    if (opts.data) {
-        req.setRequestHeader('Content-Type', 'application/json');
-        req.send(JSON.stringify(opts.data));
-    }
-    else {
-        req.send();
-    }
-}
-
-ajax.DONE = 4;
-
-function GET(url, callback) {
-    return ajax({
-        verb:'GET',
-        url:url,
-        callback:callback
-    });
-}
-
-function POST(url, data, callback) {
-    return ajax({
-        verb:'POST',
-        url:url,
-        data:data,
-        callback:callback
-    });
-}
-
-function PUT(url, data, callback) {
-    return ajax({
-        verb:'PUT',
-        url:url,
-        data:data,
-        callback:callback
-    });
-}
-
 function toggleObservable(o) {
     o(!o());
 };
-
-_.mixin({
-    megaChain: function(x, fs) {
-        _.each(fs, function(f) {
-            var name = f[0];
-            var args = f[1] || [];
-
-            x = _[name].apply(null, [x].concat(args));
-        });
-
-        return x;
-    }
-});
 
 ko.subscribable.fn.subscribeChanged = function(callback) {
     var oldValue;

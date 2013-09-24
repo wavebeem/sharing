@@ -6,17 +6,16 @@
         <title>$ sharing</title>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>-->
         <!-- <script src="js/css-reloader.js"></script>-->
         <script src="js/util.js"></script>
         <script src="js/ExpenseForm.js"></script>
-        <script src="js/ExpenseGroup.js"></script>
         <script src="js/Expense.js"></script>
         <script src="js/Root.js"></script>
         <script src="js/main.js"></script>
         <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.0/normalize.css">-->
         <link rel="stylesheet" href="css/style.css">
-        <style id="name_css"></style>
     </head>
     <body>
         <div id="navigation">
@@ -39,25 +38,25 @@
             <span class="clearfix"></span>
         </div>
         <div id="column_container">
-            <div id="debts" class="column" data-bind="
-            visible: currentTab() === 'debts',
-            foreach: expenseGroup().summary()">
-                <h1
-                colspan="2"
-                data-bind="
-                text: $data[0].debtor + ' owes',
-                css: 'color_' + $data[0].debtor"></h1>
-                <div class="floaty_container">
-                    <table class="summary">
-                        <tbody data-bind="foreach: $data">
-                            <tr>
-                                <td class="money" data-bind="text: formattedCurrency(amount)"></td>
-                                <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <!-- <div id="debts" class="column" data-bind="-->
+            <!-- visible: currentTab() === 'debts',-->
+            <!-- foreach: []">-->
+            <!--     <h1-->
+            <!--     colspan="2"-->
+            <!--     data-bind="-->
+            <!--     text: $data[0].debtor + ' owes',-->
+            <!--     css: 'color_' + $data[0].debtor"></h1>-->
+            <!--     <div class="floaty_container">-->
+            <!--         <table class="summary">-->
+            <!--             <tbody data-bind="foreach: $data">-->
+            <!--                 <tr>-->
+            <!--                     <td class="money" data-bind="text: formattedCurrency(amount)"></td>-->
+            <!--                     <td><div class="color_left" data-bind="text: debtee, css: 'color_' + debtee"></div></td>-->
+            <!--                 </tr>-->
+            <!--             </tbody>-->
+            <!--         </table>-->
+            <!--     </div>-->
+            <!-- </div>-->
             <div id="expenses" class="column" data-bind="visible: $root.currentTab() === 'expenses'">
                 <div class="main_margin">
                     <button
@@ -81,7 +80,12 @@
                     </button>
                     <div class="field">
                         <span class="trivial_word">who</span>
-                        <select data-bind="value: $root.currentUser, options: $root.people"></select>
+                        <select data-bind="
+                            options: $root.normalPeople,
+                            optionsText: 'name',
+                            optionsValue: 'id',
+                            value: $root.currentUser
+                            "></select>
                     </div>
                     <div class="field">
                         <span class="trivial_word">what</span>
@@ -89,7 +93,12 @@
                     </div>
                     <div class="field">
                         <span class="trivial_word">whom</span>
-                        <select data-bind="options: $root.everyoneAndPeople, value: spendTarget"></select>
+                        <select data-bind="
+                            options: $root.everyoneButMe,
+                            optionsText: 'name',
+                            optionsValue: 'id',
+                            value: spendTarget
+                            "></select>
                     </div>
                     <div class="field">
                         <span class="trivial_word">when</span>
@@ -116,23 +125,23 @@
                         <button id="cancel_button" data-bind="event: { click: hide }" type="button"><i class="icon-close"></i> Cancel</button>
                     </div>
                 </form>
-                <div id="expense_group" data-bind="foreach: { data: expenseGroup().expenses(), as: 'expense' }">
+                <div id="expense_group" data-bind="foreach: expenses">
                     <div class="expense_item">
                         <div>
-                            <span class="money"><span data-bind="text: formattedCurrency(price)"></span></span>
+                            <span class="money"><span data-bind="text: formattedCurrency(amount)"></span></span>
                             <span class="trivial_word">on</span>
                             <span data-bind="text: formattedDate(date)"></span>
                             <span class="trivial_word">by</span>
-                            <span data-bind="text: paidBy"></span>
-                            <span data-bind="visible: paidFor() !== 'everyone'">
+                            <span data-bind="text: payer"></span>
+                            <span data-bind="visible: spent_for !== 1">
                                 <span class="trivial_word">for</span>
-                                <span data-bind="text: paidFor"></span>
+                                <span data-bind="text: spent_for"></span>
                             </span>
                         </div>
                         <div>
                             <span class="description" data-bind="text: description"></span
-                            ><span class="share_value" data-bind="visible: paidFor() === 'everyone'">
-                                <span class="money" data-bind="text: formattedCurrency(share)"></span>
+                            ><span class="share_value" data-bind="visible: spent_for !== 1">
+                                <span class="money" data-bind="text: formattedCurrency(amount)"></span>
                                 <span class="trivial_word">each</span>
                             </span>
                         </div>

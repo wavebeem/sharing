@@ -1,7 +1,7 @@
-create database if not exists sharing;
+create database sharing;
 use sharing;
 
-create table if not exists expenses (
+create table expenses (
     id integer unsigned not null auto_increment,
     payer integer not null,
     amount double not null,
@@ -11,7 +11,7 @@ create table if not exists expenses (
     primary key (id)
 );
 
-create table if not exists payments (
+create table payments (
     id integer unsigned not null auto_increment,
     payer integer not null,
     payee integer not null,
@@ -20,8 +20,9 @@ create table if not exists payments (
     primary key (id)
 );
 
-create table if not exists people (
+create table people (
     id integer unsigned not null auto_increment,
     name text not null,
     primary key (id)
 );
+insert into people set name = 'everyone';

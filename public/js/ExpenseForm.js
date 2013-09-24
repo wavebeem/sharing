@@ -33,9 +33,17 @@ function ExpenseForm() {
         return _.range(1, numDays + 1);
     });
 
+    self.date = ko.computed(function() {
+        return new Date([
+            self.selectedMonth(),
+            self.selectedDay(),
+            self.selectedYear(),
+        ].join('/'));
+    });
+
     self.spendTarget = ko.observable('');
 
-    self.visible = ko.observable(false);
+    self.visible = ko.observable(true);
 
     self.price = ko.observable('').extend({ money: true });
 
