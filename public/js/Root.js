@@ -33,6 +33,9 @@ function Root() {
     self.nameForId = function(id) {
         return self.people()[+id - 1].name;
     };
+    self.numberOfPeople = ko.computed(function() {
+        return self.people().length - 1;
+    });
 
     self.expenses = ko.observableArray();
 
