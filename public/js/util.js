@@ -31,6 +31,7 @@ function formattedCurrency(money) {
 function formattedDate(date) {
     return ko.computed(function() {
         var d = ko.unwrap(date);
+        d = new Date(d);
 
         var day = d.getDate();
         var mon = d.getMonth() + 1;

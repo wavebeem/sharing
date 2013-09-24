@@ -34,18 +34,34 @@ function ExpenseForm() {
     });
 
     self.date = ko.computed(function() {
-        return new Date([
+        return [
+            self.selectedYear(),
             self.selectedMonth(),
             self.selectedDay(),
-            self.selectedYear(),
-        ].join('/'));
+        ].join('-');
     });
+
+    self.save = function() {
+        $.post('/api/expenses', {
+            date        : self.date(),
+            amount      : realPrice(),
+            payer       : +$root.currentUser(),
+            spent_for   : +self.spendTarget(),
+            description : self.description(),
+        }).done(function() {
+            self.hide();
+            $root.update();
+        });
+    };
 
     self.spendTarget = ko.observable('');
 
     self.visible = ko.observable(true);
 
     self.price = ko.observable('').extend({ money: true });
+    var realPrice = ko.computed(function() {
+        return +self.price().replace(/[^0-9\.]/g, '');
+    });
 
     self.description = ko.observable('');
 

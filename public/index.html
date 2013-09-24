@@ -132,10 +132,10 @@
                             <span class="trivial_word">on</span>
                             <span data-bind="text: formattedDate(date)"></span>
                             <span class="trivial_word">by</span>
-                            <span data-bind="text: payer"></span>
+                            <span data-bind="text: $root.nameForId(payer)"></span>
                             <span data-bind="visible: spent_for !== 1">
                                 <span class="trivial_word">for</span>
-                                <span data-bind="text: spent_for"></span>
+                                <span data-bind="text: $root.nameForId(spent_for)"></span>
                             </span>
                         </div>
                         <div>
