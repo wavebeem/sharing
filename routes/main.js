@@ -12,11 +12,13 @@ var db = mysql.createConnection({
 
 db.query('use sharing');
 
-var routeSelectAllFrom = function(table) {
+var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
         res.type('json');
         var safeTableName = mysql.escapeId(table);
-        db.query('select * from ' + safeTableName, function(err, rows) {
+        var sql = 'select * from ' + safeTableName;
+        if (suffix) sql += ' ' + suffix
+        db.query(sql, function(err, rows) {
             console.log(rows);
             res.send({
                 err: err,
@@ -27,8 +29,8 @@ var routeSelectAllFrom = function(table) {
 };
 
 exports.getPeople   = routeSelectAllFrom('people');
-exports.getExpenses = routeSelectAllFrom('expenses');
-exports.getPayments = routeSelectAllFrom('payments');
+exports.getExpenses = routeSelectAllFrom('expenses', 'order by date desc');
+exports.getPayments = routeSelectAllFrom('payments', 'order by date desc');
 
 exports.addExpense = function(req, res) {
     res.type('json');
