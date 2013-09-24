@@ -6,11 +6,9 @@ var db = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : mysqlPassword,
-    // database : 'sharing',
+    database : 'sharing',
     timezone : 'Z',
 });
-
-db.query('use sharing');
 
 var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
