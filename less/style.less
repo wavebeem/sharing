@@ -580,11 +580,11 @@ button {
     }
 }
 
-#add_button     { background: @tango_green; }
-#cancel_button  { background: @tango_red; }
+button.add     { background: @tango_green; }
+button.cancel  { background: @tango_red; }
 
-#add_button:hover, #add_button:focus        { background: desaturate(lighten(@tango_green, 8%), 20%); }
-#cancel_button:hover, #cancel_button:focus  { background: desaturate(lighten(@tango_red,   8%), 20%); }
+button.add:hover, button.add:focus        { background: desaturate(lighten(@tango_green, 8%), 20%); }
+button.cancel:hover, button.cancel:focus  { background: desaturate(lighten(@tango_red,   8%), 20%); }
 
 // #new_expense_description { width: 100%; }
 
@@ -595,6 +595,8 @@ button {
 }
 
 .form_toggle {
+    .main_margin;
+
     color: @light_text;
 
     text-align: center;
@@ -621,7 +623,7 @@ button {
     font-weight: bold;
 
     width: 100%;
-    margin: 0px;
+    margin-bottom: 0px;
 
     i {
         font-size: 16px;
