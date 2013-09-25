@@ -30,22 +30,77 @@ function formattedCurrency(money) {
 
 function formattedDate(date) {
     return ko.computed(function() {
-        var d = ko.unwrap(date);
-        d = new Date(d);
+        var D = ko.unwrap(date);
+        D = new Date(D);
 
-        var day = d.getDate();
-        var mon = d.getMonth() + 1;
-        var yr  = d.getFullYear();
+        var d = D.getDate();
+        var m = D.getMonth() + 1;
+        var y = D.getFullYear();
 
-        var pieces = [mon, day];
-
-        // Only show year if different than current
-        if (yr !== new Date().getFullYear()) {
-            pieces.push(yr);
-        }
-
-        return pieces.join('/');
+        return shortAmericanDate(y, m, d);
+        // return americanDate(y, m, d);
+        // return numericDate(y, m, d);
     });
+}
+
+function notThisYear(y) {
+    return y !== new Date().getFullYear();
+}
+
+var shortMonthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+];
+
+var monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+];
+
+function shortAmericanDate(y, m, d) {
+    var s = shortMonthNames[m - 1] + ' ' + d;
+    if (notThisYear(y)) {
+        s += ', ' + y;
+    }
+    return s;
+}
+
+function americanDate(y, m, d) {
+    var s = monthNames[m - 1] + ' ' + d;
+    if (notThisYear(y)) {
+        s += ', ' + y;
+    }
+    return s;
+}
+
+function numericDate(y, m, d) {
+    var p = [m, d];
+
+    if (notThisYear(y)) {
+        p.push(y);
+    }
+
+    return p.join('/');
 }
 
 var colors = [

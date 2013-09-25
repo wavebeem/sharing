@@ -1,29 +1,41 @@
-@palette_1: #75507b; // plum
-@palette_2: #cc0000; // scarlet red
-@palette_3: #4e9a06; // chameleon
-@palette_4: #edd400; // butter
-@palette_5: #3465a4; // sky blue
-@palette_6: #f57900; // orange
-@palette_7: #c17d11; // chocolate
-@palette_8: #babdb6; // aluminium
+@palette_1: #babdb6; // aluminium
+@palette_2: #75507b; // plum
+@palette_3: #cc0000; // scarlet red
+@palette_4: #4e9a06; // chameleon
+@palette_5: #edd400; // butter
+@palette_6: #3465a4; // sky blue
+@palette_7: #f57900; // orange
+@palette_8: #c17d11; // chocolate
 
 .colorLooper(@index) when (@index > 0) {
     @color: ~"palette_@{index}";
 
-    .color_@{index}.true {
-        background: @@color;
-    }
+    .color_@{index} {
+        &.spent_for,
+        &.payee,
+        &.payer {
+            padding: 1px 4px;
+            color: darken(@@color, 10%);
+            background: fade(@@color, 20%);
+            font-weight: bold;
+            .round(2px);
+        }
 
-    .color_@{index}.color_left {
-        border-left: 6px solid @@color;
-    }
+        &.true {
+            background: @@color;
+        }
 
-    .color_@{index}.color_fg {
-        color: @@color;
-    }
+        &.color_left {
+            border-left: 6px solid @@color;
+        }
 
-    .color_@{index}.border {
-        border-color: @@color;
+        &.color_fg {
+            color: @@color;
+        }
+
+        &.border {
+            border-color: @@color;
+        }
     }
 
     .colorLooper(@index - 1);
