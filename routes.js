@@ -17,7 +17,6 @@ var routeSelectAllFrom = function(table, suffix) {
         var sql = 'select * from ' + safeTableName;
         if (suffix) sql += ' ' + suffix
         db.query(sql, function(err, rows) {
-            console.log(rows);
             res.send({
                 err: err,
                 data: rows,
@@ -33,7 +32,6 @@ exports.getPayments = routeSelectAllFrom('payments', 'order by date desc');
 exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
-    console.log(data);
     // db.query('delete from expenses');
     db.query('insert into expenses set ?', {
         payer       : data.payer,
@@ -42,7 +40,6 @@ exports.addExpense = function(req, res) {
         spent_for   : data.spent_for,
         description : data.description,
     }, function(err, rows) {
-        console.error(this.sql);
         res.send({
             err: err,
             data: rows,

@@ -3,18 +3,19 @@ var http    = require('http');
 var path    = require('path');
 var less    = require('less-middleware');
 
-var routes  = require('./routes/main');
+var routes  = require('./routes');
 
 var app = express();
 
 var env  = process.env.ENV || 'dev';
 var port = env === 'dev' ? 8000 : 8001;
 
-// var bodyParser = express.bodyParser();
 app.use(express.bodyParser());
 
 app.set('port', port);
 app.set('env',  env);
+
+app.set('view engine', 'ejs');
 
 if (env === 'dev') {
     app.use(express.errorHandler());
@@ -31,7 +32,9 @@ app.use(less({
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-    res.sendfile('/index.html');
+    res.render('index', function(err, html) {
+        res.send(html);
+    });
 });
 
 app.get('/api/people',   routes.getPeople);

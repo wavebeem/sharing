@@ -1,5 +1,5 @@
 {
-  "name": "expenses",
+  "name": "sharing",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "3.3.5",
     "less-middleware": "*",
-    "mysql": "*"
+    "mysql": "*",
+    "ejs": "*"
   }
 }
