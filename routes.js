@@ -59,3 +59,14 @@ exports.totalPaidBy = function(req, res) {
         });
     });
 };
+
+var rand = function(n) {
+    return ~~(Math.random() * n);
+};
+exports.debtFromTo = function(req, res) {
+    res.type('json');
+
+    res.send({
+        debt: 50 - rand(100)
+    });
+};
