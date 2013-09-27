@@ -1,6 +1,8 @@
 @title_text_size: 32px;
 @menu_text_size:  24px;
-@header_bg: darken(@bg, 6%);
+// @header_bg: darken(@bg, 6%);
+// @header_fg: #222222;
+@header_bg: @bg;
 @header_fg: #222222;
 
 body {
@@ -22,9 +24,10 @@ body {
 }
 
 #main_menu {
-    border: 0px;
-    border-top:    1px solid @header_bg;
-    border-bottom: 1px solid black;
+    // border: 3px solid fade(black, 50%);
+    border: 3px solid fade(white, 80%);
+    border-left-width:  0px;
+    border-right-width: 0px;
     display: block;
 }
 
@@ -34,7 +37,7 @@ body {
     background: @header_bg;
     color:      @header_fg;
 
-    border-bottom: 1px solid fade(black, 10%);
+    // border-bottom: 1px solid fade(black, 10%);
 
     span {
         display: inline-block;

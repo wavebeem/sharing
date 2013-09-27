@@ -605,9 +605,12 @@ button {
     &,
     &:hover,
     &:focus {
-        border: none;
+        // border: none;
+        // .border_3d(-5%);
+        border: 1px dashed darken(@bg, 8%);
         outline: none;
-        background: transparent;
+        // background: transparent;
+        background: fade(black, 2%);
         box-shadow: none;
     }
 
