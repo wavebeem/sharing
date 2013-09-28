@@ -10,6 +10,11 @@ var db = mysql.createConnection({
     timezone : 'Z',
 });
 
+var numPeople;
+db.query('SELECT COUNT(*) AS num FROM people', function(err, rows) {
+    numPeople = rows[0].num;
+});
+
 var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
         res.type('json');
@@ -69,10 +74,9 @@ var sql = function() {
 exports.debtFromTo = function(req, res) {
     res.type('json');
     var data = req.params;
-    var sqlNumPeople = 'SELECT COUNT(*) - 1 FROM people';
     var sqlAmount = sql(
         'IF(spent_for = 1,',
-        'amount / (' + sqlNumPeople + '),',
+        'amount / ?,',
         'amount)'
     );
     var sqlOwed = sql(
@@ -95,6 +99,7 @@ exports.debtFromTo = function(req, res) {
         '   IFNULL((' + sqlPaid + '), 0)',
         '   AS debt'
     ), [
+        numPeople,
         +data.payer,
         +data.payee,
         +data.payer,
