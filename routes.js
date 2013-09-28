@@ -14,7 +14,7 @@ var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
         res.type('json');
         var safeTableName = mysql.escapeId(table);
-        var sql = 'select * from ' + safeTableName;
+        var sql = 'SELECT * FROM ' + safeTableName;
         if (suffix) sql += ' ' + suffix
         db.query(sql, function(err, rows) {
             res.send({
@@ -26,14 +26,14 @@ var routeSelectAllFrom = function(table, suffix) {
 };
 
 exports.getPeople   = routeSelectAllFrom('people');
-exports.getExpenses = routeSelectAllFrom('expenses', 'order by date desc');
-exports.getPayments = routeSelectAllFrom('payments', 'order by date desc');
+exports.getExpenses = routeSelectAllFrom('expenses', 'ORDER BY date DESC');
+exports.getPayments = routeSelectAllFrom('payments', 'ORDER BY date DESC');
 
 exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
     // db.query('delete from expenses');
-    db.query('insert into expenses set ?', {
+    db.query('INSERT INTO expenses SET ?', {
         payer       : data.payer,
         amount      : data.amount,
         date        : data.date,
@@ -50,7 +50,7 @@ exports.addExpense = function(req, res) {
 exports.totalPaidBy = function(req, res) {
     res.type('json');
     var data = req.params;
-    db.query('select sum(amount) as total from expenses where ?', {
+    db.query('SELECT SUM(amount) AS TOTAL FROM expenses WHERE ?', {
         payer: data.payer
     }, function(err, rows) {
         res.send({
@@ -63,10 +63,48 @@ exports.totalPaidBy = function(req, res) {
 var rand = function(n) {
     return ~~(Math.random() * n);
 };
+var sql = function() {
+    return [].join.call(arguments, '\n');
+};
 exports.debtFromTo = function(req, res) {
     res.type('json');
+    var data = req.params;
+    var sqlNumPeople = 'SELECT COUNT(*) - 1 FROM people';
+    var sqlAmount = sql(
+        'IF(spent_for = 1,',
+        'amount / (' + sqlNumPeople + '),',
+        'amount)'
+    );
+    var sqlOwed = sql(
+        'SELECT SUM(' + sqlAmount + ')',
+        'FROM expenses',
+        'WHERE payer = ?',
+        '   AND (spent_for = ?',
+        '       OR spent_for = 1)'
+    );
+    var sqlPaid = sql(
+        'SELECT sum(amount)',
+        'FROM payments',
+        'WHERE payer = ?',
+        '   AND payee = ?'
+    );
 
-    res.send({
-        debt: 50 - rand(100)
+    db.query(sql(
+        'SELECT',
+        '   IFNULL((' + sqlOwed + '), 0) -',
+        '   IFNULL((' + sqlPaid + '), 0)',
+        '   AS debt'
+    ), [
+        +data.payer,
+        +data.payee,
+        +data.payer,
+        +data.payee
+    ], function(err, rows) {
+        console.log(this.sql);
+        console.log(err);
+        console.log(rows);
+        res.send({
+            data: rows[0].debt
+        });
     });
 };
