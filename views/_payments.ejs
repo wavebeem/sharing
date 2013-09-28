@@ -1,0 +1,33 @@
+<div id="payments" class="column" data-bind="visible: currentTab() === 'payments'">
+    <button
+        type="button"
+        class="form_toggle"
+        id="new_payment_show"
+        data-bind="
+        visible: true,
+        click: noop"
+        >
+        <i class="icon-plus"></i> add payment&hellip;
+    </button>
+    <form
+        action=""
+        id="expense_form"
+        class="floaty_container"
+        data-bind="
+        with: {},
+        submit: noop,
+        visible: true"
+        >
+        <div class="field">
+            <span class="trivial_word">spam</span>
+            <input
+            type="text"
+            placeholder="spam, spam, spam"
+            data-bind="value: ''">
+        </div>
+        <div class="button_group">
+            <button class="add" type="submit"><i class="icon-plus"></i> Add</button>
+            <button class="cancel" type="button"><i class="icon-close"></i> Cancel</button>
+        </div>
+    </form>
+</div>

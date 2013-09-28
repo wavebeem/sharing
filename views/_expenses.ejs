@@ -1,0 +1,90 @@
+<div id="expenses" class="column" data-bind="visible: $root.currentTab() === 'expenses'">
+    <button
+        type="button"
+        class="form_toggle"
+        id="new_expense_show"
+        data-bind="
+        visible: tempExpenseForm().notVisibile,
+        click: $root.newExpenseForm"
+        >
+        <i class="icon-plus"></i> add expense&hellip;
+    </button>
+    <form
+        action=""
+        id="expense_form"
+        class="floaty_container"
+        data-bind="
+        with: tempExpenseForm,
+        submit: saveTempExpense,
+        visible: tempExpenseForm().visible"
+        >
+        <div class="field">
+            <span class="trivial_word">who</span>
+            <select data-bind="
+                options: $root.normalPeople,
+                optionsText: 'name',
+                optionsValue: 'id',
+                value: $root.currentUser
+                "></select>
+        </div>
+        <div class="field">
+            <span class="trivial_word">what</span>
+            <input id="price_field" class="price" type="text" min="1" max="9999" step="1" placeholder="$" data-bind="value: price">
+        </div>
+        <div class="field">
+            <span class="trivial_word">whom</span>
+            <select data-bind="
+                options: $root.everyoneButMe,
+                optionsText: 'name',
+                optionsValue: 'id',
+                value: spendTarget
+                "></select>
+        </div>
+        <div class="field">
+            <span class="trivial_word">when</span>
+            <div class="date_group">
+                <select data-bind="options: months, value: selectedMonth"></select>
+                <span class="trivial_word">/</span>
+                <select data-bind="options: days,   value: selectedDay"></select>
+                <span class="trivial_word">/</span>
+                <select data-bind="options: years,  value: selectedYear"></select>
+            </div>
+        </div class="field">
+        <div class="field">
+            <!-- <span class="trivial_word">to pay for</span>-->
+            <span class="trivial_word">why</span>
+            <input
+            id="new_expense_description"
+            class="description"
+            type="text"
+            placeholder="groceries, bills, etc."
+            data-bind="value: description">
+        </div>
+        <div class="button_group">
+            <button class="add" type="submit"><i class="icon-plus"></i> Add</button>
+            <button class="cancel" data-bind="event: { click: hide }" type="button"><i class="icon-close"></i> Cancel</button>
+        </div>
+    </form>
+    <div id="expense_group" data-bind="foreach: expenses">
+        <div class="expense_item" data-bind="css: 'color_' + payer">
+            <div>
+                <span class="money"><span data-bind="text: formattedCurrency(amount)"></span></span>
+                <span class="trivial_word">on</span>
+                <span data-bind="text: formattedDate(date)"></span>
+                <span class="trivial_word">by</span>
+                <span class="payer" data-bind="css: 'color_' + payer, text: $root.nameForId(payer)"></span>
+                <span data-bind="visible: spent_for !== 1">
+                    <span class="trivial_word">for</span>
+                    <span class="spent_for" data-bind="css: 'color_' + spent_for, text: $root.nameForId(spent_for)"></span>
+                </span>
+            </div>
+            <div>
+                <span class="description" data-bind="text: description"></span
+                ><span class="share_value" data-bind="visible: spent_for === 1">
+                    <span class="money" data-bind="text: formattedCurrency(amount / $root.numberOfPeople())"></span>
+                    <span class="trivial_word">each</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
