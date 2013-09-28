@@ -181,6 +181,15 @@ i {
     }
 }
 
+.floaty_container {
+    .debt {
+        text-align: left;
+        .money {
+            text-align: right;
+        }
+    }
+}
+
 
 #nav_toggle,
 #title {
@@ -299,13 +308,15 @@ table.summary {
 
     margin-top: 10px;
 
+    @border_style: solid;
+
     &:first-child {
         margin-top: 0px;
     }
 
     th,
     tr:not(:last-child) td {
-        border-bottom: 1px solid @light_gray;
+        border-bottom: 1px @border_style @light_gray;
     }
 
     th {
@@ -318,8 +329,8 @@ table.summary {
     }
 
     td {
-        padding:         0px;
-        padding-left:    1px;
+        padding:         4px;
+        padding-left:   10px;
         padding-right:  10px;
 
         text-align: left;
@@ -334,6 +345,7 @@ table.summary {
         width: 7em;
 
         text-align: right;
+        border-right: 1px @border_style @light_gray;
     }
 
     tbody tr:first-child td {

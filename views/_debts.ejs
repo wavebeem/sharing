@@ -1,6 +1,19 @@
 <div id="debts" class="column" data-bind="
     visible: currentTab() === 'debts',
-    foreach: [1]"
+    foreach: debtsGrouped"
     >
-    debts
+    <div class="floaty_container">
+        <table class="summary">
+            <tbody data-bind="foreach: $data[1]">
+                <tr class="debt">
+                    <td class="money" data-bind="text: formattedCurrency(amount)"></td>
+                    <td>
+                        <span class="payee" data-bind="css: 'color_' + from, text: $root.nameForId(from)"></span>
+                        <span class="trivial_word">owes</span>
+                        <span class="payee" data-bind="css: 'color_' + to, text: $root.nameForId(to)"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

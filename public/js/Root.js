@@ -38,29 +38,78 @@ function Root() {
     });
 
     self.expenses = ko.observableArray();
+    self.debts = ko.observableArray();
+    self.debtsGrouped = ko.computed(function() {
+        var grouped = _(self.debts()).groupBy('from');
+        return _(grouped).pairs();
+    });
 
     var applyBindings = _.once(function() {
         ko.applyBindings($root);
     });
 
+    var allDebtsAjax = function() {
+        var def = $.Deferred();
+
+        var N = self.people().length - 1;
+        var combos = [];
+        var promises = [];
+
+        var xs = _.range(2, 2 + N);
+        _(xs).each(function(x) {
+            var ys = _(xs).without(x);
+
+            _(ys).each(function(y) {
+                var path = '/' + [
+                    'api',
+                    'debt_from',
+                    x,
+                    'to',
+                    y
+                ].join('/');
+                var prom = $.ajax(path);
+                promises.push(prom);
+                prom.done(function(data) {
+                    combos.push({
+                        from: x,
+                        to: y,
+                        amount: data.data,
+                    });
+                });
+            });
+        });
+
+        var allDone = $.when.apply($, promises);
+        allDone.done(function() {
+            def.resolve(combos);
+        });
+
+        return def.promise();
+    };
+
     self.update = function() {
         $.when(
-            $.ajax('/api/people'),
-            $.ajax('/api/expenses')
+            $.ajax('/api/expenses'),
+            allDebtsAjax()
         ).done(function(a, b) {
-            var people   = a[0].data;
-            var expenses = b[0].data;
+            var expenses = a[0].data;
+            var debts    = b;
 
-            self.people(people);
             self.expenses(expenses);
+            self.debts(debts);
 
             applyBindings();
         })
     };
 
-    self.currentTab = ko.observable(LS.last_tab || 'expenses');
+    self.currentTab = ko.observable(
+        window.location.hash
+        || LS.last_tab
+        || 'expenses'
+    );
     self.currentTab.subscribe(function(val) {
         LS.last_tab = val;
+        window.location.hash = val;
     });
 
     self.newExpenseForm = function() {
