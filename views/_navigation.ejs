@@ -1,7 +1,11 @@
 <div id="navigation">
     <div id="title"><i>$</i> sharing</div>
-    <a id="nav_toggle" href="#" data-bind="event: { click: toggleObservable.bind(null, menuVisible) }">
-        <!-- <span id="nav_toggle_icon"><img src="/img/menu.svg"></span>-->
+    <a
+        id="nav_toggle"
+        href="#"
+        data-bind="
+            event: { click: toggleObservable.bind(null, menuVisible) }
+        ">
         <span id="nav_toggle_text">
             <i>$</i> sharing
         </span>
@@ -11,9 +15,16 @@
         <span class="clearfix"></span>
     </a>
     <span id="main_menu" data-bind="css: { menu_collapsed: menuVisible }">
-        <a id="expenses_tab" class="tab" data-bind="css: { selected: currentTab() === 'expenses' }, event: { click: currentTab.bind(null, 'expenses') }" href="#expenses">Expenses</a>
-        <a id="payments_tab" class="tab" data-bind="css: { selected: currentTab() === 'payments' }, event: { click: currentTab.bind(null, 'payments') }" href="#payments">Payments</a>
-        <a id="debts_tab"    class="tab" data-bind="css: { selected: currentTab() === 'debts'    }, event: { click: currentTab.bind(null, 'debts') }"    href="#debts">Debts</a>
+        <% tabs.forEach(function(tab) { %>
+            <a
+                id="<%= tab %>_tab"
+                class="tab"
+                href="#<%= tab %>"
+                data-bind="
+                    css: { selected: currentTab() === '<%= tab %>' },
+                    event: { click: currentTab.bind(null, '<%= tab %>') }
+                "><%= tab %></a>
+        <% }); %>
     </span>
     <span class="clearfix"></span>
 </div>

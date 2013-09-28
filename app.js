@@ -32,7 +32,14 @@ app.use(less({
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-    res.render('index', function(err, html) {
+    var data = {
+        tabs: [
+            'expenses',
+            'payments',
+            'debts',
+        ]
+    };
+    res.render('index', data, function(err, html) {
         res.send(html);
     });
 });
