@@ -103,6 +103,16 @@ function numericDate(y, m, d) {
     return p.join('/');
 }
 
+function setFragment(val) {
+    window.location.hash = val;
+}
+
+function getFragment() {
+    var h = window.location.hash;
+    if (h.charAt(0) === '#') return h.substring(1);
+    return h;
+}
+
 var colors = [
     "#75507b", // plum
     "#cc0000", // scarlet red

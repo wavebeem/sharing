@@ -10,7 +10,7 @@
         <i class="icon-plus"></i> add expense&hellip;
     </button>
     <form
-        action=""
+        action="/"
         id="expense_form"
         class="floaty_container"
         data-bind="
@@ -29,7 +29,12 @@
         </div>
         <div class="field">
             <span class="trivial_word">what</span>
-            <input id="price_field" class="price" type="text" min="1" max="9999" step="1" placeholder="$" data-bind="value: price">
+            <input
+                id="price_field"
+                class="price"
+                placeholder="$"
+                data-bind="value: price"
+                >
         </div>
         <div class="field">
             <span class="trivial_word">whom</span>
@@ -49,7 +54,7 @@
                 <span class="trivial_word">/</span>
                 <select data-bind="options: years,  value: selectedYear"></select>
             </div>
-        </div class="field">
+        </div>
         <div class="field">
             <!-- <span class="trivial_word">to pay for</span>-->
             <span class="trivial_word">why</span>

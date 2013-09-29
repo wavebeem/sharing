@@ -473,7 +473,7 @@ table.summary {
     box-shadow: 0px 0px 0px 3px fade(@tango_blue, 20%);
 }
 
-#expense_form {
+.column form {
     .main_padding;
 
     text-align: left;
@@ -511,6 +511,10 @@ table.summary {
         padding: 4px;
         font-size: 100%;
         vertical-align: baseline;
+    }
+
+    button:focus {
+        .focus_outline;
     }
 
     button {

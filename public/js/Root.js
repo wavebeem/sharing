@@ -102,9 +102,9 @@ function Root() {
         })
     };
 
-    self.currentTab = ko.observable(window.location.hash || 'expenses');
+    self.currentTab = ko.observable(getFragment() || 'expenses');
     self.currentTab.subscribe(function(val) {
-        window.location.hash = val;
+        setFragment(val);
     });
 
     self.newExpenseForm = function() {
