@@ -80,30 +80,43 @@ exports.debtFromTo = function(req, res) {
         'amount)'
     );
     var sqlOwed = sql(
-        'SELECT SUM(' + sqlAmount + ')',
+        '(SELECT SUM(' + sqlAmount + ')',
         'FROM expenses',
         'WHERE payer = ?',
         '   AND (spent_for = ?',
-        '       OR spent_for = 1)'
+        '       OR spent_for = 1))'
     );
     var sqlPaid = sql(
-        'SELECT sum(amount)',
+        '(SELECT sum(amount)',
         'FROM payments',
         'WHERE payer = ?',
-        '   AND payee = ?'
+        '   AND payee = ?)'
     );
 
     db.query(sql(
         'SELECT',
-        '   IFNULL((' + sqlOwed + '), 0) -',
-        '   IFNULL((' + sqlPaid + '), 0)',
+        '   (',
+        '       IFNULL(' + sqlOwed + ', 0) -',
+        '       IFNULL(' + sqlPaid + ', 0)',
+        '   ) - (',
+        '       IFNULL(' + sqlOwed + ', 0) -',
+        '       IFNULL(' + sqlPaid + ', 0)',
+        '   )',
         '   AS debt'
     ), [
         numPeople,
+
         +data.payer,
         +data.payee,
         +data.payer,
-        +data.payee
+        +data.payee,
+
+        numPeople,
+
+        +data.payee,
+        +data.payer,
+        +data.payee,
+        +data.payer,
     ], function(err, rows) {
         console.log(this.sql);
         console.log(err);

@@ -24,7 +24,9 @@ function daysInMonth(month, year) {
 function formattedCurrency(money) {
     return ko.computed(function() {
         var $ = ko.unwrap(money);
-        return '$' + $.toFixed(2);
+        var $$ = $ < 0 ? -$ : $;
+        var s = '$' + $$.toFixed(2);
+        return $ < 0 ? '(' + s + ')' : s;
     });
 }
 
