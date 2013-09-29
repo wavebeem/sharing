@@ -102,13 +102,8 @@ function Root() {
         })
     };
 
-    self.currentTab = ko.observable(
-        window.location.hash
-        || LS.last_tab
-        || 'expenses'
-    );
+    self.currentTab = ko.observable(window.location.hash || 'expenses');
     self.currentTab.subscribe(function(val) {
-        LS.last_tab = val;
         window.location.hash = val;
     });
 
