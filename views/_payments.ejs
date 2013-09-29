@@ -4,8 +4,8 @@
         class="form_toggle"
         id="new_payment_show"
         data-bind="
-        visible: true,
-        click: noop"
+        visible: tempPaymentForm().notVisible,
+        click: newPaymentForm"
         >
         <i class="icon-plus"></i> add payment&hellip;
     </button>
@@ -13,9 +13,9 @@
         action="/"
         class="floaty_container"
         data-bind="
-        with: {},
-        submit: noop,
-        visible: true"
+        with: tempPaymentForm,
+        submit: tempPaymentForm().save,
+        visible: tempPaymentForm().visible"
         >
         <div class="field">
             <span class="trivial_word">spam</span>
@@ -25,8 +25,30 @@
             data-bind="value: ''">
         </div>
         <div class="button_group">
-            <button class="add" type="submit"><i class="icon-plus"></i> Add</button>
-            <button class="cancel" type="button"><i class="icon-close"></i> Cancel</button>
+            <button
+                class="add"
+                type="submit"
+                >
+                <i class="icon-plus"></i> Add
+            </button>
+            <button
+                class="cancel"
+                type="button"
+                data-bind="click: hide"
+                >
+                <i class="icon-close"></i> Cancel
+            </button>
         </div>
     </form>
+    <div id="payment_group" data-bind="foreach: payments">
+        <div class="payment_item" data-bind="with: $data">
+            <span class="money" data-bind="text: formattedCurrency(amount)"></span>
+            <span class="trivial_word">on</span>
+            <span data-bind="text: formattedDate(date)"></span>
+            <span class="trivial_word">from</span>
+            <span class="payer" data-bind="css: 'color_' + payer, text: $root.nameForId(payer)"></span>
+            <span class="trivial_word">to</span>
+            <span class="payee" data-bind="css: 'color_' + payee, text: $root.nameForId(payee)"></span>
+        </div>
+    </div>
 </div>

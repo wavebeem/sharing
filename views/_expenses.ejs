@@ -5,14 +5,14 @@
         id="new_expense_show"
         data-bind="
         visible: tempExpenseForm().notVisibile,
-        click: $root.newExpenseForm"
+        click: newExpenseForm"
         >
         <i class="icon-plus"></i> add expense&hellip;
     </button>
     <form
         action="/"
-        id="expense_form"
         class="floaty_container"
+        id="expense_form"
         data-bind="
         with: tempExpenseForm,
         submit: saveTempExpense,
@@ -71,7 +71,7 @@
         </div>
     </form>
     <div id="expense_group" data-bind="foreach: expenses">
-        <div class="expense_item" data-bind="css: 'color_' + payer">
+        <div class="expense_item">
             <div>
                 <span class="money"><span data-bind="text: formattedCurrency(amount)"></span></span>
                 <span class="trivial_word">on</span>

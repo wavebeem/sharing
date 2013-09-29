@@ -14,6 +14,7 @@ function Root() {
     });
 
     self.tempExpenseForm = ko.observable(new ExpenseForm());
+    self.tempPaymentForm = ko.observable(new PaymentForm());
 
     self.saveTempExpense = function() {
         self.tempExpenseForm().save();
@@ -44,6 +45,7 @@ function Root() {
             return d.amount > 0;
         });
     });
+    self.payments = ko.observableArray();
 
     var applyBindings = _.once(function() {
         ko.applyBindings($root);
@@ -91,12 +93,15 @@ function Root() {
     self.update = function() {
         $.when(
             $.ajax('/api/expenses'),
+            $.ajax('/api/payments'),
             allDebtsAjax()
-        ).done(function(a, b) {
+        ).done(function(a, b, c) {
             var expenses = a[0].data;
-            var debts    = b;
+            var payments = b[0].data;
+            var debts    = c;
 
             self.expenses(expenses);
+            self.payments(payments);
             self.debts(debts);
 
             applyBindings();
@@ -111,6 +116,12 @@ function Root() {
     self.newExpenseForm = function() {
         var form = new ExpenseForm();
         self.tempExpenseForm(form);
+        form.visible(true);
+    };
+
+    self.newPaymentForm = function() {
+        var form = new PaymentForm();
+        self.tempPaymentForm(form);
         form.visible(true);
     };
 
