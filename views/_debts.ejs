@@ -1,10 +1,7 @@
-<div id="debts" class="column" data-bind="
-    visible: currentTab() === 'debts',
-    foreach: debtsGrouped"
-    >
-    <div class="floaty_container">
+<div id="debts" class="column" data-bind="visible: currentTab() === 'debts'">
+    <div class="floaty_container no_padding">
         <table class="summary">
-            <tbody data-bind="foreach: $data[1]">
+            <tbody data-bind="foreach: debtsPositive">
                 <tr class="debt">
                     <td class="money" data-bind="text: formattedCurrency(amount)"></td>
                     <td>

@@ -39,9 +39,10 @@ function Root() {
 
     self.expenses = ko.observableArray();
     self.debts = ko.observableArray();
-    self.debtsGrouped = ko.computed(function() {
-        var grouped = _(self.debts()).groupBy('from');
-        return _(grouped).pairs();
+    self.debtsPositive = ko.computed(function() {
+        return _(self.debts()).filter(function(d) {
+            return d.amount > 0;
+        });
     });
 
     var applyBindings = _.once(function() {

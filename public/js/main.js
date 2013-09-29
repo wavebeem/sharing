@@ -8,4 +8,8 @@ $(function() {
         $root.people(resp.data);
         $root.update();
     });
+
+    window.onhashchange = function(event) {
+        $root.currentTab(getFragment());
+    };
 });

@@ -182,6 +182,10 @@ i {
 }
 
 .floaty_container {
+    &.no_padding {
+        padding: 0px;
+    }
+
     .debt {
         text-align: left;
         .money {
@@ -349,7 +353,11 @@ table.summary {
     }
 
     tbody tr:first-child td {
-        padding-top: 1px;
+        padding-top: 8px;
+    }
+
+    tbody tr:last-child td {
+        padding-bottom: 8px;
     }
 }
 
