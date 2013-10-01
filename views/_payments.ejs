@@ -18,11 +18,31 @@
         visible: tempPaymentForm().visible"
         >
         <div class="field">
-            <span class="trivial_word">spam</span>
+            <span class="trivial_word">who</span>
+            <select data-bind="
+                options: $root.normalPeople,
+                optionsText: 'name',
+                optionsValue: 'id',
+                value: $root.currentUser
+                "></select>
+        </div>
+        <div class="field">
+            <span class="trivial_word">whom</span>
+            <select data-bind="
+                options: $root.normalPeopleExceptMe,
+                optionsText: 'name',
+                optionsValue: 'id',
+                value: to
+                "></select>
+        </div>
+        <div class="field">
+            <span class="trivial_word">what</span>
             <input
-            type="text"
-            placeholder="spam, spam, spam"
-            data-bind="value: ''">
+                id="price_field"
+                class="price"
+                placeholder="$"
+                data-bind="value: amount"
+                >
         </div>
         <div class="button_group">
             <button

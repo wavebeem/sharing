@@ -31,6 +31,12 @@ function Root() {
             return p.id > 1;
         });
     });
+    self.normalPeopleExceptMe = ko.computed(function() {
+        return _(self.people()).filter(function(p) {
+            return p.id > 1 &&
+                p.id !== self.currentUser();
+        });
+    });
     self.nameForId = function(id) {
         return self.people()[+id - 1].name;
     };
@@ -126,4 +132,14 @@ function Root() {
     };
 
     self.menuVisible = ko.observable(false);
+
+    self.debtBetween = function(from, to) {
+        var debt = _(self.debts()).findWhere({
+            from: from,
+            to: to,
+        });
+
+        if (!debt || debt < 0) return '0';
+        return '' + debt.amount;
+    };
 }
