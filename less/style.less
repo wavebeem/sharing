@@ -27,8 +27,15 @@
 @button_bg: darken(@tango_light_blue, 10%);
 @button_fg: #fafafa;
 
+@menu_bg: @header_bg;
+@menu_fg: @header_fg;
+@menu_separator_color: lighten(@header_bg, 15%);
+
 @header_bg: #444;
 @header_fg: @header_bg + #888;
+
+@title_bg: #3a3a3a;
+@title_fg: white;
 
 @close_bg:          #aaaaaa;
 @close_focus_bg:    #cccccc;
@@ -137,8 +144,8 @@ i {
     padding-top: 0px;
     padding-bottom: 0px;
 
-    background: @header_bg;
-    color: @header_fg;
+    background: @menu_bg;
+    color: @menu_bg;
 
     // margin-bottom: 1em;
 
@@ -148,28 +155,30 @@ i {
 
         display: block;
 
-        &.tab:hover {
-            background: fade(white, 10%);
-            cursor: pointer;
-        }
-
-        &.selected {
-            border-color: @tango_green;
-        }
-
-        &:focus {
-            outline: none;
-        }
-
         &.tab {
             color: @header_fg;
             text-transform: capitalize;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &.selected {
+                box-shadow: inset @tab_stripe_size 0px 0px @tango_green;
+            }
+
+            &:focus {
+                outline: none;
+            }
         }
 
-        padding: 10px;
+        @pad: 10px;
+
+        padding: @pad;
 
         // border-right: @tab_stripe_size solid transparent;
-        border-left: @tab_stripe_size solid transparent;
+        // border-left: @tab_stripe_size solid transparent;
+        padding-left: (@pad + @tab_stripe_size);
 
         // margin-bottom: 1px;
 
@@ -203,8 +212,8 @@ i {
 
     padding-top: 0px;
 
-    color: white;
-    background: #333;
+    color: @title_fg;
+    background: @title_bg;
 
     i {
         color: @tango_green;

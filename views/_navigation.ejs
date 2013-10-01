@@ -14,7 +14,7 @@
         </span>
         <span class="clearfix"></span>
     </a>
-    <span id="main_menu" class="menu_collapsed" data-bind="css: { menu_collapsed: menuVisible }">
+    <span id="main_menu" class="menu_collapsed" data-bind="css: { menu_collapsed: !menuVisible() }">
         <% tabs.forEach(function(tab) { %>
             <a
                 id="<%= tab %>_tab"

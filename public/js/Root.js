@@ -125,5 +125,5 @@ function Root() {
         form.visible(true);
     };
 
-    self.menuVisible = ko.observable(true);
+    self.menuVisible = ko.observable(false);
 }

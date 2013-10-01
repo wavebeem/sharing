@@ -2,11 +2,28 @@
     position: fixed;
     width: @sidebar_size;
 
-    border-right: 1px solid fade(black, 10%);
+    border-right: 1px solid fade(black, 35%);
 
     top:    0px;
     left:   0px;
     bottom: 0px;
+
+    div.tab,
+    a.tab {
+        border-bottom: 1px solid darken(@menu_bg, 3%);
+
+        &:hover {
+            background: fade(white, 10%);
+        }
+
+        &.selected {
+            background: fade(white, 5%);
+        }
+
+        &:first-child {
+            border-top: 1px solid darken(@title_bg, 3%);
+        }
+    }
 }
 
 #column_container {
