@@ -15,6 +15,11 @@ db.query('SELECT COUNT(*) AS num FROM people', function(err, rows) {
     numPeople = rows[0].num;
 });
 
+var keepAlive = function() {
+    db.query('SELECT 1');
+};
+setInterval(keepAlive, 60 * 1000);
+
 var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
         res.type('json');
