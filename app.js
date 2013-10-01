@@ -53,6 +53,7 @@ app.get('/api/total_paid_by/:payer', routes.totalPaidBy);
 app.get('/api/debt_from/:payer/to/:payee', routes.debtFromTo);
 
 app.post('/api/expenses', routes.addExpense);
+app.post('/api/payments', routes.addPayment);
 
 var server = http.createServer(app)
 

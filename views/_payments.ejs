@@ -44,6 +44,16 @@
                 data-bind="value: amount"
                 >
         </div>
+        <div class="field">
+            <span class="trivial_word">when</span>
+            <div class="date_group">
+                <select data-bind="options: months, value: selectedMonth"></select>
+                <span class="trivial_word">/</span>
+                <select data-bind="options: days,   value: selectedDay"></select>
+                <span class="trivial_word">/</span>
+                <select data-bind="options: years,  value: selectedYear"></select>
+            </div>
+        </div>
         <div class="button_group">
             <button
                 class="add"

@@ -28,18 +28,21 @@ function formattedCurrency(money) {
     });
 }
 
+function dateStringToPieces(s) {
+    var D = new Date(s);
+
+    return [
+        D.getUTCFullYear(),
+        D.getUTCMonth() + 1,
+        D.getUTCDate(),
+    ];
+}
+
 function formattedDate(date) {
     return ko.computed(function() {
-        var D = ko.unwrap(date);
-        D = new Date(D);
+        var D = dateStringToPieces(ko.unwrap(date));
 
-        var d = D.getDate();
-        var m = D.getMonth() + 1;
-        var y = D.getFullYear();
-
-        return shortAmericanDate(y, m, d);
-        // return americanDate(y, m, d);
-        // return numericDate(y, m, d);
+        return shortAmericanDate.apply(null, D);
     });
 }
 

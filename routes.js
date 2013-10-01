@@ -7,7 +7,7 @@ var db = mysql.createConnection({
     user     : 'root',
     password : mysqlPassword,
     database : 'sharing',
-    timezone : 'Z',
+    // timezone : 'Z',
 });
 
 var numPeople;
@@ -42,13 +42,28 @@ exports.getPayments = routeSelectAllFrom('payments', 'ORDER BY date DESC');
 exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
-    // db.query('delete from expenses');
     db.query('INSERT INTO expenses SET ?', {
         payer       : data.payer,
         amount      : data.amount,
         date        : data.date,
         spent_for   : data.spent_for,
         description : data.description,
+    }, function(err, rows) {
+        res.send({
+            err: err,
+            data: rows,
+        });
+    });
+};
+
+exports.addPayment = function(req, res) {
+    res.type('json');
+    var data = req.body;
+    db.query('INSERT INTO payments SET ?', {
+        payer       : data.payer,
+        payee       : data.payee,
+        amount      : data.amount,
+        date        : data.date,
     }, function(err, rows) {
         res.send({
             err: err,
@@ -111,21 +126,18 @@ exports.debtFromTo = function(req, res) {
     ), [
         numPeople,
 
-        +data.payer,
         +data.payee,
         +data.payer,
         +data.payee,
+        +data.payer,
 
         numPeople,
 
-        +data.payee,
         +data.payer,
         +data.payee,
         +data.payer,
+        +data.payee,
     ], function(err, rows) {
-        console.log(this.sql);
-        console.log(err);
-        console.log(rows);
         res.send({
             data: rows[0].debt
         });

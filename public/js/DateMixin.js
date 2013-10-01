@@ -30,10 +30,10 @@ function DateMixin(self) {
     });
 
     self.date = ko.computed(function() {
-        return [
-            self.selectedYear(),
-            self.selectedMonth(),
-            self.selectedDay(),
-        ].join('-');
+        var y = self.selectedYear();
+        var m = self.selectedMonth();
+        var d = self.selectedDay();
+
+        return [y, m ,d].join('-');
     });
 }

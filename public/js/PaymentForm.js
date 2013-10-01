@@ -6,6 +6,9 @@ function PaymentForm() {
 
     self.to     = ko.observable('');
     self.amount = ko.observable('0').extend({ money: true });
+    var realAmount = ko.computed(function() {
+        return +self.amount().replace(/[^0-9\.]/g, '');
+    });
 
     var toAndFrom = ko.computed(function() {
         return {
@@ -19,8 +22,14 @@ function PaymentForm() {
     });
 
     self.save = function() {
-        console.log('Saving payment...');
+        $.post('/api/payments', {
+            date        : self.date(),
+            amount      : realAmount(),
+            payer       : +$root.currentUser(),
+            payee       : +self.to(),
+        }).done(function() {
+            self.hide();
+            $root.update();
+        });
     };
-
-    self.visible(true);
 }

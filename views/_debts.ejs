@@ -1,6 +1,11 @@
 <div id="debts" class="column" data-bind="visible: currentTab() === 'debts'">
-    <div class="floaty_container no_padding">
-        <table class="summary">
+    <div
+        class="floaty_container"
+        data-bind="css: { no_padding: debtsPositive().length > 0 }">
+        <span class="placeholder" data-bind="visible: debtsPositive().length === 0">
+            no debts
+        </span>
+        <table class="summary" data-bind="visible: debtsPositive().length > 0">
             <tbody data-bind="foreach: debtsPositive">
                 <tr class="debt">
                     <td class="money" data-bind="text: formattedCurrency(amount)"></td>
