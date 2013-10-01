@@ -22,7 +22,6 @@ if (env === 'dev') {
     app.use(express.logger('dev'));
 }
 
-app.use(express.favicon());
 app.use(less({
     src: __dirname + '/less',
     dest: __dirname + '/public/css',
