@@ -11,7 +11,7 @@ var db = mysql.createConnection({
 });
 
 var numPeople;
-db.query('SELECT COUNT(*) AS num FROM people', function(err, rows) {
+db.query('SELECT COUNT(*) - 1 AS num FROM people', function(err, rows) {
     numPeople = rows[0].num;
 });
 
@@ -116,27 +116,27 @@ exports.debtFromTo = function(req, res) {
     db.query(sql(
         'SELECT',
         '   (',
-        '       IFNULL(' + sqlOwed + ', 0) -',
+        '       IFNULL(' + sqlOwed + ', 0) +',
         '       IFNULL(' + sqlPaid + ', 0)',
         '   ) - (',
-        '       IFNULL(' + sqlOwed + ', 0) -',
+        '       IFNULL(' + sqlOwed + ', 0) +',
         '       IFNULL(' + sqlPaid + ', 0)',
         '   )',
         '   AS debt'
     ), [
         numPeople,
 
-        +data.payee,
         +data.payer,
         +data.payee,
         +data.payer,
+        +data.payee,
 
         numPeople,
 
-        +data.payer,
         +data.payee,
         +data.payer,
         +data.payee,
+        +data.payer,
     ], function(err, rows) {
         res.send({
             data: rows[0].debt
