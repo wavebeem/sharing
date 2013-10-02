@@ -47,6 +47,9 @@ app.get('/api/people',   routes.getPeople);
 app.get('/api/expenses', routes.getExpenses);
 app.get('/api/payments', routes.getPayments);
 
+app.delete('/api/expenses/:id', routes.deleteExpenseById);
+app.delete('/api/payments/:id', routes.deletePaymentById);
+
 app.get('/api/total_paid_by/:payer', routes.totalPaidBy);
 
 app.get('/api/debt_from/:payer/to/:payee', routes.debtFromTo);

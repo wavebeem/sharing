@@ -39,6 +39,26 @@ exports.getPeople   = routeSelectAllFrom('people');
 exports.getExpenses = routeSelectAllFrom('expenses', 'ORDER BY date DESC');
 exports.getPayments = routeSelectAllFrom('payments', 'ORDER BY date DESC');
 
+var routeDeleteById = function(table) {
+    return function(req, res) {
+        res.type('json');
+        var safeTableName = mysql.escapeId(table);
+        var sql = 'DELETE FROM ' + safeTableName + ' WHERE ?';
+        var data = req.params;
+        console.log(data);
+        db.query(sql, { id: data.id }, function(err, rows) {
+            console.log(this.sql);
+            res.send({
+                err: err,
+                data: rows,
+            });
+        });
+    };
+};
+
+exports.deleteExpenseById = routeDeleteById('expenses');
+exports.deletePaymentById = routeDeleteById('payments');
+
 exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
