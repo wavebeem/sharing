@@ -28,7 +28,7 @@ main() {
 #     "payer": 2,
 #     "amount": 23.45,
 #     "date": "2013-09-22",
-#     "spent_for": 1,
+#     "payee": 1,
 #     "description": "Bagels"
 # }
 # JSON

@@ -66,7 +66,7 @@ exports.addExpense = function(req, res) {
         payer       : data.payer,
         amount      : data.amount,
         date        : data.date,
-        spent_for   : data.spent_for,
+        payee       : data.payee,
         description : data.description,
     }, function(err, rows) {
         res.send({
@@ -115,7 +115,7 @@ exports.debtFromTo = function(req, res) {
     res.type('json');
     var data = req.params;
     var sqlAmount = sql(
-        'IF(spent_for = 1,',
+        'IF(payee = 1,',
         'amount / ?,',
         'amount)'
     );
@@ -123,8 +123,8 @@ exports.debtFromTo = function(req, res) {
         '(SELECT SUM(' + sqlAmount + ')',
         'FROM expenses',
         'WHERE payer = ?',
-        '   AND (spent_for = ?',
-        '       OR spent_for = 1))'
+        '   AND (payee = ?',
+        '       OR payee = 1))'
     );
     var sqlPaid = sql(
         '(SELECT sum(amount)',
@@ -132,6 +132,11 @@ exports.debtFromTo = function(req, res) {
         'WHERE payer = ?',
         '   AND payee = ?)'
     );
+
+    var A = sql(
+    );
+
+    // A+B/3 - C+D/3
 
     db.query(sql(
         'SELECT',

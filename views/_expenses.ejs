@@ -78,14 +78,14 @@
                 <span data-bind="text: formattedDate(date)"></span>
                 <span class="trivial_word">by</span>
                 <span class="payer" data-bind="css: 'color_' + payer, text: $root.nameForId(payer)"></span>
-                <span data-bind="visible: spent_for !== 1">
+                <span data-bind="visible: payee !== 1">
                     <span class="trivial_word">for</span>
-                    <span class="spent_for" data-bind="css: 'color_' + spent_for, text: $root.nameForId(spent_for)"></span>
+                    <span class="payee" data-bind="css: 'color_' + payee, text: $root.nameForId(payee)"></span>
                 </span>
             </div>
             <div>
                 <span class="description" data-bind="text: description"></span
-                ><span class="share_value" data-bind="visible: spent_for === 1">
+                ><span class="share_value" data-bind="visible: payee === 1">
                     <span class="money" data-bind="text: formattedCurrency(amount / $root.numberOfPeople())"></span>
                     <span class="trivial_word">each</span>
                 </span>

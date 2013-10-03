@@ -11,7 +11,7 @@ function ExpenseForm() {
             date        : self.date(),
             amount      : realPrice(),
             payer       : +$root.currentUser(),
-            spent_for   : +self.spendTarget(),
+            payee       : +self.spendTarget(),
             description : self.description(),
         }).done(function() {
             self.hide();

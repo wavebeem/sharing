@@ -6,7 +6,7 @@ create table expenses (
     payer integer not null,
     amount double not null,
     date date not null,
-    spent_for integer not null,
+    payee integer not null,
     description text not null,
     primary key (id)
 );
