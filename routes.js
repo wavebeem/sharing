@@ -10,6 +10,10 @@ var db = mysql.createConnection({
     // timezone : 'Z',
 });
 
+var K = {
+    ID_EVERYONE: 1,
+};
+
 var numPeople;
 db.query('SELECT COUNT(*) - 1 AS num FROM people', function(err, rows) {
     numPeople = rows[0].num;
@@ -80,10 +84,10 @@ exports.addPayment = function(req, res) {
     res.type('json');
     var data = req.body;
     db.query('INSERT INTO payments SET ?', {
-        payer       : data.payer,
-        payee       : data.payee,
-        amount      : data.amount,
-        date        : data.date,
+        payer  : data.payer,
+        payee  : data.payee,
+        amount : data.amount,
+        date   : data.date,
     }, function(err, rows) {
         res.send({
             err: err,
@@ -109,59 +113,47 @@ var rand = function(n) {
     return ~~(Math.random() * n);
 };
 var sql = function() {
-    return [].join.call(arguments, '\n');
+    return [].join.call(arguments, ' ');
 };
 exports.debtFromTo = function(req, res) {
     res.type('json');
     var data = req.params;
-    var sqlAmount = sql(
-        'IF(payee = 1,',
-        'amount / ?,',
-        'amount)'
-    );
-    var sqlOwed = sql(
-        '(SELECT SUM(' + sqlAmount + ')',
-        'FROM expenses',
-        'WHERE payer = ?',
-        '   AND (payee = ?',
-        '       OR payee = 1))'
-    );
-    var sqlPaid = sql(
-        '(SELECT sum(amount)',
-        'FROM payments',
-        'WHERE payer = ?',
-        '   AND payee = ?)'
+
+    var qExp = sql(
+        'IFNULL(',
+            '(SELECT SUM(amount) / ?',
+            'FROM expenses',
+            'WHERE payer = ? AND payee = ?)',
+            ', 0',
+        ')'
     );
 
-    var A = sql(
+    var qPay = sql(
+        'IFNULL(',
+            '(SELECT SUM(amount)',
+            'FROM payments',
+            'WHERE payer = ? AND payee = ?)',
+            ', 0',
+        ')'
     );
 
-    // A+B/3 - C+D/3
+    var a = +data.payer;
+    var b = +data.payee;
+    var everyone = K.ID_EVERYONE;
 
     db.query(sql(
         'SELECT',
-        '   (',
-        '       IFNULL(' + sqlOwed + ', 0) +',
-        '       IFNULL(' + sqlPaid + ', 0)',
-        '   ) - (',
-        '       IFNULL(' + sqlOwed + ', 0) +',
-        '       IFNULL(' + sqlPaid + ', 0)',
-        '   )',
-        '   AS debt'
+            '(', qExp, '+', qExp, '+', qPay, ')',
+            '-',
+            '(', qExp, '+', qExp, '+', qPay, ')',
+        'AS debt'
     ), [
-        numPeople,
-
-        +data.payer,
-        +data.payee,
-        +data.payer,
-        +data.payee,
-
-        numPeople,
-
-        +data.payee,
-        +data.payer,
-        +data.payee,
-        +data.payer,
+        1, b, a,
+        numPeople, b, everyone,
+        b, a,
+        1, a, b,
+        numPeople, a, everyone,
+        a, b,
     ], function(err, rows) {
         res.send({
             data: rows[0].debt
