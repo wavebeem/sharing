@@ -73,6 +73,10 @@
     <div id="expense_group" data-bind="foreach: expenses">
         <div class="expense_item">
             <div>
+                <button class="stealth" title="Delete" data-bind="click: $root.deleteExpense.bind(null, id)">
+                    <i class="delete icon-remove"></i>
+                </button>
+
                 <span class="money"><span data-bind="text: formattedCurrency(amount)"></span></span>
                 <span class="trivial_word">on</span>
                 <span data-bind="text: formattedDate(date)"></span>

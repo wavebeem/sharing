@@ -619,6 +619,35 @@ button {
     }
 }
 
+.stealth {
+    width:  auto;
+    height: 100%;
+
+    padding: 0px;
+    margin:  0px;
+
+    margin-right: 8px;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+
+    &,
+    &:hover,
+    &:focus {
+        box-shadow: none;
+
+        .delete {
+            color: black;
+        }
+    }
+
+    .delete {
+        font-size: 16px;
+        color: #ccc;
+    }
+}
+
 button.add     { background: @tango_green; }
 button.cancel  { background: @tango_red; }
 

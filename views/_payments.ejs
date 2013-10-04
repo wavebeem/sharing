@@ -72,6 +72,10 @@
     </form>
     <div id="payment_group" data-bind="foreach: payments">
         <div class="payment_item" data-bind="with: $data">
+            <button class="stealth" title="Delete" data-bind="click: $root.deletePayment.bind(null, id)">
+                <i class="delete icon-remove"></i>
+            </button>
+
             <span class="money" data-bind="text: formattedCurrency(amount)"></span>
             <span class="trivial_word">on</span>
             <span data-bind="text: formattedDate(date)"></span>

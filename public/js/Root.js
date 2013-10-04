@@ -8,6 +8,21 @@ function Root() {
 
     GLOBAL.$root = self;
 
+    var confirmDeleteFrom = function(table, id) {
+        if (confirm('Deletion is permanent. ARE YOU OK?')) {
+            $.ajax('/api/' + table + '/' + id, { type: 'DELETE' })
+                .then(self.update);
+        }
+    };
+
+    self.deleteExpense = function(id) {
+        return confirmDeleteFrom('expenses', id);
+    };
+
+    self.deletePayment = function(id) {
+        return confirmDeleteFrom('payments', id);
+    };
+
     self.currentUser = ko.observable(+LS.user_id || 2);
     self.currentUser.subscribe(function(val) {
         LS.user_id = val;
