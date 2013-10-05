@@ -2,39 +2,45 @@ var fs = require('fs');
 var mysqlPassword = fs.readFileSync('mysql.passwd', 'utf-8').trim();
 
 var mysql = require('mysql');
-var db = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : mysqlPassword,
-    database : 'sharing',
-    // timezone : 'Z',
-});
+var sqlDo = function(query, params, then, fail) {
+    var db = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'root',
+        password : mysqlPassword,
+        database : 'sharing',
+    });
+
+    db.query(query, params, function(err, rows) {
+        if (err) {
+            if (fail) fail(err)
+        }
+        else {
+            then(rows);
+        }
+
+        db.end();
+    });
+};
 
 var K = {
     ID_EVERYONE: 1,
 };
 
 var numPeople;
-db.query('SELECT COUNT(*) - 1 AS num FROM people', function(err, rows) {
+sqlDo('SELECT COUNT(*) - 1 AS num FROM people', [], function(rows) {
     numPeople = rows[0].num;
 });
-
-var keepAlive = function() {
-    db.query('SELECT 1');
-};
-setInterval(keepAlive, 60 * 1000);
 
 var routeSelectAllFrom = function(table, suffix) {
     return function(req, res) {
         res.type('json');
+
         var safeTableName = mysql.escapeId(table);
         var sql = 'SELECT * FROM ' + safeTableName;
         if (suffix) sql += ' ' + suffix
-        db.query(sql, function(err, rows) {
-            res.send({
-                err: err,
-                data: rows,
-            });
+
+        sqlDo(sql, [], function(rows) {
+            res.send({ data: rows });
         });
     };
 };
@@ -46,16 +52,13 @@ exports.getPayments = routeSelectAllFrom('payments', 'ORDER BY date DESC');
 var routeDeleteById = function(table) {
     return function(req, res) {
         res.type('json');
+
         var safeTableName = mysql.escapeId(table);
         var sql = 'DELETE FROM ' + safeTableName + ' WHERE ?';
         var data = req.params;
-        console.log(data);
-        db.query(sql, { id: data.id }, function(err, rows) {
-            console.log(this.sql);
-            res.send({
-                err: err,
-                data: rows,
-            });
+
+        sqlDo(sql, { id: data.id }, function(rows) {
+            res.send({ data: rows });
         });
     };
 };
@@ -66,15 +69,14 @@ exports.deletePaymentById = routeDeleteById('payments');
 exports.addExpense = function(req, res) {
     res.type('json');
     var data = req.body;
-    db.query('INSERT INTO expenses SET ?', {
+    sqlDo('INSERT INTO expenses SET ?', {
         payer       : data.payer,
         amount      : data.amount,
         date        : data.date,
         payee       : data.payee,
         description : data.description,
-    }, function(err, rows) {
+    }, function(rows) {
         res.send({
-            err: err,
             data: rows,
         });
     });
@@ -83,14 +85,13 @@ exports.addExpense = function(req, res) {
 exports.addPayment = function(req, res) {
     res.type('json');
     var data = req.body;
-    db.query('INSERT INTO payments SET ?', {
+    sqlDo('INSERT INTO payments SET ?', {
         payer  : data.payer,
         payee  : data.payee,
         amount : data.amount,
         date   : data.date,
-    }, function(err, rows) {
+    }, function(rows) {
         res.send({
-            err: err,
             data: rows,
         });
     });
@@ -99,11 +100,10 @@ exports.addPayment = function(req, res) {
 exports.totalPaidBy = function(req, res) {
     res.type('json');
     var data = req.params;
-    db.query('SELECT SUM(amount) AS TOTAL FROM expenses WHERE ?', {
+    sqlDo('SELECT SUM(amount) AS TOTAL FROM expenses WHERE ?', {
         payer: data.payer
-    }, function(err, rows) {
+    }, function(rows) {
         res.send({
-            err: err,
             data: rows[0].total,
         });
     });
@@ -141,7 +141,7 @@ exports.debtFromTo = function(req, res) {
     var b = +data.payee;
     var everyone = K.ID_EVERYONE;
 
-    db.query(sql(
+    sqlDo(sql(
         'SELECT',
             '(', qExp, '+', qExp, '+', qPay, ')',
             '-',
@@ -154,7 +154,7 @@ exports.debtFromTo = function(req, res) {
         1, a, b,
         numPeople, a, everyone,
         a, b,
-    ], function(err, rows) {
+    ], function(rows) {
         res.send({
             data: rows[0].debt
         });
