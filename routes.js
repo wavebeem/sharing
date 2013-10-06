@@ -120,21 +120,19 @@ exports.debtFromTo = function(req, res) {
     var data = req.params;
 
     var qExp = sql(
-        'IFNULL(',
-            '(SELECT SUM(amount) / ?',
+        'IFNULL((',
+            'SELECT SUM(amount) / ?',
             'FROM expenses',
-            'WHERE payer = ? AND payee = ?)',
-            ', 0',
-        ')'
+            'WHERE payer = ? AND payee = ?',
+        '), 0)'
     );
 
     var qPay = sql(
-        'IFNULL(',
-            '(SELECT SUM(amount)',
+        'IFNULL((',
+            'SELECT SUM(amount)',
             'FROM payments',
-            'WHERE payer = ? AND payee = ?)',
-            ', 0',
-        ')'
+            'WHERE payer = ? AND payee = ?',
+        '), 0)'
     );
 
     var a = +data.payer;
@@ -143,8 +141,7 @@ exports.debtFromTo = function(req, res) {
 
     sqlDo(sql(
         'SELECT',
-            '(', qExp, '+', qExp, '+', qPay, ')',
-            '-',
+            '(', qExp, '+', qExp, '+', qPay, ') -',
             '(', qExp, '+', qExp, '+', qPay, ')',
         'AS debt'
     ), [
