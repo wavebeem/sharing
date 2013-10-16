@@ -24,8 +24,8 @@
 
 @button_hover_bg: darken(@tango_light_blue, 8%);
 
-@button_bg: darken(@tango_light_blue, 10%);
-@button_fg: #fafafa;
+@button_bg: #eeeeee;
+@button_fg: #444444;
 
 @menu_bg: @header_bg;
 @menu_fg: @header_fg;
@@ -176,11 +176,7 @@ i {
 
         padding: @pad;
 
-        // border-right: @tab_stripe_size solid transparent;
-        // border-left: @tab_stripe_size solid transparent;
         padding-left: (@pad + @tab_stripe_size);
-
-        // margin-bottom: 1px;
 
         text-decoration: none;
     }
@@ -523,9 +519,8 @@ table.summary {
 
     select {
         .appearance_none;
-        .border_3d;
-        .round;
-        box-shadow: inset 0px -2px 0px fade(black, 5%);
+        .border_3d(3%);
+        .round(4px);
         background: lighten(@light_gray, 4%);
     }
 
@@ -552,8 +547,10 @@ table.summary {
 }
 
 button {
-    // background: @button_bg;
-    color:      @button_fg;
+    background: @button_bg;
+    color: @button_fg;
+
+    .bold;
 
     padding: 6px;
 
@@ -567,13 +564,10 @@ button {
     .round;
 
     vertical-align: bottom;
-    box-shadow: inset 0px -2px 0px fade(black, 15%);
 
     &:hover,
     &:focus {
         outline: none;
-        box-shadow: inset 0px -3px 0px fade(black, 20%);
-        // background: @button_hover_bg;
     }
 
     i {
@@ -597,9 +591,14 @@ button {
     margin-top: 9px;
     margin-bottom: 0px;
 
+    border-top: 1px solid fade(black, 5%);
+
+    margin-left:  -20px;
+    margin-right: -20px;
+
     button {
         display: inline-block;
-        width: 45%;
+        width: 35%;
         margin: 0px 1px;
     }
 }
@@ -648,13 +647,11 @@ button {
     }
 }
 
-button.add     { background: @tango_green; }
-button.cancel  { background: @tango_red; }
+button.add     { color: darken(@tango_green, 10%); background: fade(@tango_green, 35%); }
+button.cancel  { color: darken(@tango_red,   10%); background: fade(@tango_red,   35%); }
 
-button.add:hover, button.add:focus        { background: desaturate(lighten(@tango_green, 8%), 20%); }
-button.cancel:hover, button.cancel:focus  { background: desaturate(lighten(@tango_red,   8%), 20%); }
-
-// #new_expense_description { width: 100%; }
+button.add:hover     { color: darken(@tango_green, 5%); background: fade(@tango_green, 30%); }
+button.cancel:hover  { color: darken(@tango_red,   5%); background: fade(@tango_red,   30%); }
 
 button {
     &:hover {
@@ -668,23 +665,18 @@ button {
     color: @light_text;
 
     text-align: center;
-    // text-align: left;
 
     &,
     &:hover,
     &:focus {
-        // border: none;
-        // .border_3d(-5%);
         border: 1px dashed darken(@bg, 8%);
         outline: none;
-        // background: transparent;
         background: fade(black, 2%);
         box-shadow: none;
     }
 
     &:hover,
     &:focus {
-        // text-decoration: underline;
         color: @fg;
     }
 
