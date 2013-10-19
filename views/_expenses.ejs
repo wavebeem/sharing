@@ -19,7 +19,7 @@
         visible: tempExpenseForm().visible"
         >
         <div class="field">
-            <span class="trivial_word">who</span>
+            <span class="trivial_word">payer</span>
             <select data-bind="
                 options: $root.normalPeople,
                 optionsText: 'name',
@@ -28,16 +28,7 @@
                 "></select>
         </div>
         <div class="field">
-            <span class="trivial_word">what</span>
-            <input
-                id="price_field"
-                class="price"
-                placeholder="$"
-                data-bind="value: price"
-                >
-        </div>
-        <div class="field">
-            <span class="trivial_word">whom</span>
+            <span class="trivial_word">payee</span>
             <select data-bind="
                 options: $root.everyoneButMe,
                 optionsText: 'name',
@@ -46,7 +37,16 @@
                 "></select>
         </div>
         <div class="field">
-            <span class="trivial_word">when</span>
+            <span class="trivial_word">amount</span>
+            <input
+                id="price_field"
+                class="price"
+                placeholder="$"
+                data-bind="value: price"
+                >
+        </div>
+        <div class="field">
+            <span class="trivial_word">date</span>
             <div class="date_group">
                 <select data-bind="options: months, value: selectedMonth"></select>
                 <span class="trivial_word">/</span>
@@ -57,7 +57,7 @@
         </div>
         <div class="field">
             <!-- <span class="trivial_word">to pay for</span>-->
-            <span class="trivial_word">why</span>
+            <span class="trivial_word">reason</span>
             <input
             id="new_expense_description"
             class="description"

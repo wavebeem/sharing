@@ -8,7 +8,7 @@ var routes  = require('./routes');
 var app = express();
 
 var env  = process.env.ENV || 'dev';
-var port = env === 'dev' ? 8000 : 8001;
+var port = env === 'dev' ? 7999 : 8000;
 
 app.use(express.bodyParser());
 
