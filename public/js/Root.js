@@ -63,7 +63,7 @@ function Root() {
     self.debts = ko.observableArray();
     self.debtsPositive = ko.computed(function() {
         return _(self.debts()).filter(function(d) {
-            return d.amount > 0;
+            return d.amount >= 0.01;
         });
     });
     self.payments = ko.observableArray();
