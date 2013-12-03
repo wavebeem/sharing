@@ -251,6 +251,12 @@ i {
     display: block;
     background: #fff;
 
+    &.future {
+        @bg: #eaeaea;
+        border-color: darken(@bg, 4%);
+        background: @bg;
+    }
+
     position: relative;
 
     .border_3d(4%);
@@ -261,8 +267,6 @@ i {
     &.transient {
         .dashed_border;
         background: transparent;
-
-        box-shadow: none;
     }
 }
 
@@ -669,15 +673,17 @@ button {
     &,
     &:hover,
     &:focus {
-        border: 1px dashed darken(@bg, 8%);
+        border: 1px dashed transparent;
         outline: none;
-        background: fade(black, 2%);
-        box-shadow: none;
+        background: transparent;
     }
 
     &:hover,
     &:focus {
         color: @fg;
+
+        border-color: darken(@bg, 8%);
+        background: fade(black, 2%);
     }
 
     padding: 8px 4px;

@@ -28,6 +28,30 @@ function formattedCurrency(money) {
     });
 }
 
+function stripTime(d) {
+    d = new Date(d);
+
+    return new Date(
+        d.getFullYear(),
+        d.getMonth(),
+        d.getDate()
+    );
+}
+
+function stripUtc(d) {
+    d = new Date(d);
+
+    return new Date(
+        d.getUTCFullYear(),
+        d.getUTCMonth(),
+        d.getUTCDate()
+    );
+};
+
+function today() {
+    return new Date();
+}
+
 function dateStringToPieces(s) {
     var D = new Date(s);
 
@@ -47,7 +71,7 @@ function formattedDate(date) {
 }
 
 function notThisYear(y) {
-    return y !== new Date().getFullYear();
+    return y !== today().getFullYear();
 }
 
 var shortMonthNames = [

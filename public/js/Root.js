@@ -129,6 +129,15 @@ function Root() {
         })
     };
 
+    self.cssClassForExpense = function(exp) {
+        var d1 = stripTime(stripUtc(exp.date));
+        var d2 = stripTime(today());
+
+        return d1 > d2
+            ? 'future'
+            : '';
+    };
+
     self.currentTab = ko.observable(getFragment() || 'expenses');
     self.currentTab.subscribe(function(val) {
         setFragment(val);
